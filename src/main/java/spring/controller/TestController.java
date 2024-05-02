@@ -8,11 +8,6 @@ public class TestController {
 	
 	@GetMapping(value = "/")
 	public String home() {
-		return "profile";
-	}
-	
-	@GetMapping(value = "/profileedit")
-	public String profileEdit() {
-		return "profileedit";
+		return "subscription";
 	}
 }
