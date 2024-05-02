@@ -65,13 +65,31 @@
                         <div class="input-group">
 	                        <label class="label">Write description about lesson</label>
 	                        <div class="wrapper-ta">
-								<textarea name="the-textarea" id="the-textarea" maxlength="300" placeholder="Start Typin..."autofocus></textarea>
+								<textarea name="the-textarea" id="the-textarea" maxlength="300" placeholder="Start Typin..."></textarea>
 								<div id="the-count">
 								    <span id="current">0</span>
 									<span id="maximum">/300</span>
 							    </div>
 							 </div>   
-						</div>                   
+						</div>
+	                       <div class="input-group">
+							<label class="label">Attach Files</label>
+							<div class="file-upload">
+							
+							  <div class="image-upload-wrap">
+							    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+							    <div class="drag-text">
+							      <h3>Attach any relevant documents or images</h3>
+							    </div>
+							  </div>
+							  <div class="file-upload-content">
+							    <img class="file-upload-image" src="#" alt="your image" />
+							    <div class="image-title-wrap">
+							      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+							    </div>
+							  </div>
+							</div>
+         				</div>
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit">Add</button>
                         </div>
@@ -87,10 +105,11 @@
     <script src="<c:url value ="/adduserresources/vendor/select2/select2.min.js"/>"></script>
     <script src="<c:url value ="/adduserresources/vendor/datepicker/moment.min.js"/>"></script>
     <script src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js"/>"></script>
-
+	
     <!-- Main JS-->
     <script src="<c:url value ="/adduserresources/js/global.js"/>"></script>
-
+	
+	<script class="jsbin" src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"/>"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
