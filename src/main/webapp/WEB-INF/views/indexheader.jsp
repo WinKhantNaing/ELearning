@@ -8,57 +8,57 @@
 <html>
 <head>
 
-		<meta charset="utf-8">
-		<title>Educenter - Education HTML Template</title>
-		
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="Construction Html5 Template">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-		<meta name="author" content="Themefisher">
-		<meta name="generator"
-			content="Themefisher Educenter HTML Template v1.0">
-		
-		<meta name="theme-name" content="educenter" />
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css"/>">
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/slick/slick.css"/>">
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/themify-icons/themify-icons.css"/>">
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/animate/animate.css"/>">
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/aos/aos.css"/>">
-		
-		<link rel="stylesheet"
-			href="<c:url value="/resources/plugins/venobox/venobox.css"/>">
-		
-		
-		<link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
-		
-		
-		<link rel="shortcut icon"
-			href="<c:url value="/resources/images/favicon.png"/>"
-			type="image/x-icon">
-		<link rel="icon" href="<c:url value="/resources/images/favicon.png"/>"
-			type="image/x-icon">
+<meta charset="utf-8">
+<title>Educenter - Education HTML Template</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Construction Html5 Template">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="author" content="Themefisher">
+<meta name="generator"
+	content="Themefisher Educenter HTML Template v1.0">
+
+<meta name="theme-name" content="educenter" />
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css"/>">
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/slick/slick.css"/>">
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/themify-icons/themify-icons.css"/>">
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/animate/animate.css"/>">
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/aos/aos.css"/>">
+
+<link rel="stylesheet"
+	href="<c:url value="/resources/plugins/venobox/venobox.css"/>">
+
+
+<link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
+
+
+<link rel="shortcut icon"
+	href="<c:url value="/resources/images/favicon.png"/>"
+	type="image/x-icon">
+<link rel="icon" href="<c:url value="/resources/images/favicon.png"/>"
+	type="image/x-icon">
 
 </head>
 
 <body>
 
-	
+
 	<div class="preloader">
 		<img src="<c:url value="/resources/images/preloader.gif"/>"
 			alt="preloader">
 	</div>
-	
+
 	<header class="fixed-top header">
 		<div class="top-header py-2 bg-white">
 			<div class="container">
@@ -69,17 +69,16 @@
 								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
 								href="<c:url value="#loginModal"/>" data-toggle="modal"
 								data-target="#loginModal">login</a></li>
-							<li class="list-inline-item">
-								<a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-									href="<c:url value="#signupModal"/>" data-toggle="modal"
-									data-target="#signupModal">register</a>
-							</li>
+							<li class="list-inline-item"><a
+								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+								href="<c:url value="#signupModal"/>" data-toggle="modal"
+								data-target="#signupModal">register</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="navigation w-100">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -100,23 +99,31 @@
 								href="about.html">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href="courses.html">COURSES</a></li>
-							<li class="nav-item @@events"><a class="nav-link"
-								href="events.html">EVENTS</a></li>
-							<li class="nav-item @@blog"><a class="nav-link"
-								href="blog.html">BLOG</a></li>
 							<li class="nav-item dropdown view"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Pages </a></li>
-							<li class="nav-item @@contact"><a class="nav-link"
-								href="contact.html">CONTACT</a></li>
+								aria-expanded="false"> Administration </a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="adduser">Add User</a></li>
+									<li><a class="dropdown-item" href="addcourse">Add
+											Course</a></li>
+								</ul></li>
+							<li>
+								<div style="margin-top: 24px;">
+									<a href="<c:url value="#aboutModal"/>" data-toggle="modal"
+										data-target="#myModal"> <img
+										src="<c:url value="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"/>"
+										name="aboutme" width="45" height="45" class="img-circle"
+										style="border-radius: 25px;"></a>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</nav>
 			</div>
 		</div>
 
-		
+
 	</header>
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js"/>"></script>
 	<!-- Bootstrap JS -->
@@ -139,5 +146,5 @@
 
 	<!-- Main Script -->
 	<script src="<c:url value="/resources/js/script.js"/>"></script>
-</body>	
+</body>
 </html>
