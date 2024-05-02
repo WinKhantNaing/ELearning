@@ -8,6 +8,6 @@ public class TestController {
 	
 	@GetMapping(value = "/")
 	public String home() {
-		return "index";
+		return "profileedit";
 	}
 }
