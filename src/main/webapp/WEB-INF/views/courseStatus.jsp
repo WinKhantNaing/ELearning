@@ -54,40 +54,52 @@
 <body>
  
 <!-- header -->
-<jsp:include page="indexheader.jsp"></jsp:include>
+
 <!-- /header -->
-<jsp:include page="courseStatus.jsp"></jsp:include>
-<!-- courses -->
-<section class="section">
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
-    <!-- course list -->
-<div class="row justify-content-center">
-  <!-- course item -->
-  <c:forEach items="${courseList}" var="course">
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"> ${course.courseStatus}</li>
-          <!-- <li class="list-inline-item"><a class="text-color" href="ToeYadanaKyaw">Humanities</a></li> -->
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="index.html">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Our Courses</li>
         </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">${course.courseName }</h4>
-        </a>
-        <p class="card-text mb-4"> ${course.courseDescription }</p>
-        <a href="<c:url value="/ToeYadanaKyaw/${course.courseId }"/>" class="btn btn-primary btn-sm">Apply now</a>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
       </div>
     </div>
   </div>
-  </c:forEach>
-</div>
-
+</section>
+<!-- /page title -->
+<section class="section">
+  <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">To Do  <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Progress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">Complete</a>
+      </li>
+    </ul>
+    <form:form class="form-inline my-2 my-lg-0" action="searchcourse" modelAttribute="coursesearchform" method="post">
+      <form:input class="form-control mr-sm-2" type="search" path="courseName" placeholder="Search course with name " aria-label="Search" value="${searchCourse.courseName }"/>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href = '<c:url value="/cancel"/>'">Cancel</button>
+    </form:form>
+  </div>
+</nav>
   </div>
 </section>
-<jsp:include page="feedbackform.jsp"></jsp:include>
-<!-- /courses -->
-<jsp:include page="indexfooter.jsp"></jsp:include>
 <!-- jQuery -->
 <script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 <!-- Bootstrap JS -->

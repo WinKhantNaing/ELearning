@@ -2,9 +2,9 @@ package spring.model;
 
 import java.io.Serializable;
 
-public class CoursesModel implements Serializable{
+public class CoursesBean implements Serializable{
 
-	public CoursesModel() {
+	public CoursesBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -14,6 +14,7 @@ public class CoursesModel implements Serializable{
 	private String courseName;
 	private String courseDescription;
 	private String courseImagePath;
+	private String courseStatus;
 	public int getCourseId() {
 		return courseId;
 	}
@@ -43,6 +44,12 @@ public class CoursesModel implements Serializable{
 	}
 	public void setCourseImagePath(String courseImagePath) {
 		this.courseImagePath = courseImagePath;
+	}
+	public String getCourseStatus() {
+		return courseStatus;
+	}
+	public void setCourseStatus(String courseStatus) {
+		this.courseStatus = courseStatus;
 	}
 	
 	

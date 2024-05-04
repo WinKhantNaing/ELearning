@@ -60,7 +60,7 @@
 	</div>
 	
 	<header class="fixed-top header">
-		<%-- <div class="top-header py-2 bg-white">
+		<div class="top-header py-2 bg-white">
 			<div class="container">
 				<div class="row no-gutters">
 					<div class="col-lg-8 text-center text-lg-right">
@@ -78,7 +78,7 @@
 					</div>
 				</div>
 			</div>
-		</div> --%>
+		</div> 
 		
 		<div class="navigation w-100">
 			<div class="container">
@@ -94,10 +94,10 @@
 
 					<div class="collapse navbar-collapse" id="navigation">
 						<ul class="navbar-nav ml-auto text-center">
-							<li class="nav-item active"><a class="nav-link"
-								href="">Home</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="#">Home</a></li>
 							<li class="nav-item @@about"><a class="nav-link"
-								href="">About</a></li>
+								href="#">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href="<c:url value="/"/>">COURSES</a></li>						
 							<li class="nav-item dropdown view"><a
@@ -109,15 +109,7 @@
                 					<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
 								</ul>
 							</li>
-							<li class="list-inline-item"><a
-								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-								href="<c:url value="#loginModal"/>" data-toggle="modal"
-								data-target="#loginModal">login</a></li>
-							<li class="list-inline-item">
-								<a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-									href="<c:url value="#signupModal"/>" data-toggle="modal"
-									data-target="#signupModal">register</a>
-							</li>					        
+												        
 						</ul>
 					</div>
 				</nav>
