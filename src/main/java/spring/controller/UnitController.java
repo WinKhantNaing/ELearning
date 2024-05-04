@@ -22,8 +22,9 @@ public class UnitController {
 	
 	@GetMapping(value = "/showunit")
 	public String unit(Model m) {
-		int id = 1;
-		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(id);
+		int lessonId = 1;
+		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(lessonId);
+		
 		m.addAttribute("lstLessonUnit", lstLessonUnit);
 		return "unit";
 	}
