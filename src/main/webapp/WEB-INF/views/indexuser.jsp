@@ -60,24 +60,6 @@
 	</div>
 
 	<header class="fixed-top header">
-		<div class="top-header py-2 bg-white">
-			<div class="container">
-				<div class="row no-gutters">
-					<div class="col-lg-8 text-center text-lg-right">
-						<ul class="list-inline">
-							<li class="list-inline-item"><a
-								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-								href="<c:url value="#loginModal"/>" data-toggle="modal"
-								data-target="#loginModal">login</a></li>
-							<li class="list-inline-item"><a
-								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-								href="<c:url value="#signupModal"/>" data-toggle="modal"
-								data-target="#signupModal">register</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="navigation w-100">
 			<div class="container">
@@ -99,21 +81,9 @@
 								href="about.html">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href="courses.html">COURSES</a></li>
-							<li class="nav-item dropdown view"><a
-								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Administration </a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="dropdown-item" href="adduser">Add User</a></li>
-									<li><a class="dropdown-item" href="addcourse">ShowAll User</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
-									<li><a class="dropdown-item" href="addcourse">ShowAll Course</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Unit</a></li>
-									
-								</ul></li>
 							<li>
 								<div style="margin-top: 24px;">
-									<a href="profile.html" data-toggle="modal"
+									<a href="<c:url value="#aboutModal"/>" data-toggle="modal"
 										data-target="#myModal"> <img
 										src="<c:url value="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"/>"
 										name="aboutme" width="45" height="45" class="img-circle"

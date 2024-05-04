@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,13 +24,12 @@
     <div class="container">
         <div class="main-body">
             <!-- /Breadcrumb -->
-
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                             <a href="/">  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                             <a href="photo.jsp">  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150" ></a> 
                                 <div class="mt-3">
                                     <h4>John Doe</h4>
@@ -38,15 +42,17 @@
                     </div>
                 </div>
 
+				
                 <div class="col-md-8">
                     <div class="card mb-3">
                         <div class="card-body">
+
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Kenneth Valdez
+                                    "${user.userName}"
                                 </div>
                             </div>
                             <hr>
@@ -55,7 +61,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    fip@jukmuh.al
+                                   "${user.userEmail}"
                                 </div>
                             </div>
                             <hr>
@@ -64,7 +70,7 @@
                                     <h6 class="mb-0">Password</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    ahBfgd462872
+                                    "${user.password}"
                                 </div>
                             </div>
                             <hr>
@@ -73,7 +79,7 @@
                                     <h6 class="mb-0">Gender</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Male
+                                    "${user.userRole}"
                                 </div>
                             </div>
                             <hr>
@@ -82,9 +88,9 @@
                                     <a class="btn btn-info" href="profileedit" role="button">Edit</a>
                                 </div>
                             </div>
-                        </div>
+                       </div>
                     </div>
-
+					
                     <div class="row gutters-sm">
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
