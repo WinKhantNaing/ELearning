@@ -8,6 +8,16 @@ public class TestController {
 	
 	@GetMapping(value = "/")
 	public String home() {
-		return "index";
+		return "about";
+	}
+	
+	@GetMapping(value = "/adduser")
+	public String addUser() {
+		return "adduser";
+	}
+	
+	@GetMapping(value = "/addcourse")
+	public String addCourse() {
+		return "addcourse";
 	}
 }
