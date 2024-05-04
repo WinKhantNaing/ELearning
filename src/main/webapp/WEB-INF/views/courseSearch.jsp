@@ -58,11 +58,12 @@
 <!-- /header -->
 <jsp:include page="courseStatus.jsp"></jsp:include>
 <!-- courses -->
-<section class="section">
+<section class="section ">
   <div class="container">
     <!-- course list -->
 <div class="row justify-content-center">
   <!-- course item -->
+  <span>${noCourse}</span>
   <c:forEach items="${courseSearchList}" var="course">
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
