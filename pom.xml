@@ -68,13 +68,21 @@
 			<version>8.0.29</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 
 	</dependencies>
 
 	<build>
 		<finalName>ELearningProject</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
-           defaults (may be moved to parent pom) -->
+			defaults (may be moved to parent pom) -->
 			<plugins>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
