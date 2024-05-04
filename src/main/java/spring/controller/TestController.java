@@ -8,7 +8,7 @@ public class TestController {
 	
 	@GetMapping(value = "/")
 	public String home() {
-		return "about";
+		return "subscription";
 	}
 	
 	@GetMapping(value = "/adduser")
