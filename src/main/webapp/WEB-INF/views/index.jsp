@@ -67,7 +67,7 @@
 <!--Favicon-->
 <link href="<c:url value="resources/resources/images/favicon.png" />"
 	rel="shortcut icon" type="image/x-icon"></link>
-<link href="<c:url value="resources/resources/images/favicon.png" />"
+<link href="<c:url value="resources/images/favicon.png" />"
 	rel="icon" type="image/x-icon"></link>
 
 
