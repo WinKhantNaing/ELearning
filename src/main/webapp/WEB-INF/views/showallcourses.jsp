@@ -12,36 +12,28 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+	<style>
+	td{
+	height: 50px;
+	}
+	</style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
 </head>
 <body>
-    <div id="sub_content">
-        <form class="row g-3 mt-3 ms-2">
-          <div class="col-auto">
-            <label for="staticEmail2" class="visually-hidden">studentID</label>
-            <input type="text"  class="form-control" id="staticEmail2" placeholder="Student ID">
-          </div>
-          <div class="col-auto">
-            <label for="inputPassword2" class="visually-hidden">studentName</label>
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Student Name">
-          </div>
-          <div class="col-auto">
-              <label for="inputPassword2" class="visually-hidden">Course</label>
-              <input type="text" class="form-control" id="inputPassword2" placeholder="Course">
-            </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-success mb-3">Search</button>
-          </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-secondary mb-3">Reset</button>
-          </div>
-        </form>
-  <div>
-        <table class="table table-striped" id="stduentTable">
+<jsp:include page="indexheader.jsp" />
+    <div style="margin-top: 150px;height:100vh;  background-color:#A16D00;">
+    <div style="display:flex; justify-content:end;">
+            <a href="addcourse"><button type="button" class="btn btn-primary" style="margin-right:20px;">Add Course</button></a>
+    </div>
+    
+    <div  style="width:100%;">
+    	<table class="table table-striped" id="stduentTable">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -49,41 +41,39 @@
               <th scope="col">Title</th>
               <th scope="col">Description</th>
               <th scope="col">Status</th>
+              <th scope="col">Update/Delete</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>STU0001</td>
-              <td>Thu</td>
-              <td>Java</td>
-              <td>
-                <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a> 
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>STU0001</td>
-              <td>Thu</td>
-              <td>java</td>
-              <td>
-                <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a> 
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>STU0001</td>
-              <td>Thu</td>
-              <td>Java</td>
-              <td>
-                <a href="STU002.html"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
-                <!-- <a href="STU002.html" class="text-decoration-none">See more</a> -->
-              </td>
-            </tr>
+            <c:forEach items="${courseLst}" var="course" varStatus="index">
+	        	<tr>
+	              <td scope="row">${index.count}</td>
+	              <td>${course.prefix}00${course.courseId }</td>
+	              <td>${course.courseName}</td>
+	              <td>${course.courseDescription}</td>
+	              <td>${course.courseStatus}</td>
+	              <td>
+		              <a>Update</a>
+		              <a>Delete</a>
+	              </td>
+	            </tr>
+        	</c:forEach>
           </tbody>
         </table>
+    </div>
+        
+        
       </div>
-      </div>
-      
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+        <script>
+            $(document).ready( function () {
+            const dataTable = $('#stduentTable').DataTable({
+                "lengthMenu" : [3,5,10],
+                "pageLength" : 5,
+            });
+            
+        } );
+        </script>
 </body>
 </html>

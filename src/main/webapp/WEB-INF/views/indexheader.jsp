@@ -53,13 +53,7 @@
 
 <body>
 
-
-	<div class="preloader">
-		<img src="<c:url value="/resources/images/preloader.gif"/>"
-			alt="preloader">
-	</div>
-
-	<header class="fixed-top header">
+	<header class="fixed-top header"  style="background-color:#181A1B;">
 		<div class="top-header py-2 bg-white">
 			<div class="container">
 				<div class="row no-gutters">
@@ -105,7 +99,7 @@
 								aria-expanded="false"> Administration </a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item" href="adduser">Add User</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
+									<li><a class="dropdown-item" href="showcourses">Show Courses</a></li>
 								</ul></li>
 							<li>
 								<div style="margin-top: 24px;">

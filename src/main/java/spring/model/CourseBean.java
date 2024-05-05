@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class CourseBean implements Serializable {
 	int courseId;
+	String prefix;
 	String courseName;
 	String courseDescription;
 	String courseImagePath;
