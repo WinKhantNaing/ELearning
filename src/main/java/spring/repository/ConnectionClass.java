@@ -13,7 +13,7 @@ public class ConnectionClass {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/elearning","root","root");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/e_learning","root","root");
 			System.out.println("con : "+con);
 		}
 		catch (ClassNotFoundException e) {
@@ -22,7 +22,7 @@ public class ConnectionClass {
 			System.out.print("Driver : "+ e.getMessage());
 		}
 		catch(SQLException e) {
-			System.out.println("Error : "+ e.getMessage());
+			System.out.println("Connection Error : "+ e.getMessage());
 		}
 		
 		return con;

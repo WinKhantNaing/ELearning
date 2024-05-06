@@ -59,7 +59,7 @@
 				<div class="row">
 					<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
 						<h3 class="text-white">Subscribe Now</h3>
-						<form action="#">
+						<form action="subscription">
 							<div class="input-wrapper">
 								<input type="email" class="form-control border-0"
 									id="newsletter" name="newsletter"
@@ -92,7 +92,7 @@
 					<div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
 						<h4 class="text-white mb-5">COMPANY</h4>
 						<ul class="list-unstyled">
-							<li class="mb-3"><a class="text-color" href="about.html">About
+							<li class="mb-3"><a class="text-color" href="about.jsp">About
 									Us</a></li>
 							<li class="mb-3"><a class="text-color" href="teacher.html">Our
 									Teacher</a></li>

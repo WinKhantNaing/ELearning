@@ -39,7 +39,9 @@ public class UserRepository {
 
 	}
 	
-	public PaymentDTO checkPayment(int userId) {
+	public boolean checkPayment(int userId) {
+		
+		boolean status = false;
 		
 		Connection con = ConnectionClass.getConnection();
 		PaymentDTO payment = null;
@@ -48,16 +50,15 @@ public class UserRepository {
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				payment = new PaymentDTO();
-				payment.setUserId(rs.getInt("user_id"));
 				
+				status = true;
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Payment check : " + e.getMessage());
 		}
 		
-		return payment;
+		return status;
 		
 	}
 

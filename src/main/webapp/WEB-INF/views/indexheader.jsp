@@ -95,11 +95,11 @@
 					<div class="collapse navbar-collapse" id="navigation">
 						<ul class="navbar-nav ml-auto text-center">
 							<li class="nav-item active"><a class="nav-link"
-								href="index.html">Home</a></li>
+								href="/">Home</a></li>
 							<li class="nav-item @@about"><a class="nav-link"
-								href="about.html">About</a></li>
+								href="about">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
-								href="courses.html">COURSES</a></li>						
+								href="course">COURSES</a></li>						
 							<li class="nav-item dropdown view"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
