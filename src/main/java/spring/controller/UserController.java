@@ -85,9 +85,9 @@ public class UserController {
 		
 	}
 	
-	@GetMapping(value = "/subscription")
+	@GetMapping(value = "/subscriptionPlan")
 	public String subscribePayment() {
-		return "subscription";
+		return "subscriptionPlan";
 	}
 
 }
