@@ -81,20 +81,18 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">To Do  <span class="sr-only">(current)</span></a>
+     
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/progress"/>">Progress</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Progress</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">Complete</a>
+        <a class="nav-link " href="<c:url value="/complete"/>">Complete</a>
       </li>
     </ul>
-    <form:form class="form-inline my-2 my-lg-0" action="searchcourse" modelAttribute="coursesearchform" method="post">
-      <form:input class="form-control mr-sm-2" type="search" path="courseName" placeholder="Search course's name " aria-label="Search" value="${searchCourse.courseName }"/>
+    <form:form class="form-inline my-2 my-lg-0" action="searchcourse" modelAttribute="course-bean" method="post">
+      <form:input class="form-control mr-sm-2 " type="search" path="courseName" placeholder="Search courses" aria-label="Search" value="${searchCourse.courseName }"/>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href = '<c:url value="/cancel"/>'">Cancel</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href = '<c:url value="/seeAllCourses"/>'">See All Course</button>
     </form:form>
   </div>
 </nav>

@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import spring.model.CourseStatusTDO;
 import spring.model.CoursesBean;
+import spring.model.EnrollmentBean;
 import spring.model.UnitBean;
+import spring.model.UserBean;
 
 public class CoursesRepository {
 
@@ -35,6 +38,70 @@ public class CoursesRepository {
 		return courseList; 
 	}
 	
+	public List<CoursesBean> getCompleteCourses(/* UserBean bean */) {
+		Connection con = ConnectionClass.getConnection();
+		List<CoursesBean> courseCompleteList = new ArrayList<CoursesBean>();
+		CoursesBean courseBean = null;
+		try {
+			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n"
+					+ "FROM lesson\r\n"
+					+ "JOIN (\r\n"
+					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
+					+ "    FROM unit\r\n"
+					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = 1\r\n"
+					+ "    GROUP BY unit.lesson_id\r\n"
+					+ ") eu ON eu.lesson_id = lesson.id\r\n"
+					+ "WHERE eu.total_units = eu.completed_units");
+			/* ps.setInt(1, bean.getUserId()); */
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				courseBean = new CoursesBean();
+				courseBean.setCourseId(rs.getInt("id"));
+				courseBean.setCoursePrefix(rs.getString("prefix"));
+				courseBean.setCourseName(rs.getString("name"));
+				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseImagePath(rs.getString("image"));
+				courseBean.setCourseDescription(rs.getString("description"));
+				courseCompleteList.add(courseBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Get Courses :" +e.getMessage());
+		}
+		return courseCompleteList; 
+	}
+	
+	public List<CoursesBean> getProgressCourses(/* UserBean bean */) {
+		Connection con = ConnectionClass.getConnection();
+		List<CoursesBean> courseProgressList = new ArrayList<CoursesBean>();
+		CoursesBean courseBean = null;
+		try {
+			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n"
+					+ "FROM lesson\r\n"
+					+ "JOIN (\r\n"
+					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
+					+ "    FROM unit\r\n"
+					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = 1\r\n"
+					+ "    GROUP BY unit.lesson_id\r\n"
+					+ ") eu ON eu.lesson_id = lesson.id\r\n"
+					+ "WHERE eu.total_units <> eu.completed_units");
+			/* ps.setInt(1, bean.getUserId()); */
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				courseBean = new CoursesBean();
+				courseBean.setCourseId(rs.getInt("id"));
+				courseBean.setCoursePrefix(rs.getString("prefix"));
+				courseBean.setCourseName(rs.getString("name"));
+				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseImagePath(rs.getString("image"));
+				courseBean.setCourseDescription(rs.getString("description"));
+				courseProgressList.add(courseBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Get Courses :" +e.getMessage());
+		}
+		return courseProgressList; 
+	}
+	
 	public List<CoursesBean> getSearchCourses(CoursesBean course){
 		List<CoursesBean> searchList = new ArrayList<CoursesBean>();
 		Connection con = ConnectionClass.getConnection();
@@ -59,23 +126,5 @@ public class CoursesRepository {
 		return searchList;
 	}
 	
-	public List <UnitBean> getUnitStatus(){
-		List<UnitBean> unitStatusList  = new ArrayList<UnitBean>();
-		UnitBean bean = null;
-		Connection con = ConnectionClass.getConnection();
-		try {
-			PreparedStatement ps = con.prepareStatement("select purchase_status from unit");
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-		    	bean = new UnitBean();
-		    	bean.setUnitStatus(rs.getString("purchase_status"));
-		    	unitStatusList.add(bean);
-		    }
-		} catch (SQLException e) {
-			System.out.println("Getting unit status List : " +e.getMessage());
-		}
-		return unitStatusList;
-	}
-	
-	
+
 }

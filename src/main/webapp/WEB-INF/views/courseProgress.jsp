@@ -63,7 +63,7 @@
     <!-- course list -->
 <div class="row justify-content-center">
   <!-- course item -->
-  <c:forEach items="${courseToDoList}" var="course">
+  <c:forEach items="${progressList}" var="course">
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">

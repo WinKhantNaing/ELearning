@@ -5,15 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import spring.model.CourseStatusTDO;
 import spring.model.CoursesBean;
+import spring.model.UserBean;
 import spring.repository.CoursesRepository;
 
 @Controller
@@ -29,20 +31,21 @@ public class TestController {
 		return courseList;
 	}
 	
+	
 	@GetMapping(value = "/")
 	public String courses() {
 		return "courses";
 	}
 	
-	@ModelAttribute("coursesearchform")
+	@ModelAttribute("course-bean")
 	public CoursesBean courseSearchForm() {
 		CoursesBean bean  = new  CoursesBean();
 		return bean;
 	}
 	
-	@GetMapping(value="/cancel")
+	@GetMapping(value="/seeAllCourses")
 	public String courseSearch(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("searchCourse");
 		return "redirect:/";
 	}
 	
@@ -51,11 +54,28 @@ public class TestController {
 		 session.setAttribute("searchCourse", course);
 		 List<CoursesBean> courseSearchList = new ArrayList<CoursesBean>();	
 		 courseSearchList = courserepo.getSearchCourses(course);
-		 session.setAttribute("courseSearchList", courseSearchList);
+		 m.addAttribute("courseSearchList", courseSearchList);
 		 if(courseSearchList==null) {
 			 m.addAttribute("noCourse", "Course that you search does not found!") ;
 		 }
 		 return "courseSearch"; 
 	 }
-	
+	 
+
+	 @GetMapping(value = "/complete")
+		public String showComplete(/* @PathVariable("user")UserBean user, */Model m) {
+		 List<CoursesBean> completeList = new ArrayList<CoursesBean>();
+		 completeList = courserepo.getCompleteCourses();
+		 m.addAttribute("completeList", completeList);
+			return "courseComplete";
+		}
+	 
+	 @GetMapping(value = "/progress")
+		public String showProgress(/* @PathVariable("user")UserBean user, */Model m) {
+		 List<CoursesBean> progressList = new ArrayList<CoursesBean>();
+		 progressList = courserepo.getProgressCourses();
+		 m.addAttribute("progressList", progressList);
+			return "courseProgress";
+		}
+	 
 }
