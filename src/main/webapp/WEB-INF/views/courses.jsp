@@ -4,13 +4,6 @@
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
 <head>
 
@@ -48,25 +41,83 @@
   <!--Favicon-->
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
+<style>
+.search-course{
+	color: red;
+	padding: 10px;
+	height: 100px;
+	width: 100%;
+	align-items: center;
+	text-align: center;
+	font-size: 20px;
+}
+</style>
 </head>
 
 <body>
  
 <!-- header -->
 <jsp:include page="indexheader.jsp"></jsp:include>
-<!-- /header -->
-<jsp:include page="courseStatus.jsp"></jsp:include>
-<!-- courses -->
-<section class="section">
+<!-- page title -->
+<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
-    <!-- course list -->
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="index.html">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Our Courses</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- course searchbar -->
+<section class="section ">
+  <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav navb mr-auto mt-2 mt-lg-0">
+     
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/progress"/>">Progress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="<c:url value="/complete"/>">Complete</a>
+      </li>
+    </ul>
+
+    <form:form class="form-inline my-2 my-lg-0" action="searchcourse" modelAttribute="course-bean" method="post">
+      <form:input class="form-control mr-sm-2" type="search" path="courseName" placeholder="Search courses" aria-label="Search" value="${searchCourse.courseName }"/>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      
+    </form:form>
+    <button class="btn my-2 my-sm-0" type="button" onclick="location.href = '<c:url value="/seeAllCourses"/>'">See All Course</button>
+  </div>
+</nav>
+  </div>
+</section>
+  <div class="search-course"> ${message} </div>
+<section class="section">
+    
+  <div class="container"> 
+
 <div class="row justify-content-center">
+
+
   <!-- course item -->
-  <c:forEach items="${courseList}" var="course">
+ 
+    <c:forEach items="${courseList}" var="course">
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
+    <div style="width: 348px; height: 270px;">
+    	<img width="100%" height="100%" class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
+    </div>
+      
       <div class="card-body">
         <ul class="list-inline mb-2">
           <li class="list-inline-item"> ${course.courseStatus}</li>
@@ -105,6 +156,7 @@
 <script src="<c:url value="/resources/plugins/google-map/gmap.js" />"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!-- Main Script -->
+
   <script src="<c:url value="/resources/js/script.js" />"></script>
 </body>
 </html>

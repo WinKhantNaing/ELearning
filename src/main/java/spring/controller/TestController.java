@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,15 +51,17 @@ public class TestController {
 	}
 	
 	 @PostMapping(value="/searchcourse") 
-	 public String searchCourses(CoursesBean course,HttpSession session, Model m) { 
+	 public String searchCourses(CoursesBean course,HttpSession session, Model m,RedirectAttributes redirectAttribute) { 
 		 session.setAttribute("searchCourse", course);
 		 List<CoursesBean> courseSearchList = new ArrayList<CoursesBean>();	
 		 courseSearchList = courserepo.getSearchCourses(course);
-		 m.addAttribute("courseSearchList", courseSearchList);
-		 if(courseSearchList==null) {
-			 m.addAttribute("noCourse", "Course that you search does not found!") ;
+		
+		 if(courseSearchList.isEmpty()) {
+			 redirectAttribute.addFlashAttribute("message", "Courses that you search do not found!");
+			 return "redirect:/";
 		 }
-		 return "courseSearch"; 
+		 m.addAttribute("courseList", courseSearchList);
+		 return "courses"; 
 	 }
 	 
 
@@ -66,16 +69,16 @@ public class TestController {
 		public String showComplete(/* @PathVariable("user")UserBean user, */Model m) {
 		 List<CoursesBean> completeList = new ArrayList<CoursesBean>();
 		 completeList = courserepo.getCompleteCourses();
-		 m.addAttribute("completeList", completeList);
-			return "courseComplete";
+		 m.addAttribute("courseList", completeList);
+			return "courses";
 		}
 	 
 	 @GetMapping(value = "/progress")
 		public String showProgress(/* @PathVariable("user")UserBean user, */Model m) {
 		 List<CoursesBean> progressList = new ArrayList<CoursesBean>();
 		 progressList = courserepo.getProgressCourses();
-		 m.addAttribute("progressList", progressList);
-			return "courseProgress";
+		 m.addAttribute("courseList", progressList);
+			return "courses";
 		}
 	 
 }

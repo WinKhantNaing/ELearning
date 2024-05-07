@@ -487,6 +487,12 @@ textarea.form-control {
   }
 }
 
+.navb{
+	background: white;
+}
+
+
+
 .navbar-nav {
   padding-left: 50px;
   background: #ffbc3b;
