@@ -42,7 +42,7 @@
 
 <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
 
-
+<link href="<c:url value="/adduserresources/css/style.css"/>" rel="stylesheet">
 <link rel="shortcut icon"
 	href="<c:url value="/resources/images/favicon.png"/>"
 	type="image/x-icon">
@@ -108,19 +108,30 @@
 									<li><a class="dropdown-item" href="addcourse">ShowAll User</a></li>
 									<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
 									<li><a class="dropdown-item" href="addcourse">ShowAll Course</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Unit</a></li>
-									
-								</ul></li>
-							<li>
-								<div style="margin-top: 24px;">
-									<a href="profile.html" data-toggle="modal"
-										data-target="#myModal"> <img
-										src="<c:url value="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"/>"
-										name="aboutme" width="45" height="45" class="img-circle"
-										style="border-radius: 25px;"></a>
-								</div>
+									<li><a class="dropdown-item" href="addcourse">Add Unit</a></li>									
+								</ul>
 							</li>
-						</ul>
+							 <li class="dropdown nav-item">
+								<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+										<li>
+											<a  class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><img src="<c:url value="resources/images/user.svg"/>"></a>	
+										</li>
+								</ul>
+								<ul class="dropdown-menu dropdown-navbar">
+									<div class="d-flex flex-column align-items-center text-center">
+					                  <li class="nav-link">
+					                  	<a href="photo.jsp">  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                    		class="rounded-circle" width="45" height="45" style="border-radius: 30px;">
+                                    	</a>
+                                     </li>
+                                    	<h5>Mg Mg</h5>
+                                    
+                                    </div>
+					                  <li ><a href="<c:url value="/user/profile"/>" class="nav-item dropdown-item">Profile</a></li>
+					                  <li ><a href="#" class="nav-item dropdown-item">Log out</a></li>
+					              </ul>
+				              </li>
+				              
 					</div>
 				</nav>
 			</div>

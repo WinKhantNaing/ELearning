@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<form:form method="POST" modelAttribute="fileUpload" enctype="multipart/form-data" action="fileUpload">
+	<form:form action="showphoto" method="POST" modelAttribute="img" enctype="multipart/form-data"> 
 
 		Please select a file to upload :
 		<input type="file" name="file" />

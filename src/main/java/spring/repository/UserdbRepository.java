@@ -1,46 +1,123 @@
 package spring.repository;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 
+import spring.model.PhotoDto;
+import spring.model.ProfileDto;
 import spring.model.UserBean;
-import spring.model.LoginBean;
 
 
 public class UserdbRepository {
 	
-	public UserBean loginUser(LoginBean bean) {
+	public String uploadFile(MultipartFile file) {
+		String filePath=null;
+		try {
+			String path="C:\\JAVA.51\\ELearning\\src\\main\\webapp\\resources\\images";
+			String filename=file.getOriginalFilename();
+			byte[] bytes=file.getBytes();
+			BufferedOutputStream stream=new BufferedOutputStream(new FileOutputStream(new File(path + File.separator +filename)));
+			stream.write(bytes);
+			stream.flush();
+			stream.close();
+			filePath=path + File.separator +filename;
+		}catch(Exception e) {
+			System.out.println("file upload :"+e.getMessage());
+		}
+		return filePath;
+	}
+	
+	
+	public int insertPhoto(PhotoDto photo) {
+		int result=0;
+		Connection con = ConnectionClass.getConnection();
+			
+		try {
+		PreparedStatement ps =con.prepareStatement("insert into user img values=?");
+		String filePath=uploadFile(photo.getFile());
+		photo.setFilepath(filePath);
+		ps.setString(1,photo.getFilepath());
+		result=ps.executeUpdate();
+		}catch(SQLException e) {
+				System.out.println("photo insert :"+e.getMessage());
+		}
 		
-		UserBean user=null;
+		return result;
+	}
+	
+	public ProfileDto profileUser() {
+		
+		ProfileDto user=null;
 		
 		Connection con = ConnectionClass.getConnection();
 		try {
-		PreparedStatement ps =con.prepareStatement("select * from user where username=?,email=?,password=? and gender=?;");
-		ps.setString(1, bean.getUserEmail());
-		ps.setString(2, bean.getPassword());
+		PreparedStatement ps =con.prepareStatement("select * from user where id=2");
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()) {
-			user=new UserBean();
-			user.setUserId(rs.getInt("id"));
-			user.setUserName(rs.getString("name"));
+			user=new ProfileDto();
+			user.setUserName(rs.getString("username"));
 			user.setUserEmail(rs.getString("email"));
 			user.setPassword(rs.getString("password"));
-			
+			user.setGender(rs.getString("gender"));
 		}
 		
 		
 		}catch(SQLException e) {
-			System.out.println("User Select :"+e.getMessage());
+			System.out.println("Select ProfileUser:"+e.getMessage());
 	}
 	
 		return user;
 		
 	}
+	
+	public int levelCount() {
+			
+			int level=0;
+			
+			Connection con = ConnectionClass.getConnection();
+			try {
+			PreparedStatement ps =con.prepareStatement("select count(*) from enrollment where unit_status=1 and user_id=1");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				level=1;
+			}
+			
+			
+			}catch(SQLException e) {
+				System.out.println("Select LevelCount:"+e.getMessage());
+		}
+		
+			return level;
+			
+		}
+	
+		public boolean  subscription() {
+			
+			boolean status=false;			
+			Connection con = ConnectionClass.getConnection();
+			try {
+			PreparedStatement ps =con.prepareStatement("select subscription_id from payment where user_id=1");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				status=true;
+			}
+			
+			
+			}catch(SQLException e) {
+				System.out.println("Select LevelCount:"+e.getMessage());
+		}
+		
+			return status;
+			
+		}
+		
 	
 	public int addUser(UserBean bean) {
 		int result=0;
@@ -86,57 +163,7 @@ public class UserdbRepository {
 	}
 	
 	
-	public List<UserBean> selectAllUser() {
-
-		List<UserBean> userLst = new ArrayList<UserBean>();
-		UserBean user = null;
-		Connection con = ConnectionClass.getConnection();
-		try {
-			PreparedStatement ps = con.prepareStatement("select* from user where id=?");
-
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				user = new UserBean();
-				user.setUserId(rs.getInt("id"));
-				user.setUserName(rs.getString("username"));
-				user.setUserEmail(rs.getString("email"));
-				user.setPassword(rs.getString("password"));
-				user.setUserRole(rs.getString("role"));	
-				userLst.add(user);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("User Select : " + e.getMessage());
-		}
-
-		return userLst;
-
-	}
-
-	public UserBean selectOne(String userName) {
-		UserBean bean=null;
-		Connection con = ConnectionClass.getConnection();
-		try {
-			PreparedStatement ps = con.prepareStatement("select * from user where username=?");
-			ps.setString(1, userName);
-			ResultSet rs=ps.executeQuery();
-			while(rs.next()) {
-				bean=new UserBean();
-				bean.setUserId(rs.getInt("id"));
-				bean.setUserName(rs.getString("username"));
-				bean.setUserEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
-				bean.setUserRole(rs.getString("role"));	
-			}
-					
-		} catch (SQLException e) {
-			System.out.println("select one profileUser : " + e.getMessage());
-		}
-		
-		
-		return bean;
-	}
+	
 	
 	
 }

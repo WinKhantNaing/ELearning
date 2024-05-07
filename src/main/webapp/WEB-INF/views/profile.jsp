@@ -32,9 +32,9 @@
                              <a href="photo.jsp">  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150" ></a> 
                                 <div class="mt-3">
-                                    <h4>John Doe</h4>
-                                    <p class="text-secondary mb-1">Level - Diamond</p>
-                                    <p class="text-muted font-size-sm">Subscription Plan - Free</p>
+                                    <h4>${user.userName}</h4>
+                                    <p class="text-secondary mb-1">Level -${level}</p>
+                                    <p class="text-muted font-size-sm">Subscription Plan -${subscription}</p>
                                     <a class="btn btn-danger" href="#" role="button">Logout</a>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    "${user.userName}"
+                                    ${user.userName}
                                 </div>
                             </div>
                             <hr>
@@ -61,7 +61,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                   "${user.userEmail}"
+                                   ${user.userEmail}
                                 </div>
                             </div>
                             <hr>
@@ -70,7 +70,7 @@
                                     <h6 class="mb-0">Password</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    "${user.password}"
+                                    ${user.password}
                                 </div>
                             </div>
                             <hr>
@@ -79,7 +79,7 @@
                                     <h6 class="mb-0">Gender</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    "${user.userRole}"
+                                    ${user.gender}
                                 </div>
                             </div>
                             <hr>
