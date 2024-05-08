@@ -12,12 +12,24 @@
     <link href="<c:url value="/resources/css/subscriptionPlan.css" />" rel="stylesheet">
 </head>
 <body>
-	
 		<div class="container group">
-		<div class="ml-auto">
-				<span class="badge badge-danger font-weight-normal p-2">Popular</span>
-            </div>
-		<div class="grid-1-5">
+		<c:forEach items="${priceCardList}" var="list">
+			<div class="grid-1-5">
+			<h5>Purchase</h5>for
+			<h3><span class="uppercase">${list.plan}</span></h3>
+			
+			<h3><sup>$</sup>${list.price}<span class="small">/mo</span></h3>
+			<ul>
+				<li>Full access to all course materials for ${list.duration}</li>
+				<li>Obtain the chance to learn and practice at one sight</li>
+				<li>Progress tracking</li>
+				<li>Early access to upcoming features and events</li>
+			</ul>
+			<a href="" class="button">BUY</a>
+		</div>
+		
+		</c:forEach>
+		<!-- <div class="grid-1-5">
 			<h5>Purchase</h5>for
 			<h3><span class="uppercase">1 MONTH</span></h3>
 			
@@ -77,7 +89,7 @@
 				<li>Early access to upcoming features and events</li>
 			</ul>		
 			<a href="" class="button">BUY</a>
-		</div>		
+		</div>		 -->
 	</div>
 
 </body>

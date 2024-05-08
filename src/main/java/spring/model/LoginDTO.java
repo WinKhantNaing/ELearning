@@ -3,9 +3,10 @@ package spring.model;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@SuppressWarnings("serial")
 @Data
+@NoArgsConstructor
 public class LoginDTO implements Serializable{
 	
 	private String email;
