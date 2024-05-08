@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -14,7 +13,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import spring.model.CourseStatusTDO;
 import spring.model.CoursesBean;
 import spring.model.UserBean;
 import spring.repository.CoursesRepository;
@@ -66,16 +64,18 @@ public class TestController {
 	 
 
 	 @GetMapping(value = "/complete")
-		public String showComplete(/* @PathVariable("user")UserBean user, */Model m) {
+		public String showComplete(HttpSession session,Model m) {
 		 List<CoursesBean> completeList = new ArrayList<CoursesBean>();
+		 UserBean user = (UserBean)session.getAttribute("user");
 		 completeList = courserepo.getCompleteCourses();
 		 m.addAttribute("courseList", completeList);
 			return "courses";
 		}
 	 
 	 @GetMapping(value = "/progress")
-		public String showProgress(/* @PathVariable("user")UserBean user, */Model m) {
+		public String showProgress(HttpSession session,Model m) {
 		 List<CoursesBean> progressList = new ArrayList<CoursesBean>();
+		 UserBean user = (UserBean)session.getAttribute("user");
 		 progressList = courserepo.getProgressCourses();
 		 m.addAttribute("courseList", progressList);
 			return "courses";

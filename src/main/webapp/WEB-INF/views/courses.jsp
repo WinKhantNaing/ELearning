@@ -33,7 +33,8 @@
   <link rel="stylesheet" href="<c:url value="/resources/plugins/aos/aos.css" />">
   <!-- venobox popup -->
   <link rel="stylesheet" href="<c:url value="/resources/plugins/venobox/venobox.css" />">
-
+  <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Main Stylesheet -->
 
@@ -41,17 +42,6 @@
   <!--Favicon-->
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-<style>
-.search-course{
-	color: red;
-	padding: 10px;
-	height: 100px;
-	width: 100%;
-	align-items: center;
-	text-align: center;
-	font-size: 20px;
-}
-</style>
 </head>
 
 <body>
@@ -79,9 +69,9 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+  <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
     
-    <ul class="navbar-nav navb mr-auto mt-2 mt-lg-0">
+    <ul class="navbar-nav navb mr-auto mt-2 mt-lg-0 bg-warning">
      
       <li class="nav-item">
         <a class="nav-link" href="<c:url value="/progress"/>">Progress</a>
@@ -108,26 +98,31 @@
 
 <div class="row justify-content-center">
 
-
   <!-- course item -->
- 
     <c:forEach items="${courseList}" var="course">
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
-    <div style="width: 348px; height: 270px;">
+   <%--  <div style="width: 348px; height: 270px;">
     	<img width="100%" height="100%" class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
+    </div> --%>
+    <div class="card p-0 border-primary rounded-0">
+        	<img class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
     </div>
       
       <div class="card-body">
         <ul class="list-inline mb-2">
-          <li class="list-inline-item"> ${course.courseStatus}</li>
+          <li class="list-inline-item"><i class="bi bi-star-fill"></i>   ${course.courseStatus}</li>
           <!-- <li class="list-inline-item"><a class="text-color" href="ToeYadanaKyaw">Humanities</a></li> -->
         </ul>
         <a href="course-single.html">
           <h4 class="card-title">${course.courseName }</h4>
         </a>
-        <p class="card-text mb-4"> ${course.courseDescription }</p>
-        <a href="<c:url value="/ToeYadanaKyaw/${course.courseId }"/>" class="btn btn-primary btn-sm">Apply now</a>
+        <div class="code-container">
+        <p class="card-text mb-3" id="scrollspyHeading1"> ${course.courseDescription }</p>
+        </div>
+        <div class="mt-2">
+                <a href="<c:url value="/ToeYadanaKyaw/${course.courseId }"/>" class="btn btn-primary btn-sm">Apply now</a>
+        </div>
       </div>
     </div>
   </div>

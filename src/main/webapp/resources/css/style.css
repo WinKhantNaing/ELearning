@@ -13,6 +13,25 @@
   font-weight: normal;
   font-style: normal;
 }
+
+ /*for no course message*/
+.search-course{
+	color: red;
+	padding: 1px;
+	height: 70px;
+	width: 100%;
+	align-items: center;
+	text-align: center;
+	font-size: 20px;
+}
+/* for description scrollbar */
+   .code-container {
+        width: 100%; /* Adjust width as needed */
+        height: 110px; /* Adjust height as needed */
+        overflow: auto; /* This creates the scrollbar */
+        padding: 1px;
+        font-family: monospace; /* Ensures monospaced font */
+    }
 body {
   line-height: 1.2;
   font-family: "Poppins", sans-serif;
@@ -89,6 +108,7 @@ h6, .h6 {
     font-size: 14px;
   }
 }
+
 
 /* Button style */
 .btn {
@@ -272,6 +292,8 @@ a h4:hover {
 .section-title {
   margin-bottom: 30px;
 }
+
+
 
 .bg-cover {
   background-size: cover;
@@ -928,6 +950,8 @@ link:focus,
   border-color: #494a43 !important;
   padding-top: 275px;
 }
+
+
 
 /* /footer */
 .filter-controls li {
