@@ -114,8 +114,14 @@ public class TestController {
 		 int time = Integer.parseInt(arrayDu[0]);
 		 LocalDate startDate = LocalDate.now();
 		 m.addAttribute("startDate", startDate);
-		 LocalDate endDate = startDate.plusMonths(time);
-		 m.addAttribute("endDate", endDate);
+		 String sTime = arrayDu[1];
+		 if (sTime.equals("month") || sTime.equals("months")||sTime.equals("Month") || sTime.equals("Months")) {
+			 LocalDate endDate = startDate.plusMonths(time);
+			 m.addAttribute("endDate", endDate);
+		 }else {
+			 LocalDate endDate = startDate.plusYears(time);
+			 m.addAttribute("endDate", endDate);
+		 }		 
 		 return "paymentForm";
 	 }
 	 
