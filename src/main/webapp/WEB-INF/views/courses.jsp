@@ -102,9 +102,6 @@
     <c:forEach items="${courseList}" var="course">
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
-   <%--  <div style="width: 348px; height: 270px;">
-    	<img width="100%" height="100%" class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
-    </div> --%>
     <div class="card p-0 border-primary rounded-0">
         	<img class="card-img-top rounded-0" src="<c:url value="${course.courseImagePath }" />" alt="course thumb">
     </div>

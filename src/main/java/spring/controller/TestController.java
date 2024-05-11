@@ -3,8 +3,10 @@ package spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -14,9 +16,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import spring.model.CoursesBean;
+import spring.model.PaySubBean;
+import spring.model.PaymentDTO;
+import spring.model.PriceCardDTO;
 import spring.model.UserBean;
 import spring.repository.CoursesRepository;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 @Controller
 public class TestController {
 	
@@ -33,7 +40,7 @@ public class TestController {
 	
 	@GetMapping(value = "/")
 	public String courses() {
-		return "courses";
+		return "subscription";
 	}
 	
 	@ModelAttribute("course-bean")
@@ -80,5 +87,56 @@ public class TestController {
 		 m.addAttribute("courseList", progressList);
 			return "courses";
 		}
+	 
+	 
+	 // FOR MA MYO LAE OO(show course subscription plan history)
+	 @ModelAttribute("payDescription")
+	 public List<PaySubBean> getPaymentDescription(){
+		 List<PaySubBean> payList = new ArrayList<PaySubBean>();
+		 payList = courserepo.getUserHistoryPlan();
+		 return payList;
+	 
+	 }
+	 
+	 //for ma toe yadanarkyaw (show course subscriptionplan)
+	 @ModelAttribute("subscriptionplan")
+	 public List<PriceCardDTO> showPriceSubscription(){
+		 List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		 priceList = courserepo.getPricePlan();
+		 return priceList;
+	 }
+	 
+	 @GetMapping(value="/subcription/{subId}")
+	 public String showPaymentForm(@PathVariable("subId")int cid,Model m) {	 
+		 PriceCardDTO priceBean = courserepo.getDuration(cid);
+		 m.addAttribute("priceBean", priceBean);
+		 String[] arrayDu = priceBean.getDuration().split("\\s");
+		 int time = Integer.parseInt(arrayDu[0]);
+		 LocalDate startDate = LocalDate.now();
+		 m.addAttribute("startDate", startDate);
+		 LocalDate endDate = startDate.plusMonths(time);
+		 m.addAttribute("endDate", endDate);
+		 return "paymentForm";
+	 }
+	 
+	 @ModelAttribute("paymentbean")
+	 public PaymentDTO getPaymentBean() {
+		 PaymentDTO payBean = new PaymentDTO();
+		 return payBean;
+	 }
+	 
+	 @PostMapping(value="/subscribe")
+	 public String subscribe(@ModelAttribute("paymentbean")PaymentDTO bean,Model m ) {
+		 int result = courserepo.addSubscriptionPlan(bean);
+		 if(result > 0) {
+			 m.addAttribute("message", "Subscription plan is successful!");
+			 return "letGo";
+		 }else {
+			 m.addAttribute("message", "Subscription plan is fail!");
+			 return "paymentForm";
+		 }
+		 
+	 }
+	 
 	 
 }

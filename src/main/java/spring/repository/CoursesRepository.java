@@ -10,6 +10,9 @@ import java.util.List;
 import spring.model.CourseStatusTDO;
 import spring.model.CoursesBean;
 import spring.model.EnrollmentBean;
+import spring.model.PaySubBean;
+import spring.model.PaymentDTO;
+import spring.model.PriceCardDTO;
 import spring.model.UnitBean;
 import spring.model.UserBean;
 
@@ -126,5 +129,86 @@ public class CoursesRepository {
 		return searchList;
 	}
 	
-
+	// FOR MA MYO LAE OO(show course subscription plan history)
+	public List<PaySubBean> getUserHistoryPlan(/* UserBean user */){
+		List<PaySubBean> paySubList = new ArrayList<PaySubBean>();
+		 PaySubBean bean = null;
+		 Connection con = ConnectionClass.getConnection();
+		 try {
+			PreparedStatement ps = con.prepareStatement("select sub.subscriptionplan, sub.duration , pay.start_date , pay.end_date \r\n"
+					+ "from subscription sub  join payment pay on pay.subscription_id=sub.id and pay.user_id=1 order by  pay.start_date desc");
+			/* ps.setInt(1, user.getUserId()); */
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				bean = new PaySubBean();
+				bean.setSubPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setStartDate(rs.getString("start_date"));
+				bean.setEndDate(rs.getString("end_date"));
+				paySubList.add(bean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Getting payment and description : " + e.getMessage());
+		}
+		 return paySubList;
+	}
+	
+	//for ma toe yadanarkyaw (show course subscriptionplan)
+	public List<PriceCardDTO> getPricePlan(){
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		PriceCardDTO bean = null;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from subscription");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				bean = new PriceCardDTO();
+				bean.setSubId(rs.getInt("id"));
+				bean.setPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setPrice(rs.getDouble("price"));
+				priceList.add(bean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Getting price plan : " +e.getMessage());
+		}
+		return priceList;
+	}
+	
+	public PriceCardDTO getDuration(int cid) {
+		PriceCardDTO bean = null;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from subscription where id = ?");
+			ps.setInt(1, cid);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				bean = new PriceCardDTO();
+				bean.setSubId(rs.getInt("id"));
+				bean.setPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setPrice(rs.getDouble("price"));
+			}
+		} catch (Exception e) {
+			System.out.println("GET Duration : " + e.getMessage());
+		}
+		return bean;
+	}
+	
+	public int addSubscriptionPlan(PaymentDTO bean) {
+		int result = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps= con.prepareStatement("insert into payment (user_id,subscription_id,method,start_date, end_date) values(?,?,?,?,?)");
+			ps.setInt(1, bean.getUserId());
+			ps.setInt(2, bean.getSubId());
+			ps.setString(3, bean.getMethod());
+			ps.setString(4, bean.getStartDate());
+			ps.setString(5, bean.getEndDate());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Adding subscription plan : " + e.getMessage());
+		}
+		return result;
+	}
 }
