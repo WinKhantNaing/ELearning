@@ -115,7 +115,7 @@ public class TestController {
 		 LocalDate startDate = LocalDate.now();
 		 m.addAttribute("startDate", startDate);
 		 String sTime = arrayDu[1];
-		 if (sTime.equals("month") || sTime.equals("months")||sTime.equals("Month") || sTime.equals("Months")) {
+		 if(sTime.equals("month") || sTime.equals("months")||sTime.equals("Month") || sTime.equals("Months")||sTime.equals("MONTH") || sTime.equals("MONTHS")) {
 			 LocalDate endDate = startDate.plusMonths(time);
 			 m.addAttribute("endDate", endDate);
 		 }else {

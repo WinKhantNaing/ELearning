@@ -12,8 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/bootstrap/css/bootstrap.min.css" />" />
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" />
     <link rel="stylesheet" href=" <c:url value="/resources/css/style.css" />">
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+    
     <style>
     .form-control{
      border:none;
@@ -39,7 +38,26 @@
     }
     .method-container{
     margin-bottom: 120px;
-    }</style>
+    }
+  
+/* HIDE RADIO */
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  outline: 2px solid #f00;
+} 
+    </style>
 </head>
 <body>
 <!-- Credit Card Payment Form - START -->
@@ -63,38 +81,42 @@
                     <form:form  action="../subscribe" modelAttribute="paymentbean" method="post">
                         <div class="row">
                         <div class="method-container">
-                        
-                        <div class="col-lg-3 col-sm-6 mb-4">
+   <div class="col-lg-3 col-sm-6 mb-4">
                         <div class="card p-0 border-primary rounded-0 hover-shadow">
-                        <form:radiobutton class="radio-button" path="method" value="kpay" checked="checked"/>
-                    	<a><img class="img-responsive cc-img" style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/kpay.png" />"></a>
-                    </div>
-                    </div>
-                    
-                   
-                     <div class="col-lg-3 col-sm-6 mb-4">
-                        <div class="card p-0 border-primary rounded-0 hover-shadow">          
-                         <form:radiobutton class="radio-button"  path="method" value="wavepay"/>
-                    	<a><img class="img-responsive cc-img" style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/aya.png" />"></a>
-                    </div>
-                    </div>
-                    
-                   
-                    <div class="col-lg-3 col-sm-6 mb-4">
-                        <div class="card p-0 border-primary rounded-0 hover-shadow">
-                         <form:radiobutton class="radio-button"  path="method" value="yoma"/>
-                    	<a><img class="img-responsive cc-img" style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/yoma.jpeg" />"></a>
-                    </div>
-                    </div>
-                    
-                   
-                    <div class="col-lg-3 col-sm-6 mb-4 ">
-                        <div class="card p-0 border-primary rounded-0 hover-shadow">
-                         <form:radiobutton class="radio-button"  path="method" value="aya"/>
-                        <a><img class="img-responsive cc-img" style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/wave.png" />"></a>
-                    </div>
-                    </div>
-                    
+    <label for="kpay">
+    <form:radiobutton path="method" value="kpay" id="kpay" checked="checked" />
+  <img style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/kpay.png" />" alt="Option 1">
+    </label>
+</div>
+</div>
+     <div class="col-lg-3 col-sm-6 mb-4">
+       <div class="card p-0 border-primary rounded-0 hover-shadow">
+    
+    <label for="aya">
+    <form:radiobutton path="method" value="aya" id="aya" />
+          <img style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/aya.png" />" alt="Option 2"> 
+    
+    </label>
+   </div>
+   </div>
+    <div class="col-lg-3 col-sm-6 mb-4">
+      <div class="card p-0 border-primary rounded-0 hover-shadow">
+    <label for="yoma">
+     <form:radiobutton path="method" value="yoma" id="yoma" />
+  <img style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/yoma.jpeg" />" alt="Option 3">
+    </label>
+
+    </div>
+    </div>
+     <div class="col-lg-3 col-sm-6 mb-4">
+       <div class="card p-0 border-primary rounded-0 hover-shadow">
+    <label for="wave">
+    <form:radiobutton path="method" value="wave" id="wave" />
+          <img style="width:60px; height:60px;" src="<c:url value="/resources/images/avatars/wave.png" />" alt="Option 4"> 
+    
+    </label> 
+</div>
+</div>           
                         </div>
                             <div class="col-xs-12 m-4">
                                 <div class="form-group">
@@ -148,7 +170,8 @@
 </div>
 
 <!-- Credit Card Payment Form - END -->
-
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 
 
 </body>
