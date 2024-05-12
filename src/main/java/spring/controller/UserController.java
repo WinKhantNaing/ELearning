@@ -1,5 +1,8 @@
 package spring.controller;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.model.UserBean;
 import spring.repository.UserdbRepository;
+import spring.model.CoursesBean;
+import spring.model.PaySubBean;
 import spring.model.PhotoDto;
 import spring.model.ProfileDto;
 
@@ -25,33 +30,16 @@ public class UserController {
 	UserdbRepository userrepo;
 	ServletContext context;
 	
-	@GetMapping(value = "/photoUpload")
-	public ModelAndView photoUpload() {
-		PhotoDto file = new PhotoDto();
-		ModelAndView mv = new ModelAndView("photo", "img", file);
-		return mv;
-	}
-	
-	@PostMapping(value="/showphoto")
-	public String createUser(@ModelAttribute("img")PhotoDto photo) {
-		int result=userrepo.insertPhoto(photo);
-		if(result>0) {
-			return"redirect:/";
-		}else {
-			return "redirect:/register";
-		}
-	}
-	
 	
 	@GetMapping(value="/profile")
-	public String checklogin(HttpSession session,Model m) {
+	public ModelAndView checklogin(HttpSession session,Model m) {
 		ProfileDto user=new ProfileDto();
 		user=userrepo.profileUser();
 			session.setAttribute("user",user);
 		int i=userrepo.levelCount();
 		String level=null;
 			if(i>=1 && i<=10) {
-				level="Braze";
+				level="Bronze";
 			}else if(i>=11 && i<=20){
 				level="Silver";
 			}else if(i>=21 && i<=30){
@@ -65,16 +53,38 @@ public class UserController {
 		boolean status=userrepo.subscription();
 		String subscription=null;
 			if(status==true) {
-				subscription="Preminum";
+				subscription="PremiumUser";
 			}else {
-				subscription="Free";
+				subscription="FreeUser";
 			}
-		m.addAttribute("subscription", subscription);	
-			return "/profile";
+		m.addAttribute("subscription", subscription);
+		List<CoursesBean> lstUserCourse=userrepo.getCompleteCourses();
+		m.addAttribute("lstUserCourse",lstUserCourse);
+		
+		ModelAndView mv = new ModelAndView("profile", "pbean",new PhotoDto() );
+			return mv;
 	}
 	
 	
-
+	@PostMapping(value="/profilePhoto")
+	public String showphoto(@ModelAttribute("pbean")PhotoDto photo) {
+		int result=userrepo.insertPhoto(photo);
+		if(result>0) {
+			System.out.println("profile photo upload success.");
+		}else {
+			System.out.println("profile photo upload fail.");
+		}
+		return "redirect:profile";
+	}
+	
+	 // FOR MA MYO LAE OO(show course subscription plan history)
+	 @ModelAttribute("payDescription")
+	 public List<PaySubBean> getPaymentDescription(){
+		 List<PaySubBean> payList = new ArrayList<PaySubBean>();
+		 payList = userrepo.getUserHistoryPlan();
+		 return payList;
+	 
+	 }
 	
 	
 	
