@@ -24,8 +24,8 @@ public class UserdbRepositoty {
 			ps.setString(5, bean.getUserRole());
 			result=ps.executeUpdate();
 			
-			}catch(SQLException ex) {
-					System.out.println("user insert :"+ex.getMessage());
+			}catch(SQLException e) {
+					System.out.println("user insert :"+e.getMessage());
 			
 			}
 			
@@ -47,8 +47,8 @@ public class UserdbRepositoty {
 					status=true;
 				}
 				
-			} catch (SQLException ex) {	
-				System.out.println("check email :"+ex.getMessage());
+			} catch (SQLException e) {	
+				System.out.println("check email :"+e.getMessage());
 			    }
 			return status;
 	    	} 
@@ -70,8 +70,8 @@ public class UserdbRepositoty {
 				user.setUserRole(rs.getString("role"));
 				userlst.add(user);
 			}
-		} catch (SQLException ex) {
-			System.out.println ("User Select : " +ex.getMessage());
+		} catch (SQLException e) {
+			System.out.println ("User Select : " +e.getMessage());
 		    }
 			return userlst;
 		}
@@ -92,8 +92,8 @@ public class UserdbRepositoty {
 					bean.setUserRole(rs.getString("role"));
 					
 				}
-			} catch (SQLException ex) {
-				System.out.println ("select one User : " + ex.getMessage());
+			} catch (SQLException e) {
+				System.out.println ("select one User : " + e.getMessage());
 			    }
 			return bean;
 		    }
