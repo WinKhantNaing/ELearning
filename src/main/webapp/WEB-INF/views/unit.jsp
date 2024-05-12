@@ -7,119 +7,88 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-	font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #111;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
-}
-
-.sidenav a {
-	padding: 8px 8px 8px 32px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #818181;
-	display: block;
-	transition: 0.3s;
-}
-
-.title {
-	padding: 8px 8px 8px 32px;
-	color: #818181;
-}
-
-.sidenav a:hover {
-	color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-	position: absolute;
-	top: 0;
-	right: 25px;
-	font-size: 36px;
-	margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-	.sidenav {
-		padding-top: 15px;
-	}
-	.sidenav a {
-		font-size: 18px;
-	}
-}
-</style>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<link href="<c:url value="/resources/css/unit.css" />" rel="stylesheet">
 </head>
 <body>
 
-
 	<div id="mySidenav" class="sidenav">
-		<h1 class="title"><c:out value="${lstLessonUnit[0].lessonName}" /></h1>
+		<h1 class="title">${lstLessonUnit[0].lessonName}</h1>
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
+		<a href="${pageContext.request.contextPath}/unit/showunit">Introduction</a>
+
 		<c:forEach items="${lstLessonUnit}" var="unit">
-			<a href="#">${unit.unitName}</a>
+			<a
+				href="${pageContext.request.contextPath}/unit/unitdetail/${unit.unitId}">${unit.unitName}</a>
 		</c:forEach>
-		
+
 	</div>
 
 	<span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776;</span>
 
-	<div>
-		<p>This example use media queries to transform the sidebar to a
-			top navigation bar when the screen size is 700px or less. We have
-			also added a media query for screens that are 400px or less, which
-			will vertically stack and center the navigation links.</p>
-	</div>
+	<div class="container unit-container">
+		<c:if test="${lstQuiz[0].unitId == null}">
+			<div>
+				<p>${lstLessonUnit[0].lessonIntroduction}</p>
+			</div>
+		</c:if>
 
-	<%-- <a href="quiz">Take Quiz</a>
+		<c:forEach items="${lstLessonUnit}" var="unitId">
+			<c:if test="${unitId.unitId == lstQuiz[0].unitId}">
+				<div class="common">
+					<p>${uniWorkBean.lessonContent}</p>
+				</div>
 
-	<div>
-		<h2>Quiz</h2>
+				<div class="common">
+					<h2>Workout</h2>
+					<p>${uniWorkBean.workoutQuestion}</p>
+				</div>
 
-		<form:form action="" method="post">
+				<div class="quiz-container common">
+					<h2>Quiz</h2>
+					<p>${lstQuiz[0].quizQuestion}</p>
 
-			<c:forEach items="${lstQuiz}" var="quiz">
-				<div>
-					<p>${quiz.question}</p>
-
-					<form:form action="" method="post" modelAttribute="option">
-						<c:forEach items="${lstOption}" var="option">
-							<form:radiobutton path="option" value="${option.optionId}"
-								label="${option.option}" />
+					<form:form action="" method="post" modelAttribute="quiz">
+						<c:forEach items="${lstQuiz}" var="option">
+							<form:radiobutton path="selection" value="${option.optionId}"
+								label="${option.selection}" />
 						</c:forEach>
-						<input class="btn btn-primary" type="submit" value="Check">
+
+						<div id="quiz-error">Please Choose One Answer!</div>
+
+						<div class="d-flex justify-content-between w-25">
+							<!-- Check whether the user answer is correct or incorrect -->
+							<%-- <c:if test=""> --%>
+							<div class="answer-status d-flex align-items-center">
+								<p class="align-middle m-0 correct-text">Correct</p>
+							</div>
+							<%-- </c:if> --%>
+
+							<c:if test="">
+								<div class="answer-status d-flex align-items-center">
+									<p class="align-middle m-0 text-danger">Incorrect</p>
+								</div>
+							</c:if>
+
+							<div class="btnCheck">
+								<input type="submit" value="Check">
+							</div>
+						</div>
 					</form:form>
 				</div>
-			</c:forEach>
 
+				<div class="common">
+					<a class="btn" href="#" role="button"
+						style="background-color: #213555; color: #F0F0F0;">Finish</a>
+				</div>
+			</c:if>
+		</c:forEach>
+	</div>
 
-			<input class="btn btn-primary" type="submit" value="Submit">
-		</form:form>
-
-
-	</div> --%>
-
-	<script>
-		function openNav() {
-			document.getElementById("mySidenav").style.width = "250px";
-		}
-
-		function closeNav() {
-			document.getElementById("mySidenav").style.width = "0";
-		}
-	</script>
-
+	<script src="<c:url value="/resources/js/unit.js" />"></script>
 </body>
 </html>
