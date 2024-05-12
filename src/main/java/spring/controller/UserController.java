@@ -34,11 +34,7 @@ public class UserController {
 		return lbean;
 	}
 	
-	
-	@ModelAttribute("feedback")
-	public FeedbackBean getFeedbackBean() {
-		
-	}
+
 	
 	
 	@PostMapping(value = "register")
@@ -56,6 +52,7 @@ public class UserController {
 }
 	@PostMapping(value = "login")
 	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session){
+		boolean isLogin = false;
 		UserRepository userrepo=new UserRepository();
 		UserBean ubean = new UserBean();
 		ubean = userrepo.selectUser(bean);
@@ -64,7 +61,13 @@ public class UserController {
 			return "redirect:/";
 		} else {
 			System.out.println("successful");
-			return "indexheader";}
+			session.setAttribute("session", ubean.getUseremail());
+			isLogin = true;
+			session.setAttribute("session", isLogin);
+			return "indexheader";
+			
+			
+		}
 		
 	}
 }
