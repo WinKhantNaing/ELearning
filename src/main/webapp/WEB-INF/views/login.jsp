@@ -43,7 +43,7 @@ color: blue;
 
         <div class="card my-5">
 
-          <form:form action="check-payment" method="post" id="myForm" onsubmit="return validateForm()" modelAttribute="bean" class="card-body cardbody-color p-lg-5">
+          <form:form action="check-login" method="post" id="myForm" onsubmit="return validateForm()" modelAttribute="bean" class="card-body cardbody-color p-lg-5">
 
             <div class="text-center">
               <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-4"

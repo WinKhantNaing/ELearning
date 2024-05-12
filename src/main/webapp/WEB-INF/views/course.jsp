@@ -49,7 +49,7 @@
         </a>
         <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna.</p>
-        <a href="check-login" class="btn btn-primary btn-sm">Apply now</a>
+        <a href="login" class="btn btn-primary btn-sm">Apply now</a>
       </div>
     </div>
   </div>

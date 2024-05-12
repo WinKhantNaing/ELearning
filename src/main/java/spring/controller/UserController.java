@@ -28,7 +28,7 @@ public class UserController {
 
 	@GetMapping(value = "/")
 	public String showHome() {
-		return "redirect:/subscription-plan";
+		return "home";
 	}
 
 	@GetMapping(value = "/about")
@@ -61,15 +61,22 @@ public class UserController {
 		return "addcourse";
 	}
 	
-	public boolean isLogin() {
+	
+	public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
 		
-		
-		
-		return false;
+		boolean isLogin = false;
+		UserDTO user = userrepo.loginUser(bean);
+		if(user != null) {
+			
+			isLogin = true;
+		}
+		session.setAttribute("user", isLogin);
+		session.setAttribute("user", user.getUserId());
 		
 	}
 
-	@GetMapping(value = "/check-login")
+	
+	@PostMapping(value = "/check-login")
 	public String checkLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
 
 		/* UserDTO user = (UserDTO) session.getAttribute("user"); */
@@ -87,7 +94,7 @@ public class UserController {
 
 	}
 
-	@PostMapping(value = "/check-payment")
+	@GetMapping(value = "/check-payment")
 	public String checkPayment(HttpSession session) {
 
 //		boolean status = false;
@@ -112,6 +119,19 @@ public class UserController {
 		m.addAttribute("priceCardList", priceCardList);
 		
 		return "subscriptionPlan";
+	}
+
+	@GetMapping(value = "/confirm-payment")
+	public String confirmPayment() {
+		
+		
+		return "paymentConfirmation";
+		
+	}
+	
+	public String showSingleLesson() {
+		return null;
+		
 	}
 
 }

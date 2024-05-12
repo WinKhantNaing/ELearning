@@ -23,8 +23,9 @@ public class UserRepository {
 			PreparedStatement ps = con.prepareStatement("select * from user where email=? and password=?");
 			ps.setString(1, bean.getEmail());
 			ps.setString(2, bean.getPassword());
+			System.out.println("ps:"+ bean);
 			ResultSet rs = ps.executeQuery();
-
+			System.out.println("exe successfully:"+rs);
 			while (rs.next()) {
 				user = new UserDTO();
 				user.setUserId(rs.getInt("id"));
@@ -33,11 +34,13 @@ public class UserRepository {
 				user.setGender(rs.getString("gender"));
 				user.setRole(rs.getString("role"));
 				user.setImage(rs.getString("img"));
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("login user : " + e.getMessage());
 		}
-
+		
+		System.out.println("User Info : "+ user);
 		return user;
 
 	}
@@ -55,12 +58,13 @@ public class UserRepository {
 			if(rs.next()) {
 				
 				status = true;
+				System.out.println("Preminum user : "+ status);
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Payment check : " + e.getMessage());
 		}
-		
+		System.out.println("User status : "+ status);
 		return status;
 		
 	}
@@ -75,7 +79,7 @@ public class UserRepository {
 	    try {
 			PreparedStatement ps = con.prepareStatement("select * from subscription");
 			ResultSet rs = ps.executeQuery();
-			int i = 0;
+//			int i = 0;
 			while(rs.next()) {
 				priceCard = new PriceCardDTO();
 				priceCard.setPlan(rs.getString("subscriptionplan"));
@@ -83,8 +87,10 @@ public class UserRepository {
 				priceCard.setDuration(rs.getString("duration"));
 				
 				priceCardList.add(priceCard);
-				System.out.println(priceCard);
-				System.out.println(priceCardList.get(i++).getPlan());
+				/*
+				 * System.out.println(priceCard);
+				 * System.out.println(priceCardList.get(i++).getPlan());
+				 */
 			}
 			
 		} catch (SQLException e) {
@@ -92,8 +98,8 @@ public class UserRepository {
 			System.out.println("Select from subscription : "+ e.getMessage());
 		}
 	    
-	    System.out.println("pcl"+ priceCardList.size());
-		priceCardList.forEach(c->System.out.println(c.getPlan()));
+//	    System.out.println("pcl"+ priceCardList.size());
+//		priceCardList.forEach(c->System.out.println(c.getPlan()));
 		return priceCardList;
 		
 		
