@@ -1,6 +1,6 @@
 
 
-(function($) {
+(function ($) {
 	'use strict';
 	/*==================================================================
 		[ Daterangepicker ]*/
@@ -17,17 +17,17 @@
 		var myCalendar = $('.js-datepicker');
 		var isClick = 0;
 
-		$(window).on('click', function() {
+		$(window).on('click', function () {
 			isClick = 0;
 		});
 
-		$(myCalendar).on('apply.daterangepicker', function(ev, picker) {
+		$(myCalendar).on('apply.daterangepicker', function (ev, picker) {
 			isClick = 0;
 			$(this).val(picker.startDate.format('DD/MM/YYYY'));
 
 		});
 
-		$('.js-btn-calendar').on('click', function(e) {
+		$('.js-btn-calendar').on('click', function (e) {
 			e.stopPropagation();
 
 			if (isClick === 1) isClick = 0;
@@ -38,12 +38,12 @@
 			}
 		});
 
-		$(myCalendar).on('click', function(e) {
+		$(myCalendar).on('click', function (e) {
 			e.stopPropagation();
 			isClick = 1;
 		});
 
-		$('.daterangepicker').on('click', function(e) {
+		$('.daterangepicker').on('click', function (e) {
 			e.stopPropagation();
 		});
 
@@ -55,7 +55,7 @@
 	try {
 		var selectSimple = $('.js-select-simple');
 
-		selectSimple.each(function() {
+		selectSimple.each(function () {
 			var that = $(this);
 			var selectBox = that.find('select');
 			var selectDropdown = that.find('.select-dropdown');
@@ -75,7 +75,7 @@
 /*[ TextArea ]
 		===========================================================*/
 
-$('textarea').keyup(function() {
+$('textarea').keyup(function () {
 
 	var characterCount = $(this).val().length,
 		current = $('#current'),
@@ -122,7 +122,7 @@ function readURL(input) {
 
 		var reader = new FileReader();
 
-		reader.onload = function(e) {
+		reader.onload = function (e) {
 			$('.image-upload-wrap').hide();
 
 			$('.file-upload-image').attr('src', e.target.result);
@@ -143,9 +143,9 @@ function removeUpload() {
 	$('.file-upload-content').hide();
 	$('.image-upload-wrap').show();
 }
-$('.image-upload-wrap').bind('dragover', function() {
+$('.image-upload-wrap').bind('dragover', function () {
 	$('.image-upload-wrap').addClass('image-dropping');
 });
-$('.image-upload-wrap').bind('dragleave', function() {
+$('.image-upload-wrap').bind('dragleave', function () {
 	$('.image-upload-wrap').removeClass('image-dropping');
 });

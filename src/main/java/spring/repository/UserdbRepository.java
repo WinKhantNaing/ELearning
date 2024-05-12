@@ -19,7 +19,6 @@ import spring.model.ProfileDto;
 import spring.model.UserBean;
 
 
-
 public class UserdbRepository {
 	
 	public String uploadFile(MultipartFile file) {
