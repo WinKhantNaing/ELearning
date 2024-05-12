@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+ 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,12 +39,12 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Adding New User Form</h2>
-                    <form method="POST">
+                    <form:form action="createuser" method="post"  modelAttribute="aubean">
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">User Name</label>
-                                    <input class="input--style-4" type="text" name="username">
+                                    <form:input class="input--style-4" type="text" path="userName"/>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +52,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <form:input class="input--style-4" type="email" path="userEmail"/>
                                 </div>
                             </div>
                         </div>
@@ -56,23 +60,21 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Password</label>
-                                    <input class="input--style-4" type="password" name="password">
+                                    <form:input class="input--style-4" type="password" path="password"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row row-space">
-                            <div class="col-2">
+                            <div class="row mb-4">
                                 <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
+                                    <label class="col-form-label col-md-2 pt-0">Gender</label>
+                                    <div class="col-md-4">
+                                        <div class="form-check-inline">
+					                        <form:radiobutton label="Male"  class="form-check-input"	id="gridRadios1" path="gender" value="Male" />
+					                    </div>		
+					                    <div class="form-check-inline">
+					                        <form:radiobutton label="Female" class="form-check-input"  id="gridRadios2" path="gender" value="Female" />
+					                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -80,18 +82,18 @@
                         <div class="input-group">
                             <label class="label">Role</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
+                                <form:select path="userRole">
                                     <option disabled="disabled" selected="selected">Choose Role</option>
                                     <option>Admin</option>
                                     <option>User</option>
-                                </select>
+                                </form:select>
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit">Add</button>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

@@ -42,7 +42,7 @@
 
 <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
 
-<link href="<c:url value="/adduserresources/css/style.css"/>" rel="stylesheet">
+
 <link rel="shortcut icon"
 	href="<c:url value="/resources/images/favicon.png"/>"
 	type="image/x-icon">
@@ -60,24 +60,6 @@
 	</div>
 
 	<header class="fixed-top header">
-		<div class="top-header py-2 bg-white">
-			<div class="container">
-				<div class="row no-gutters">
-					<div class="col-lg-8 text-center text-lg-right">
-						<ul class="list-inline">
-							<li class="list-inline-item"><a
-								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-								href="<c:url value="#loginModal"/>" data-toggle="modal"
-								data-target="#loginModal">login</a></li>
-							<li class="list-inline-item"><a
-								class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-								href="<c:url value="#signupModal"/>" data-toggle="modal"
-								data-target="#signupModal">register</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="navigation w-100">
 			<div class="container">
@@ -99,39 +81,16 @@
 								href="about.html">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href="courses.html">COURSES</a></li>
-							<li class="nav-item dropdown view"><a
-								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Administration </a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="dropdown-item" href="adduser">Add User</a></li>
-									<li><a class="dropdown-item" href="addcourse">ShowAll User</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
-									<li><a class="dropdown-item" href="addcourse">ShowAll Course</a></li>
-									<li><a class="dropdown-item" href="addcourse">Add Unit</a></li>									
-								</ul>
+							<li>
+								<div style="margin-top: 24px;">
+									<a href="<c:url value="#aboutModal"/>" data-toggle="modal"
+										data-target="#myModal"> <img
+										src="<c:url value="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"/>"
+										name="aboutme" width="45" height="45" class="img-circle"
+										style="border-radius: 25px;"></a>
+								</div>
 							</li>
-							 <li class="dropdown nav-item">
-								<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-										<li>
-											<a  class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><img src="<c:url value="resources/images/user.svg"/>"></a>	
-										</li>
-								</ul>
-								<ul class="dropdown-menu dropdown-navbar">
-									<div class="d-flex flex-column align-items-center text-center">
-					                  <li class="nav-link">
-					                  	<a href="photo.jsp">  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                    		class="rounded-circle" width="45" height="45" style="border-radius: 30px;">
-                                    	</a>
-                                     </li>
-                                    	<h5>Mg Mg</h5>
-                                    
-                                    </div>
-					                  <li ><a href="<c:url value="/user/profile"/>" class="nav-item dropdown-item">Profile</a></li>
-					                  <li ><a href="#" class="nav-item dropdown-item">Log out</a></li>
-					              </ul>
-				              </li>
-				              
+						</ul>
 					</div>
 				</nav>
 			</div>

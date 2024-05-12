@@ -25,7 +25,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 @Controller
-public class TestController {
+public class HomeController {
 	
 	@Autowired
 	CoursesRepository courserepo;
@@ -143,6 +143,5 @@ public class TestController {
 		 }
 		 
 	 }
-	 
 	 
 }

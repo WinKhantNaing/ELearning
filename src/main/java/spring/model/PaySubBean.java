@@ -36,5 +36,4 @@ public class PaySubBean implements Serializable{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	
 }

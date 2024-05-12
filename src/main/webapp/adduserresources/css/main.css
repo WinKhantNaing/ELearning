@@ -647,10 +647,9 @@ input {
    ========================================================================== */
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700,300italic);
-*, *:before{border: none;} *:after { box-sizing: none; }
+*, *:before, *:after { box-sizing: border-box; }
 html { font-size: 100%;  }
 body { 
-  border: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px; 
   color: #666;
@@ -663,7 +662,6 @@ body {
 }
 
 textarea {
-  border: none;
   position: relative;
   width: 100%;
   min-height: 100px;
@@ -683,12 +681,14 @@ textarea {
   -moz-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
-  /* :focus {
+
+  /* &:focus {
     outline: none;
     border: 1px solid darken(#ddd, 5%);
     box-shadow: inset 0 0 0.5rem darken(#ddd, 5%);
   }
-  [placeholder] { 
+
+  &[placeholder] { 
     font-style: italic;
     font-size: 0.875rem;
   }
