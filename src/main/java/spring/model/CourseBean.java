@@ -17,4 +17,5 @@ public class CourseBean implements Serializable {
 	String courseImagePath;
 	MultipartFile courseImage;
 	String courseStatus;
+	int isActive;
 }

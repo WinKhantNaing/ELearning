@@ -40,37 +40,36 @@
 	crossorigin="anonymous">
 
 <link
-	href="<c:url value="resources/plugins/bootstrap/bootstrap.min.css" />"
+	href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css" />"
 	rel="stylesheet"></link>
 <!-- slick slider -->
-<link href="<c:url value="resources/plugins/slick/slick.css" />"
+<link href="<c:url value="/resources/plugins/slick/slick.css" />"
 	rel="stylesheet"></link>
 <!-- themefy-icon -->
 <link
-	href="<c:url value="resources/plugins/themify-icons/themify-icons.css" />"
+	href="<c:url value="/resources/plugins/themify-icons/themify-icons.css" />"
 	rel="stylesheet"></link>
 <!-- animation css -->
-<link href="<c:url value="resources/plugins/animate/animate.css" />"
+<link href="<c:url value="/resources/plugins/animate/animate.css" />"
 	rel="stylesheet"></link>
 <!-- aos -->
-<link href="<c:url value="resources/plugins/aos/aos.css" />"
+<link href="<c:url value="/resources/plugins/aos/aos.css" />"
 	rel="stylesheet"></link>
 <!-- venobox popup -->
-<link href="<c:url value="resources/plugins/venobox/venobox.css" />"
+<link href="<c:url value="/resources/plugins/venobox/venobox.css" />"
 	rel="stylesheet"></link>
 
 <!-- Main Stylesheet -->
 
-<link href="<c:url value="resources/css/style.css" />" rel="stylesheet"></link>
-<link href="<c:url value="resources/css/style2.css" />" rel="stylesheet"></link>
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"></link>
+<link href="<c:url value="/resources/css/style2.css" />"
+	rel="stylesheet"></link>
 
 <!--Favicon-->
-<link href="<c:url value="resources/resources/images/favicon.png" />"
+<link href="<c:url value="/resources/images/favicon.png" />"
 	rel="shortcut icon" type="image/x-icon"></link>
-<link href="<c:url value="resources/images/favicon.png" />"
-	rel="icon" type="image/x-icon"></link>
-
-
+<link href="<c:url value="/resources/images/favicon.png" />" rel="icon"
+	type="image/x-icon"></link>
 
 </head>
 
@@ -923,8 +922,8 @@
 						<h3 class="text-white">Rate Your Experiences</h3>
 						<form action="#">
 							<div class="input-wrapper">
-								<div class="rate-box" >
-									
+								<div class="rate-box">
+
 									<input type="radio" name="star" id="star0" /> <label
 										class="star" for="star0"></label> <input type="radio"
 										name="star" id="star1" /> <label class="star" for="star1"></label>
@@ -933,11 +932,12 @@
 										name="star" id="star3" /> <label class="star" for="star3"></label>
 									<input type="radio" name="star" id="star4" /> <label
 										class="star" for="star4"></label>
-								
+
 								</div>
 								<input type="text" class="form-control border-0" id="newsletter"
 									name="newsletter" placeholder="Enter Your Email...">
-								<button type="submit" value="send" class="btn btn-primary" style="margin-top:21px">Join</button>
+								<button type="submit" value="send" class="btn btn-primary"
+									style="margin-top: 21px">Join</button>
 							</div>
 						</form>
 					</div>
@@ -1053,25 +1053,49 @@
 	<!-- /footer -->
 
 	<!-- jQuery -->
-	<script src="resources/plugins/jQuery/jquery.min.js"></script>
-	<!-- Bootstrap JS -->
-	<script src="resources/plugins/bootstrap/bootstrap.min.js"></script>
-	<!-- slick slider -->
-	<script src="resources/plugins/slick/slick.min.js"></script>
-	<!-- aos -->
-	<script src="resources/plugins/aos/aos.js"></script>
-	<!-- venobox popup -->
-	<script src="resources/plugins/venobox/venobox.min.js"></script>
-	<!-- filter -->
-	<script src="resources/plugins/filterizr/jquery.filterizr.min.js"></script>
-	<!-- google map -->
+	<!-- <script src="/resources/plugins/jQuery/jquery.min.js"></script>
+	Bootstrap JS
+	<script src="/resources/plugins/bootstrap/bootstrap.min.js"></script>
+	slick slider
+	<script src="/resources/plugins/slick/slick.min.js"></script>
+	aos
+	<script src="/resources/plugins/aos/aos.js"></script>
+	venobox popup
+	<script src="/resources/plugins/venobox/venobox.min.js"></script>
+	filter
+	<script src="/resources/plugins/filterizr/jquery.filterizr.min.js"></script>
+	google map
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-	<script src="resources/plugins/google-map/gmap.js"></script>
+	<script src="/resources/plugins/google-map/gmap.js"></script>
+
+	Main Script
+	<script src="/resources/js/script2.js"></script>
+	<script src="/resources/js/script.js"></script> -->
+
+	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js"/>"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js"/>"></script>
+	<!-- slick slider -->
+	<script src="<c:url value="/resources/plugins/slick/slick.min.js"/>"></script>
+	<!-- aos -->
+	<script src="<c:url value="/resources/plugins/aos/aos.js"/>"></script>
+	<!-- venobox popup -->
+	<script
+		src="<c:url value="/resources/plugins/venobox/venobox.min.js"/>"></script>
+	<!-- filter -->
+	<script
+		src="<c:url value="/resources/plugins/filterizr/jquery.filterizr.min.js"/>"></script>
+	<!-- google map -->
+	<script
+		src="<c:url value="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"/>"></script>
+	<script src="<c:url value="/resources/plugins/google-map/gmap.js"/>"></script>
 
 	<!-- Main Script -->
-	<script src="resources/js/script2.js"></script>
-	<script src="resources/js/script.js"></script>
+	<script src="<c:url value="/resources/js/script.js"/>"></script>
+	<%-- <script src="<c:url value="/resources/js/register.js"/>"></script>
+	<script src="<c:url value="/resources/js/login.js"/>"></script> --%>
 
 </body>
 </html>
