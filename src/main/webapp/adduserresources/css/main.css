@@ -287,7 +287,9 @@ h6 {
 }
 
 .btn--blue {
+
   background: #ffbc3b;
+
 }
 
 .btn--blue:hover {
@@ -642,9 +644,11 @@ input {
 }
 
 
+
 /* ==========================================================================
    #TEXTAREA
    ========================================================================== */
+
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700,300italic);
 *, *:before, *:after { box-sizing: border-box; }
@@ -698,6 +702,7 @@ textarea {
   float: right;
   padding: 0.1rem 0 0 0;
   font-size: 0.875rem;
+
 } */
 
 
@@ -793,3 +798,4 @@ body {
   border: 0;
   transition: all .2s ease;
 }
+

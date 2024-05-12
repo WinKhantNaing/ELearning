@@ -16,7 +16,8 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+	<mvc:resources mapping="/adduserresources/**" location="/adduserresources/" />
+  
 	<bean
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
@@ -38,8 +39,10 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	<!-- <bean id="repo" class="spring.repository.UserRepository"></bean>
 	<bean id="crepo" class="spring.repository.CourseRepository"></bean> -->
 	<bean id="unitrepo" class="spring.repository.UnitRepository"></bean>
+
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 	<bean id="userrepo" class="spring.repository.UserdbRepository"></bean>
 	<!-- <bean id="crepo" class="spring.repository.CourseRepository"></bean> -->
 </beans>
+

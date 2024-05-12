@@ -75,7 +75,6 @@
 							</div>
 						</div>
 						</div> --%>
-
 						<div class="navigation w-100">
 							<div class="container">
 								<nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -92,46 +91,74 @@
 											<li class="nav-item active"><a class="nav-link" href="<c:url value ="
 													/" />">Home</a></li>
 
-											<li class="nav-item @@about"><a class="nav-link" href="about.html">About</a>
-											</li>
-											<li class="nav-item @@courses"><a class="nav-link"
-													href="courses.html">COURSES</a></li>
-											<li class="nav-item dropdown view"><a class="nav-link dropdown-toggle"
-													href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-													aria-haspopup="true" aria-expanded="false"> Administration </a>
-												<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-													<li><a class="dropdown-item" href="adduser">Add User</a></li>
-													<li><a class="dropdown-item" href="showcourses">Show Courses</a>
-													</li>
-												</ul>
 
-											</li>
-											<li>
-												<div style="margin-top: 24px;">
-													<a href="<c:url value=" #aboutModal" />" data-toggle="modal"
-													data-target="#myModal"> <img src="<c:url value="
-														https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" />"
-													name="aboutme" width="45" height="45" class="img-circle"
-													style="border-radius: 25px;"></a>
+											<div class="navigation w-100">
+												<div class="container">
+													<nav class="navbar navbar-expand-lg navbar-dark p-0">
+														<a class="navbar-brand" href="index.html"><img
+																src="<c:url value=" /resources/images/logo.png" />"
+															alt="logo"></a>
+														<button class="navbar-toggler rounded-0" type="button"
+															data-toggle="collapse" data-target="#navigation"
+															aria-controls="navigation" aria-expanded="false"
+															aria-label="Toggle navigation">
+															<span class="navbar-toggler-icon"></span>
+														</button>
+
+														<div class="collapse navbar-collapse" id="navigation">
+															<ul class="navbar-nav ml-auto text-center">
+																<li class="nav-item active"><a class="nav-link"
+																		href="<c:url value =" /" />">Home</a></li>
+
+																<li class="nav-item @@about"><a class="nav-link"
+																		href="about.html">About</a>
+																</li>
+																<li class="nav-item @@courses"><a class="nav-link"
+																		href="courses.html">COURSES</a></li>
+																<li class="nav-item dropdown view"><a
+																		class="nav-link dropdown-toggle" href="#"
+																		id="navbarDropdown" role="button"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false"> Administration </a>
+																	<ul class="dropdown-menu"
+																		aria-labelledby="navbarDropdown">
+																		<li><a class="dropdown-item" href="adduser">Add
+																				User</a></li>
+																		<li><a class="dropdown-item"
+																				href="showcourses">Show Courses</a>
+																		</li>
+																	</ul>
+
+																</li>
+																<li>
+																	<div style="margin-top: 24px;">
+																		<a href="<c:url value=" #aboutModal" />"
+																		data-toggle="modal"
+																		data-target="#myModal"> <img src="<c:url value="
+																			https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" />"
+																		name="aboutme" width="45" height="45"
+																		class="img-circle"
+																		style="border-radius: 25px;"></a>
+																	</div>
+																</li>
+																<li class="nav-item"><a class="nav-link"
+																		href="<c:url value=" #loginModal" />"
+																	data-toggle="modal"
+																	data-target="#loginModal">login</a></li>
+
+																<li class="nav-item">
+																	<a class="nav-link" href="<c:url value="
+																		#signupModal" />"
+																	data-toggle="modal"
+																	data-target="#signupModal">register</a>
+																</li>
+
+
+															</ul>
+														</div>
+													</nav>
 												</div>
-											</li>
-											<li class="nav-item"><a class="nav-link" href="<c:url value="
-													#loginModal" />"
-												data-toggle="modal"
-												data-target="#loginModal">login</a></li>
-
-											<li class="nav-item">
-												<a class="nav-link" href="<c:url value=" #signupModal" />"
-												data-toggle="modal"
-												data-target="#signupModal">register</a>
-											</li>
-
-
-										</ul>
-									</div>
-								</nav>
-							</div>
-						</div>
+											</div>
 
 
 
@@ -153,6 +180,43 @@
 									<form:form action="register" class="row" id="registrationForm" method="post"
 										modelAttribute="regiterbean">
 										<!-- <div class="col-12">
+							</li>
+							
+							<li class="nav-item"><a
+								class="nav-link"
+								href="<c:url value="#loginModal"/>" data-toggle="modal"
+								data-target="#loginModal">login</a></li>
+								
+								<li class="nav-item">
+								<a class="nav-link"
+									href="<c:url value="#signupModal"/>" data-toggle="modal"
+									data-target="#signupModal">register</a>
+							</li>
+
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		
+	</header>
+	
+	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0 p-4">
+            <div class="modal-header border-0">
+                <h3>Register</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="login">
+                <span>${success}</span>
+                <span>${error}</span>
+                    <form:form action="register" class="row" id = "registrationForm" method = "post" modelAttribute="regiterbean">
+                        <!-- <div class="col-12">
                             <input type="text" class="form-control mb-3" id="signupPhone" name="signupPhone" placeholder="Phone">
                         </div> -->
 										<div class="col-12">
@@ -376,7 +440,7 @@
 
 				<!-- Main Script -->
 				<script src="<c:url value=" /resources/js/script.js" />"></script>
-				<<<<<<< HEAD <script src="<c:url value=" /resources/js/register.js" />"></script>
+				<script src="<c:url value=" /resources/js/register.js" />"></script>
 				<script src="<c:url value=" /resources/js/login.js" />"></script>
 
 			</body>
