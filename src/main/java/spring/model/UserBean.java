@@ -4,17 +4,18 @@ import java.io.Serializable;
 
 public class UserBean implements Serializable {
 	private Integer userId;
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 	private String userName;
 	private String userEmail;
 	private String password;
 	private String gender;
 	private String userRole;
+  private boolean isLogin;
+  public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 	public String getGender() {
 		return gender;
 	}
@@ -45,4 +46,8 @@ public class UserBean implements Serializable {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
+  public boolean isLogin() {
+    return isLogin;
+  }
+
 }

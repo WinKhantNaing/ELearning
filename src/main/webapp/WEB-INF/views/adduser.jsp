@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,16 +15,21 @@
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
 
- 
+    <!-- Title Page-->
     <title>Adding New User Form</title>
 
-
-   
+    <!-- Icons font CSS-->
     <link href="<c:url value ="/adduserresources/vendor/mdi-font/css/material-design-iconic-font.min.css"/>" rel="stylesheet" media="all">
     <link href="<c:url value ="/adduserresources/vendor/font-awesome-4.7/css/font-awesome.min.css"/>" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
     <link href="<c:url value ="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"/>" rel="stylesheet">
+
+    <!-- Vendor CSS-->
     <link href="<c:url value ="/adduserresources/vendor/select2/select2.min.css"/>" rel="stylesheet" media="all">
     <link href="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.css"/>" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+
     <link href="<c:url value ="/adduserresources/css/main.css"/>" rel="stylesheet" media="all">
 </head>
 
@@ -35,7 +39,9 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Adding New User Form</h2>
+
                     <form:form action="createuser" method="post"  modelAttribute="userbean">
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -95,23 +101,19 @@
         </div>
     </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-        
-        <script>
-            $(document).ready( function () {
-            const dataTable = $('#table').DataTable({
-                "lengthMenu" : [3,5,10],
-                "pageLength" : 5,
-            });
-            
-        } );
-        </script>
+
+    <!-- Jquery JS-->
     <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
+    <!-- Vendor JS-->
     <script src="<c:url value ="/adduserresources/vendor/select2/select2.min.js"/>"></script>
     <script src="<c:url value ="/adduserresources/vendor/datepicker/moment.min.js"/>"></script>
     <script src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js"/>"></script>
+
+    <!-- Main JS-->
     <script src="<c:url value ="/adduserresources/js/global.js"/>"></script>
 
-</body>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>
+<!-- end document-->
+
