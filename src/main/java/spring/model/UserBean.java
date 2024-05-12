@@ -3,11 +3,18 @@ package spring.model;
 import java.io.Serializable;
 
 public class UserBean implements Serializable {
+	private Integer userId;
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 	private String userName;
 	private String userEmail;
 	private String password;
-	private String userRole;
 	private String gender;
+	private String userRole;
 	public String getGender() {
 		return gender;
 	}

@@ -4,71 +4,36 @@
   <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs
-	================================================== -->
   <meta charset="utf-8">
   <title>Educenter - Education HTML Template</title>
 
-  <!-- Mobile Specific Metas
-	================================================== -->
+ 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Construction Html5 Template">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="author" content="Themefisher">
   <meta name="generator" content="Themefisher Educenter HTML Template v1.0">
 
-  <!-- ** Plugins Needed for the Project ** -->
-  <!-- Bootstrap -->
- <!--  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css"> -->
  <link href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css" />" rel="stylesheet">
-  <!-- slick slider -->
- <!--  <link rel="stylesheet" href="plugins/slick/slick.css"> -->
   <link href="<c:url value="/resources/plugins/slick/slick.css" />" rel="stylesheet">
-  <!-- themefy-icon -->
-  <!-- <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css"> -->
   <link href="<c:url value="/resources/plugins/themify-icons/themify-icons.css" />" rel="stylesheet">
-  <!-- animation css -->
-  <!-- <link rel="stylesheet" href="plugins/animate/animate.css"> -->
   <link href="<c:url value="/resources/plugins/animate/animate.css" />" rel="stylesheet">
-  <!-- aos -->
-  <!-- <link rel="stylesheet" href="plugins/aos/aos.css"> -->
   <link href="<c:url value="/resources/plugins/aos/aos.css" />" rel="stylesheet">
-  <!-- venobox popup -->
-  <!-- <link rel="stylesheet" href="plugins/venobox/venobox.css"> -->
   <link href="<c:url value="/resources/plugins/venobox/venobox.css" />" rel="stylesheet">
-
-  <!-- Main Stylesheet -->
-  <!-- <link href="css/style.css" rel="stylesheet"> -->
   <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-
-  <!--Favicon-->
- <!--  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon"> -->
   <link href="<c:url value="/resources/images/favicon.png" />" rel="stylesheet">
- <!--  <link rel="icon" href="images/favicon.png" type="image/x-icon"> -->
   <link href="<c:url value="/resources/images/favicon.png" />" rel="stylesheet">
 
 </head>
-
 <body>
-  <!-- preloader start -->
   <div class="preloader">
     <img src="images/preloader.gif" alt="preloader">
   </div>
-  <!-- preloader end -->
-
-<!-- header -->
+  
 <header class="fixed-top header">
-  <!-- top header -->
   <div class="top-header py-2 bg-white">
     <div class="container">
       <div class="row no-gutters">
@@ -93,7 +58,7 @@
       </div>
     </div>
   </div>
-  <!-- navbar -->
+ 
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -156,8 +121,7 @@
     </div>
   </div>
 </header>
-<!-- /header -->
-<!-- Modal -->
+
 <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content rounded-0 border-0 p-4">
@@ -221,7 +185,6 @@
     </div>
 </div>
 
-<!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
@@ -235,14 +198,12 @@
     </div>
   </div>
 </section>
-<!-- /page title -->
 
-<!-- courses -->
 <section class="section">
   <div class="container">
-    <!-- course list -->
+    
 <div class="row justify-content-center">
-  <!-- course item -->
+
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
@@ -260,7 +221,7 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
+ 
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
@@ -296,7 +257,7 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
+  
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-4.jpg" alt="course thumb">
@@ -314,7 +275,7 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
+
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-5.jpg" alt="course thumb">
@@ -332,7 +293,7 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
+ 
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-6.jpg" alt="course thumb">
@@ -351,10 +312,7 @@
     </div>
   </div>
 </div>
-<!-- /course list -->
-    <!-- course list -->
 <div class="row justify-content-center">
-  <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
@@ -372,7 +330,6 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
@@ -390,7 +347,6 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-3.jpg" alt="course thumb">
@@ -408,7 +364,7 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
+  
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-4.jpg" alt="course thumb">
@@ -426,7 +382,6 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-5.jpg" alt="course thumb">
@@ -444,7 +399,6 @@
       </div>
     </div>
   </div>
-  <!-- course item -->
   <div class="col-lg-4 col-sm-6 mb-5">
     <div class="card p-0 border-primary rounded-0 hover-shadow">
       <img class="card-img-top rounded-0" src="images/courses/course-6.jpg" alt="course thumb">
@@ -463,14 +417,11 @@
     </div>
   </div>
 </div>
-<!-- /course list -->
   </div>
 </section>
-<!-- /courses -->
 
-<!-- footer -->
 <footer>
-  <!-- newsletter -->
+ 
   <div class="newsletter">
     <div class="container">
       <div class="row">
@@ -486,12 +437,12 @@
       </div>
     </div>
   </div>
-  <!-- footer content -->
+ 
   <div class="footer bg-footer section border-bottom">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
-          <!-- logo -->
+          
           <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>
           <ul class="list-unstyled">
             <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
@@ -500,7 +451,7 @@
             <li class="mb-2">contact@yourdomain.com</li>
           </ul>
         </div>
-        <!-- company -->
+       
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
           <h4 class="text-white mb-5">COMPANY</h4>
           <ul class="list-unstyled">
@@ -510,7 +461,7 @@
             <li class="mb-3"><a class="text-color" href="blog.html">Blog</a></li>
           </ul>
         </div>
-        <!-- links -->
+      
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
           <h4 class="text-white mb-5">LINKS</h4>
           <ul class="list-unstyled">
@@ -520,7 +471,7 @@
             <li class="mb-3"><a class="text-color" href="scholarship.html">Scholarship</a></li>
           </ul>
         </div>
-        <!-- support -->
+      
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
           <h4 class="text-white mb-5">SUPPORT</h4>
           <ul class="list-unstyled">
@@ -530,7 +481,7 @@
             <li class="mb-3"><a class="text-color" href="#!">Release Status</a></li>
           </ul>
         </div>
-        <!-- support -->
+       
         <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
           <h4 class="text-white mb-5">RECOMMEND</h4>
           <ul class="list-unstyled">
@@ -543,7 +494,6 @@
       </div>
     </div>
   </div>
-  <!-- copyright -->
   <div class="copyright py-4 bg-footer">
     <div class="container">
       <div class="row">
@@ -568,32 +518,15 @@
     </div>
   </div>
 </footer>
-<!-- /footer -->
 
-<!-- jQuery -->
-<!-- <script src="plugins/jQuery/jquery.min.js"></script> -->
 <script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
-<!-- Bootstrap JS -->
-<!-- <script src="plugins/bootstrap/bootstrap.min.js"></script> -->
 <script src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js" />"></script>
-<!-- slick slider -->
-<!-- <script src="plugins/slick/slick.min.js"></script> -->
 <script src="<c:url value="/resources/plugins/slick/slick.min.js" />"></script>
-<!-- aos -->
-<!-- <script src="plugins/aos/aos.js"></script> -->
 <script src="<c:url value="/resources/plugins/aos/aos.js" />"></script>
-<!-- venobox popup -->
-<!-- <script src="plugins/venobox/venobox.min.js"></script> -->
 <script src="<c:url value="/resources/plugins/venobox/venobox.min.js" />"></script>
-<!-- filter -->
-<!-- <script src="plugins/filterizr/jquery.filterizr.min.js"></script> -->
 <script src="<c:url value="/resources/plugins/filterizr/jquery.filterizr.min.js" />"></script>
-<!-- google map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
 <script src="plugins/google-map/gmap.js"></script>
-
-<!-- Main Script -->
-<!-- <script src="js/script.js"></script> -->
 <script src="<c:url value="/resources/js/script.js" />"></script>
 
 </body>
