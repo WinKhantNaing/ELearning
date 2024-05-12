@@ -108,8 +108,7 @@
 									<li><a class="dropdown-item" href="adduser">Add User</a></li>
                 					<li><a class="dropdown-item" href="addcourse">Add Course</a></li>
 								</ul>
-							</li>
-												        
+							</li>						       
 						</ul>
 					</div>
 				</nav>

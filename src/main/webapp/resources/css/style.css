@@ -32,8 +32,7 @@
         padding: 1px;
         font-family: monospace; /* Ensures monospaced font */
     }
-    
-
+   
 body {
   line-height: 1.2;
   font-family: "Poppins", sans-serif;
@@ -110,7 +109,6 @@ h6, .h6 {
     font-size: 14px;
   }
 }
-
 
 /* Button style */
 .btn {
@@ -199,8 +197,6 @@ h6, .h6 {
   border: 1px solid #fff !important;
 }
 
-
-
 body {
   background-color: #fff;
   overflow-x: hidden;
@@ -287,6 +283,7 @@ a h4:hover {
   padding-top: 25px;
   padding-bottom: 25px;
 }  
+
 .section-sm {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -294,8 +291,6 @@ a h4:hover {
 .section-title {
   margin-bottom: 30px;
 }
-
-
 
 .bg-cover {
   background-size: cover;
@@ -514,8 +509,6 @@ textarea.form-control {
 .navb{
 	background: white;
 }
-
-
 
 .navbar-nav {
   padding-left: 50px;
@@ -952,8 +945,6 @@ link:focus,
   border-color: #494a43 !important;
   padding-top: 275px;
 }
-
-
 
 /* /footer */
 .filter-controls li {
