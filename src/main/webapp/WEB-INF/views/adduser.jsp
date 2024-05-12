@@ -9,7 +9,6 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Colorlib Templates">
@@ -30,6 +29,7 @@
     <link href="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.css"/>" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
+
     <link href="<c:url value ="/adduserresources/css/main.css"/>" rel="stylesheet" media="all">
 </head>
 
@@ -39,7 +39,9 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Adding New User Form</h2>
-                    <form:form action="createuser" method="post"  modelAttribute="aubean">
+
+                    <form:form action="createuser" method="post"  modelAttribute="userbean">
+
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -99,6 +101,7 @@
         </div>
     </div>
 
+
     <!-- Jquery JS-->
     <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
     <!-- Vendor JS-->
@@ -113,3 +116,4 @@
 
 </html>
 <!-- end document-->
+

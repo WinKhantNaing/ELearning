@@ -45,6 +45,7 @@
 		<link href="<c:url value="/resources/css/color.css"/>" rel="stylesheet">
 		<link href="<c:url value='/resources/css/feedback.css'/>" rel="stylesheet"></link>
 
+
 		
 		
 		<link rel="shortcut icon"
@@ -64,7 +65,9 @@
 	</div>
 	
 	<header class="fixed-top header">
+
 		<%-- <%-- <div class="top-header py-2 bg-white">
+
 			<div class="container">
 				<div class="row no-gutters">
 					<div class="col-lg-8 text-center text-lg-right">
@@ -82,7 +85,9 @@
 					</div>
 				</div>
 			</div>
+
 		</div> --%> 
+
 		
 		<div class="navigation w-100">
 			<div class="container">
@@ -99,6 +104,7 @@
 					<div class="collapse navbar-collapse" id="navigation">
 						<ul class="navbar-nav ml-auto text-center">
 							<li class="nav-item active"><a class="nav-link"
+
 								href="<c:url value ="/" />">Home</a></li>
 
 							<li class="nav-item @@about"><a class="nav-link"
@@ -126,12 +132,13 @@
 									href="<c:url value="#signupModal"/>" data-toggle="modal"
 									data-target="#signupModal">register</a>
 							</li>
-												        
+
 						</ul>
 					</div>
 				</nav>
 			</div>
 		</div>
+
 		
 	</header>
 	
@@ -348,6 +355,7 @@
 		</div>
 	</footer>
 
+
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js"/>"></script>
 	<!-- Bootstrap JS -->
 	<script
@@ -369,8 +377,8 @@
 
 	<!-- Main Script -->
 	<script src="<c:url value="/resources/js/script.js"/>"></script>
+
 	<script src="<c:url value="/resources/js/register.js"/>"></script>
 	<script src="<c:url value="/resources/js/login.js"/>"></script>
-
 </body>	
 </html>

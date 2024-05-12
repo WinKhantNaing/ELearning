@@ -1,6 +1,5 @@
 package spring.controller;
 
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -47,6 +46,35 @@ import spring.repository.UserRepository;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+
+	@Autowired
+	UserdbRepositoty userrepo;
+
+	@GetMapping(value = "/adduser")
+	public ModelAndView showuser() {
+		return new ModelAndView("adduser", "userbean", new UserBean());
+	}
+
+	@PostMapping(value = "/createuser")
+	public String createUser(@ModelAttribute("userbean") UserBean bean) {
+		int result = userrepo.addUser(bean);
+		if (result > 0) {
+			// successful
+			return "redirect:adduser";
+		} else {
+			// fail
+			return "redirect:adduser";
+		}
+	}
+	
+	@GetMapping(value="/showusertb")
+	  public String showUser(Model m) {
+		List<UserBean> lstUser=userrepo.selectAllUser();
+	    m.addAttribute("lstUser",lstUser);
+	    return "showuser";
+	  }
+
 	
 	@Autowired
 	UserdbRepository userrepo;
@@ -182,32 +210,6 @@ public class UserController {
 	public String showAbout() {
 		return "about";
 	}
-
-	@GetMapping(value = "/course")
-	public String showCourse(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
-		
-//		UserDTO user = userrepo.loginUser(bean);
-//		session.setAttribute("user", user);
-		
-		return "course";
-	}
-
-	@GetMapping(value = "/login")
-	public ModelAndView showLogin() {
-		return new ModelAndView("login", "bean", new LoginDTO());
-
-	}
-
-	@GetMapping(value = "/adduser")
-	public String addUser() {
-		return "adduser";
-	}
-
-	@GetMapping(value = "/addcourse")
-	public String addCourse() {
-		return "addcourse";
-	}
-	
 	
 	public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
 		
@@ -280,5 +282,4 @@ public class UserController {
 		return null;
 		
 	}
-
 }
