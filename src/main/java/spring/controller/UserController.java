@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import spring.model.LoginDTO;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
+import spring.model.SingleLessonDTO;
 import spring.model.UserDTO;
 import spring.repository.UserRepository;
 
@@ -129,8 +131,13 @@ public class UserController {
 		
 	}
 	
-	public String showSingleLesson() {
-		return null;
+	@GetMapping("/show-single-lesson/{id}")
+	public String showSingleLesson(@PathVariable("id")int lessonId, Model m) {
+		
+		SingleLessonDTO slDTO = userrepo.selectOneLesson(lessonId);
+		m.addAttribute("slDTO", slDTO);
+		
+		return "singleLesson";
 		
 	}
 

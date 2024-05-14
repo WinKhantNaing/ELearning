@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import spring.model.LoginDTO;
 import spring.model.PriceCardDTO;
+import spring.model.SingleLessonDTO;
 import spring.model.UserDTO;
 
 
@@ -103,6 +104,32 @@ public class UserRepository {
 		return priceCardList;
 		
 		
+	}
+	
+	public SingleLessonDTO selectOneLesson(int lessonId) {
+		
+		SingleLessonDTO slDTO = null;
+		
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from lesson where id = ?");
+			ps.setInt(1, lessonId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				
+				slDTO = new SingleLessonDTO();
+				slDTO.setLessonId(rs.getInt("id"));
+				slDTO.setName(rs.getString("name"));
+				slDTO.setDescription(rs.getString("description"));
+				slDTO.setPurStatus(rs.getString("purchase_status"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Select single lesson : "+ e.getMessage());
+		}
+		
+		return slDTO;
+				
 	}
 
 }
