@@ -89,7 +89,7 @@
         <a class="nav-link " href="<c:url value="/complete"/>">Complete</a>
       </li>
     </ul>
-    <form:form class="form-inline my-2 my-lg-0" action="searchcourse" modelAttribute="course-bean" method="post">
+    <form:form class="form-inline my-2 my-lg-0" action="course/searchcourse" modelAttribute="course-bean" method="post">
       <form:input class="form-control mr-sm-2 " type="search" path="courseName" placeholder="Search courses" aria-label="Search" value="${searchCourse.courseName }"/>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="location.href = '<c:url value="/seeAllCourses"/>'">See All Course</button>

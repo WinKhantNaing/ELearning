@@ -1,0 +1,8 @@
+/* for description scrollbar */
+.code-container {
+        width: 100%; /* Adjust width as needed */
+        height: 110px; /* Adjust height as needed */
+        overflow: auto; /* This creates the scrollbar */
+        padding: 1px;
+        font-family: monospace; /* Ensures monospaced font */
+     }

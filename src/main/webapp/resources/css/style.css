@@ -13,6 +13,8 @@
   font-weight: normal;
   font-style: normal;
 }
+
+    
 body {
   line-height: 1.2;
   font-family: "Poppins", sans-serif;
@@ -20,6 +22,7 @@ body {
   font-size: 15px;
   color: #5c5c77;
 }
+
 
 p, .paragraph {
   font-weight: 400;
@@ -933,4 +936,13 @@ link:focus,
 .filter-controls li:hover {
   color: #ffbc3b;
 }
+
+/* for description scrollbar */
+.code-container {
+        width: 100%; /* Adjust width as needed */
+        height: 110px; /* Adjust height as needed */
+        overflow: auto; /* This creates the scrollbar */
+        padding: 1px;
+        font-family: monospace; /* Ensures monospaced font */
+     }
 /*# sourceMappingURL=style.css.map */

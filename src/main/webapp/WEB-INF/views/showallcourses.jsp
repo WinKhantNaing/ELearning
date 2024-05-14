@@ -32,7 +32,7 @@
 <jsp:include page="indexheader.jsp" />
     <div style="margin-top: 150px;height:100vh; background-color:#A16D00;">
         <div style="display:flex; justify-content:end;">
-            <a href="addcourse"><button type="button" class="btn btn-primary" style="margin-right:20px;">Add Course</button></a>
+            <a href='<c:url value="../course/addcourse"/>'><button type="button" class="btn btn-primary" style="margin-right:20px;">Add Course</button></a>
         </div>
         <div class="scrollable-table">
             <table class="table table-striped" id="stduentTable">
@@ -41,7 +41,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Course ID</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Description</th>
+                       <!--  <th scope="col">Description</th> -->
                         <th scope="col">Status</th>
                         <th scope="col">Update/Delete</th>
                     </tr>
@@ -50,9 +50,9 @@
                     <c:forEach items="${courseLst}" var="course" varStatus="index">
                         <tr>
                             <td scope="row">${index.count}</td>
-                            <td>${course.prefix}00${course.courseId }</td>
+                            <td>${course.coursePrefix}00${course.courseId }</td>
                             <td>${course.courseName}</td>
-                            <td>${course.courseDescription}</td>
+                            <%-- <td>${course.courseDescription}</td> --%>
                             <td>${course.courseStatus}</td>
                             <td>
                                 <a href="updateCourse?cid=${course.courseId}"><button type="button" class="btn btn-primary">Update</button></a>

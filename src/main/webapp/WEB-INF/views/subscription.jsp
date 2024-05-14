@@ -27,7 +27,7 @@
                             <li>Progress tracking</li>
                             <li>Early access to upcoming features and events</li>
                         </ul>
-                        <button type="button" onclick="location.href='<c:url value=" /subcription/${list.subId}" />' "
+                        <button type="button" onclick="location.href='<c:url value=" /course/subcription/${list.subId}" />' "
                         class="button">BUY</button>
                     </div>
 

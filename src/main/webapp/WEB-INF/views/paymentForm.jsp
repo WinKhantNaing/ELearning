@@ -78,7 +78,7 @@
                     
                 </div>
                 <div class="panel-body">
-                    <form:form  action="../subscribe" modelAttribute="paymentbean" method="post">
+                    <form:form  action="../course/subscribe" modelAttribute="paymentbean" method="post">
                         <div class="row">
                         <div class="method-container">
    <div class="col-lg-3 col-sm-6 mb-4">

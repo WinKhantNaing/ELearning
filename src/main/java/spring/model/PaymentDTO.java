@@ -9,9 +9,9 @@ public class PaymentDTO {
 	
 	private Integer paymentId;
 	private Integer userId;
-	private Integer subscriptionId;
+	private Integer subId;
 	private String paymentMethod;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 
 }

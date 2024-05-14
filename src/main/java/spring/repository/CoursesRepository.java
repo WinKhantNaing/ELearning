@@ -6,16 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import spring.model.CourseStatusTDO;
 import spring.model.CoursesBean;
-import spring.model.EnrollmentBean;
-import spring.model.PaySubBean;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
-import spring.model.UnitBean;
-import spring.model.UserBean;
-
 public class CoursesRepository {
 
 	public List <CoursesBean> getCourses() {
@@ -23,7 +16,7 @@ public class CoursesRepository {
 		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from lesson");
+			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -33,6 +26,7 @@ public class CoursesRepository {
 				courseBean.setCourseStatus(rs.getString("status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
+				
 				courseList.add(courseBean);
 			}
 		} catch (SQLException e) {
@@ -41,7 +35,31 @@ public class CoursesRepository {
 		return courseList; 
 	}
 	
-	public List<CoursesBean> getCompleteCourses(/* UserBean bean */) {
+	public List <CoursesBean> getHomeCourses() {
+		Connection con = ConnectionClass.getConnection();
+		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
+		CoursesBean courseBean = null;
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1 order by id  limit 6");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				courseBean = new CoursesBean();
+				courseBean.setCourseId(rs.getInt("id"));
+				courseBean.setCoursePrefix(rs.getString("prefix"));
+				courseBean.setCourseName(rs.getString("name"));
+				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseImagePath(rs.getString("image"));
+				courseBean.setCourseDescription(rs.getString("description"));
+				
+				courseList.add(courseBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Get Courses :" +e.getMessage());
+		}
+		return courseList; 
+	}
+	
+	public List<CoursesBean> getCompleteCourses(int userId) {
 		Connection con = ConnectionClass.getConnection();
 		List<CoursesBean> courseCompleteList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
@@ -51,11 +69,11 @@ public class CoursesRepository {
 					+ "JOIN (\r\n"
 					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
 					+ "    FROM unit\r\n"
-					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = 1\r\n"
+					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = ?\r\n"
 					+ "    GROUP BY unit.lesson_id\r\n"
 					+ ") eu ON eu.lesson_id = lesson.id\r\n"
 					+ "WHERE eu.total_units = eu.completed_units");
-			/* ps.setInt(1, bean.getUserId()); */
+			 ps.setInt(1, userId); 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -73,7 +91,7 @@ public class CoursesRepository {
 		return courseCompleteList; 
 	}
 	
-	public List<CoursesBean> getProgressCourses(/* UserBean bean */) {
+	public List<CoursesBean> getProgressCourses(int userId) {
 		Connection con = ConnectionClass.getConnection();
 		List<CoursesBean> courseProgressList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
@@ -83,11 +101,11 @@ public class CoursesRepository {
 					+ "JOIN (\r\n"
 					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
 					+ "    FROM unit\r\n"
-					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = 1\r\n"
+					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = ?\r\n"
 					+ "    GROUP BY unit.lesson_id\r\n"
 					+ ") eu ON eu.lesson_id = lesson.id\r\n"
 					+ "WHERE eu.total_units <> eu.completed_units");
-			/* ps.setInt(1, bean.getUserId()); */
+			 ps.setInt(1, userId); 
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -129,30 +147,7 @@ public class CoursesRepository {
 		return searchList;
 	}
 	
-	// FOR MA MYO LAE OO(show course subscription plan history)
-	public List<PaySubBean> getUserHistoryPlan(/* UserBean user */){
-		List<PaySubBean> paySubList = new ArrayList<PaySubBean>();
-		 PaySubBean bean = null;
-		 Connection con = ConnectionClass.getConnection();
-		 try {
-			PreparedStatement ps = con.prepareStatement("select sub.subscriptionplan, sub.duration , pay.start_date , pay.end_date \r\n"
-					+ "from subscription sub  join payment pay on pay.subscription_id=sub.id and pay.user_id=1 order by  pay.start_date desc");
-			/* ps.setInt(1, user.getUserId()); */
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				bean = new PaySubBean();
-				bean.setSubPlan(rs.getString("subscriptionplan"));
-				bean.setDuration(rs.getString("duration"));
-				bean.setStartDate(rs.getString("start_date"));
-				bean.setEndDate(rs.getString("end_date"));
-				paySubList.add(bean);
-			}
-		} catch (SQLException e) {
-			System.out.println("Getting payment and description : " + e.getMessage());
-		}
-		 return paySubList;
-	}
-	
+		
 	//for ma toe yadanarkyaw (show course subscriptionplan)
 	public List<PriceCardDTO> getPricePlan(){
 		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
@@ -202,7 +197,7 @@ public class CoursesRepository {
 			PreparedStatement ps= con.prepareStatement("insert into payment (user_id,subscription_id,method,start_date, end_date) values(?,?,?,?,?)");
 			ps.setInt(1, bean.getUserId());
 			ps.setInt(2, bean.getSubId());
-			ps.setString(3, bean.getMethod());
+			ps.setString(3, bean.getPaymentMethod());
 			ps.setString(4, bean.getStartDate());
 			ps.setString(5, bean.getEndDate());
 			result = ps.executeUpdate();
@@ -210,5 +205,97 @@ public class CoursesRepository {
 			System.out.println("Adding subscription plan : " + e.getMessage());
 		}
 		return result;
+	}
+	public int insertcourse(CoursesBean cbean) {
+		int result = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, imagepath) values (?,?,?,?)");
+			ps.setString(1, cbean.getCourseName());
+			ps.setString(2, cbean.getCourseDescription());
+			ps.setString(3, cbean.getCourseStatus());
+			ps.setString(4, cbean.getCourseImagePath());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("insert course : " + e.getMessage());
+		}
+		return result;
+		
+	}
+	/*
+	 * public List<CourseBean> getAllCourse(){ List<CourseBean> allCourseLst = new
+	 * ArrayList<>(); CourseBean cbean = null; Connection con =
+	 * ConnectionClass.getConnection(); try { PreparedStatement ps =
+	 * con.prepareStatement("select * from lesson where isactive=1"); ResultSet rs =
+	 * ps.executeQuery(); while (rs.next()) { cbean = new CourseBean();
+	 * cbean.setCourseId(rs.getInt("id")); cbean.setPrefix(rs.getString("prefix"));
+	 * cbean.setCourseName(rs.getString("name"));
+	 * cbean.setCourseDescription(rs.getString("description"));
+	 * cbean.setCourseStatus(rs.getString("status"));
+	 * cbean.setCourseImagePath(rs.getString("imagepath")); allCourseLst.add(cbean);
+	 * 
+	 * }
+	 * 
+	 * } catch (SQLException e) { System.out.println("get all course: " +
+	 * e.getMessage()); } return allCourseLst;
+	 * 
+	 * }
+	 */
+	
+	public CoursesBean getOneCourse(int CourseId) {
+		Connection con = ConnectionClass.getConnection();
+		CoursesBean cbean = null;
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from lesson where id = ?");
+			ps.setInt(1, CourseId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				cbean = new CoursesBean();
+				cbean.setCourseId(rs.getInt("id"));
+				cbean.setCoursePrefix(rs.getString("prefix"));
+				cbean.setCourseName(rs.getString("name"));
+				cbean.setCourseStatus(rs.getString("status"));
+				cbean.setCourseDescription(rs.getString("description"));
+				cbean.setCourseImagePath(rs.getString("imagepath"));
+				cbean.setIsActive(rs.getInt("isactive"));			}
+		} catch (SQLException e) {
+			System.out.println("get one course: " + e.getMessage());
+		}
+		
+		return cbean;
+		
+	}
+	//for Admin
+	public int updatecourse(CoursesBean bean) {
+		int result = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, imagepath = ? WHERE id = ?");
+			ps.setString(1,bean.getCourseName());
+			ps.setString(2, bean.getCourseDescription());
+			ps.setString(3, bean.getCourseStatus());
+			ps.setString(4, bean.getCourseImagePath());
+			ps.setInt(5, bean.getCourseId());
+			result = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("update course: " + e.getMessage());
+		}
+		return result;
+		
+	}
+	// for Adimn
+	public int delete(int id) {
+		int result = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("update lesson set isactive = 0 where id = ?");
+			ps.setInt(1, id);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delete course: " + e.getMessage());
+		}
+		return result;
+		
 	}
 }

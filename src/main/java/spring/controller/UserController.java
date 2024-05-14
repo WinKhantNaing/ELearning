@@ -17,12 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.model.UserBean;
-import spring.repository.UserdbRepository;
 import spring.model.CoursesBean;
 import spring.model.PaySubBean;
 import spring.model.PhotoDto;
@@ -34,6 +34,7 @@ import org.springframework.web.util.HttpSessionMutexListener;
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
 import spring.model.UserBean;
+import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -41,15 +42,64 @@ import spring.model.LoginDTO;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
 import spring.model.UserDTO;
+import spring.model.SingleLessonDTO;
 import spring.repository.UserRepository;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-
 	@Autowired
-	UserdbRepositoty userrepo;
+	UserRepository userrepo;
+	CoursesRepository courserepo;
+	ServletContext context;
+
+	@GetMapping(value = "/index")
+	public ModelAndView home() {
+		return new ModelAndView("indexheader");
+	}
+
+	@ModelAttribute("registerbean")
+	public RegisterBean getRegisterBean() {
+		RegisterBean rbean = new RegisterBean();
+		return rbean;
+	}
+
+	@ModelAttribute("loginbean")
+	public LoginBean getLoginBean() {
+		LoginBean lbean = new LoginBean();
+		return lbean;
+	}
+
+	@PostMapping(value = "/register")
+	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
+		int result = userrepo.insertUser(bean);
+		if (result < 0) {
+			m.addAttribute("success", "Register Course Successful");
+
+		} else {
+			m.addAttribute("error", "Register course fail");
+
+		}
+		return "redirect:/";
+
+	}
+
+	@PostMapping(value = "/login")
+	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session) {
+		boolean isLogin = false;
+		UserBean ubean = userrepo.selectUser(bean);
+		if (ubean == null) {
+			System.out.println("fail");
+			return "redirect:/";
+		} else {
+			session.setAttribute("sessionId", ubean.getUserId());
+			isLogin = true;
+			session.setAttribute("sessionLogin", isLogin);
+			return "home";
+
+		}
+	}
 
 	@GetMapping(value = "/adduser")
 	public ModelAndView showuser() {
@@ -67,174 +117,41 @@ public class UserController {
 			return "redirect:adduser";
 		}
 	}
-	
-	@GetMapping(value="/showusertb")
-	  public String showUser(Model m) {
-		List<UserBean> lstUser=userrepo.selectAllUser();
-	    m.addAttribute("lstUser",lstUser);
-	    return "showuser";
-	  }
 
-	
-	@Autowired
-	UserdbRepository userrepo;
-	ServletContext context;
-	
-	
-	@GetMapping(value="/profile")
-	public ModelAndView checklogin(HttpSession session,Model m) {
-		ProfileDto user=new ProfileDto();
-		user=userrepo.profileUser();
-			session.setAttribute("user",user);
-		int i=userrepo.levelCount();
-		String level=null;
-			if(i>=1 && i<=10) {
-				level="Bronze";
-			}else if(i>=11 && i<=20){
-				level="Silver";
-			}else if(i>=21 && i<=30){
-				level="Gold";
-			}else if(i>=31 && i<=40){
-				level="Platinum";
-			}else if(i>=41 && i<=50){
-				level="Diamond";
-			}
-			m.addAttribute("level", level);
-		boolean status=userrepo.subscription();
-		String subscription=null;
-			if(status==true) {
-				subscription="PremiumUser";
-			}else {
-				subscription="FreeUser";
-			}
-		m.addAttribute("subscription", subscription);
-		List<CoursesBean> lstUserCourse=userrepo.getCompleteCourses();
-		m.addAttribute("lstUserCourse",lstUserCourse);
-		
-		ModelAndView mv = new ModelAndView("profile", "pbean",new PhotoDto() );
-			return mv;
+	@GetMapping(value = "/showusertb")
+	public String showUser(Model m) {
+		List<UserBean> lstUser = userrepo.selectAllUser();
+		m.addAttribute("lstUser", lstUser);
+		return "showuser";
 	}
-	
-	
-	@PostMapping(value="/profilePhoto")
-	public String showphoto(@ModelAttribute("pbean")PhotoDto photo) {
-		int result=userrepo.insertPhoto(photo);
-		if(result>0) {
-			System.out.println("profile photo upload success.");
-		}else {
-			System.out.println("profile photo upload fail.");
-		}
-		return "redirect:profile";
-	}
-	
-	 // FOR MA MYO LAE OO(show course subscription plan history)
-	 @ModelAttribute("payDescription")
-	 public List<PaySubBean> getPaymentDescription(){
-		 List<PaySubBean> payList = new ArrayList<PaySubBean>();
-		 payList = userrepo.getUserHistoryPlan();
-		 return payList;
-	 
-	 }
-	
-	
-	
-	
-	@GetMapping(value="/adduser")
-	public ModelAndView showuser() {
-		UserBean user=new UserBean();
-		user.setGender("Male");
-		return new ModelAndView("adduser","aubean",user);
-	}
-	
-	@PostMapping(value="/createuser")
-	public String createUser(@ModelAttribute("aubean")UserBean bean) {
-		int result=userrepo.addUser(bean);
-		if(result>0) {
-			return "/";
-		}else {
-			return "redirect:/adduser";
-		}
-	
-	@GetMapping(value = "/")
-	public ModelAndView home() {
-		return new ModelAndView("indexheader");
-	}
-	@ModelAttribute("regiterbean")
-	public RegisterBean getRegisterBean() {
-		RegisterBean rbean = new RegisterBean();
-		return rbean;
-	}
-	@ModelAttribute("loginbean")
-	public LoginBean getLoginBean() {
-		LoginBean lbean = new LoginBean();
-		return lbean;
-	}
-	
-
-	
-	
-	@PostMapping(value = "register")
-	public String Register(@ModelAttribute("registerbean") RegisterBean bean,Model m) {
-		UserRepository repo = new UserRepository();
-		int result = repo.insertUser(bean);
-		if(result < 0) {
-			m.addAttribute("success","Register Course Successful");
-			return "redirect:/";
-		}else {
-			m.addAttribute("error","Register course fail");
-			return "redirect:/";
-		}	
-	
-}
-	@PostMapping(value = "login")
-	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session){
-		boolean isLogin = false;
-		UserRepository userrepo=new UserRepository();
-		UserBean ubean = new UserBean();
-		ubean = userrepo.selectUser(bean);
-		if (ubean == null) {
-			System.out.println("fail");
-			return "redirect:/";
-		} else {
-			System.out.println("successful");
-			session.setAttribute("session", ubean.getUseremail());
-			isLogin = true;
-			session.setAttribute("session", isLogin);
-			return "indexheader";
-			
-			
-		}
-
 
 	@GetMapping(value = "/about")
 	public String showAbout() {
 		return "about";
 	}
-	
-	public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
-		
-		boolean isLogin = false;
-		UserDTO user = userrepo.loginUser(bean);
-		if(user != null) {
-			
-			isLogin = true;
-		}
-		session.setAttribute("user", isLogin);
-		session.setAttribute("user", user.getUserId());
-		
-	}
+	/*
+	 * public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession
+	 * session) {
+	 * 
+	 * boolean isLogin = false; UserDTO user = userrepo.loginUser(bean); if(user !=
+	 * null) {
+	 * 
+	 * isLogin = true; } session.setAttribute("user", isLogin);
+	 * session.setAttribute("user", user.getUserId());
+	 * 
+	 * }
+	 */
 
-	
 	@PostMapping(value = "/check-login")
-	public String checkLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession session) {
+	public String checkLogin(HttpSession session) {
 
 		/* UserDTO user = (UserDTO) session.getAttribute("user"); */
-		UserDTO user = userrepo.loginUser(bean);
-		session.setAttribute("user", user);
+//		UserDTO user = userrepo.loginUser(bean);
+		boolean isLogin = (boolean) session.getAttribute("isLogin");
 
-		if (user != null) {
+		if (isLogin) {
 
-			System.out.print("Username" + user.getUserName());
+//			System.out.print("Username" + user.getUserName());
 //			return new ModelAndView(new RedirectView("check-payment"));
 			return "redirect:/check-payment";
 		}
@@ -254,32 +171,38 @@ public class UserController {
 		boolean status = userrepo.checkPayment(user.getUserId());
 		if (status) {
 
-			return "redirect:/unit";
+			return "redirect:../unit/showunit";
 		} else {
-			return "redirect:/subscription-plan";
+			return "redirect:../course/subscribe";
 		}
 
 	}
-
-	@GetMapping(value = "/subscription-plan")
-	public String subscribePayment(Model m) {
+	@GetMapping("/show-single-lesson/{id}")
+	public String showSingleLesson(@PathVariable("id")int lessonId, Model m) {
 		
-		List<PriceCardDTO>priceCardList = userrepo.showPrice();
-		m.addAttribute("priceCardList", priceCardList);
+		SingleLessonDTO slDTO = userrepo.selectOneLesson(lessonId);
+		m.addAttribute("slDTO", slDTO);
 		
-		return "subscriptionPlan";
+		return "redirect:check-login";
 	}
 
-	@GetMapping(value = "/confirm-payment")
-	public String confirmPayment() {
-		
-		
-		return "paymentConfirmation";
-		
-	}
-	
-	public String showSingleLesson() {
-		return null;
-		
-	}
+	/*
+	 * @GetMapping(value = "/subscription-plan") public String
+	 * subscribePayment(Model m) {
+	 * 
+	 * List<PriceCardDTO> priceCardList = userrepo.showPrice();
+	 * m.addAttribute("priceCardList", priceCardList);
+	 * 
+	 * return "subscriptionPlan"; }
+	 * 
+	 * @GetMapping(value = "/confirm-payment") public String confirmPayment() {
+	 * 
+	 * return "paymentConfirmation";
+	 * 
+	 * }
+	 * 
+	 * public String showSingleLesson() { return null;
+	 * 
+	 * }
+	 */
 }

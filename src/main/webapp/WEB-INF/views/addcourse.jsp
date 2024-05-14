@@ -17,24 +17,22 @@
                 <title>Adding New Course Form</title>
 
                 <!-- Icons font CSS-->
-                <link href="<c:url value ="
-                    /adduserresources/vendor/mdi-font/css/material-design-iconic-font.min.css" />" rel="stylesheet"
+                <link href="<c:url value ="/adduserresources/vendor/mdi-font/css/material-design-iconic-font.min.css" />" rel="stylesheet"
                 media="all">
-                <link href="<c:url value =" /adduserresources/vendor/font-awesome-4.7/css/font-awesome.min.css" />"
+                <link href="<c:url value ="/adduserresources/vendor/font-awesome-4.7/css/font-awesome.min.css" />"
                 rel="stylesheet" media="all">
                 <!-- Font special for pages-->
-                <link href="<c:url value ="
-                    https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" />
+                <link href="<c:url value ="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" />
                 " rel="stylesheet">
 
                 <!-- Vendor CSS-->
-                <link href="<c:url value =" /adduserresources/vendor/select2/select2.min.css" />" rel="stylesheet"
+                <link href="<c:url value ="/adduserresources/vendor/select2/select2.min.css" />" rel="stylesheet"
                 media="all">
-                <link href="<c:url value =" /adduserresources/vendor/datepicker/daterangepicker.css" />"
+                <link href="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.css" />"
                 rel="stylesheet" media="all">
 
                 <!-- Main CSS-->
-                <link href="<c:url value =" /adduserresources/css/main.css" />" rel="stylesheet" media="all">
+                <link href="<c:url value ="/adduserresources/css/main.css" />" rel="stylesheet" media="all">
             </head>
 
             <body>
@@ -53,8 +51,7 @@
 
                                             <label class="label">Title</label>
 
-                                            <form:input path="courseName" class="input--style-4" style="width:300px;">
-                                            </form:input>
+                                            <form:input path="courseName" class="input--style-4" style="width:300px;" />
                                         </div>
                                     </div>
 
@@ -70,8 +67,7 @@
                                                         <span class="checkmark"></span>
                                                     </label>
                                                     <label class="radio-container">Premium
-                                                        <form:radiobutton path="courseStatus" value="premium">
-                                                        </form:radiobutton>
+                                                        <form:radiobutton path="courseStatus" value="premium"/>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </div>
@@ -81,9 +77,7 @@
                                     <div>
                                         <label class="label">Write description about lesson</label>
                                         <div class="wrapper-ta">
-                                            <form:textarea path="courseDescription" name="the-textarea"
-                                                id="the-textarea" maxlength="300" placeholder="Start Typin...">
-                                            </form:textarea>
+                                            <form:textarea path="courseDescription" name="the-textarea" id="the-textarea" maxlength="300" placeholder="Start Typin..."/>
                                             <div id="the-count">
                                                 <span id="current">0</span>
                                                 <span id="maximum">/300</span>
@@ -123,17 +117,16 @@
                 </div>
 
                 <!-- Jquery JS-->
-                <script src="<c:url value =" /adduserresources/vendor/jquery/jquery.min.js" />"></script>
+                <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js" />"></script>
                 <!-- Vendor JS-->
-                <script src="<c:url value =" /adduserresources/vendor/select2/select2.min.js" />"></script>
-                <script src="<c:url value =" /adduserresources/vendor/datepicker/moment.min.js" />"></script>
-                <script src="<c:url value =" /adduserresources/vendor/datepicker/daterangepicker.js" />"></script>
+                <script src="<c:url value ="/adduserresources/vendor/select2/select2.min.js" />"></script>
+                <script src="<c:url value ="/adduserresources/vendor/datepicker/moment.min.js" />"></script>
+                <script src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js" />"></script>
 
                 <!-- Main JS-->
-                <script src="<c:url value =" /adduserresources/js/global.js" />"></script>
+                <script src="<c:url value ="/adduserresources/js/global.js" />"></script>
 
-                <script class="jsbin" src="<c:url value ="
-                    https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" />"></script>
+                <script class="jsbin" src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" />"></script>
             </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
             </html>
