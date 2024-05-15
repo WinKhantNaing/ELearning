@@ -70,15 +70,6 @@ public class CourseController {
 	public String courses() {
 		return "courses";
 	}
-
-	// for ma toe yadanarkyaw (show course subscriptionplan)
-		@ModelAttribute("subscriptionplan")
-		public List<PriceCardDTO> showPriceSubscription() {
-			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-			priceList = courserepo.getPricePlan();
-			return priceList;
-		}
-
 	
 
 	@GetMapping(value = "/seeAllCourses")
@@ -178,7 +169,7 @@ public class CourseController {
 	@PostMapping(value = "savecourse")
 	public String saveCourse(@ModelAttribute("coursebean") CoursesBean coursebean) {
 		MultipartFile image = coursebean.getCourseImage();
-		String UPLOAD_DIRECTORY = "D:\\PFC online class\\EclipseWorkspace\\ELearningProject\\src\\main\\webapp\\resources\\images\\logoimg";
+		String UPLOAD_DIRECTORY = "D:\\JWD51\\ELearningProject\\src\\main\\webapp\\resources\\images\\courses";
 		String filename = image.getOriginalFilename();
 		System.out.println(UPLOAD_DIRECTORY + " " + filename);
 
@@ -187,7 +178,7 @@ public class CourseController {
 				// Convert MultipartFile to byte array
 				byte[] photoBytes = image.getBytes();
 				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(UPLOAD_DIRECTORY + File.separator + filename)));
+				new FileOutputStream(new File(UPLOAD_DIRECTORY + File.separator + filename)));
 				stream.write(photoBytes);
 				stream.flush();
 				stream.close();

@@ -6,3 +6,16 @@
         padding: 1px;
         font-family: monospace; /* Ensures monospaced font */
      }
+     
+      /*for no course message*/
+      .search-course{
+	color: red;
+	padding: 1px;
+	width: 100%;
+	align-items: center;
+	text-align: center;
+	font-size: 20px;
+}
+list-inline-item{
+	font-size: 14px;
+}

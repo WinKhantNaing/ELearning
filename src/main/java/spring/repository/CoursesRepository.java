@@ -210,7 +210,7 @@ public class CoursesRepository {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, imagepath) values (?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, image) values (?,?,?,?)");
 			ps.setString(1, cbean.getCourseName());
 			ps.setString(2, cbean.getCourseDescription());
 			ps.setString(3, cbean.getCourseStatus());

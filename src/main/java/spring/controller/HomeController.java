@@ -40,7 +40,7 @@ public class HomeController {
 
 	@GetMapping(value = "/")
 	public String home() {
-		return "home";
+		return "subscription";
 	}
 
 	@ModelAttribute("registerbean")
@@ -54,7 +54,14 @@ public class HomeController {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
-	
+	// for ma toe yadanarkyaw (show course subscriptionplan)
+			@ModelAttribute("subscriptionplan")
+			public List<PriceCardDTO> showPriceSubscription() {
+				List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+				priceList = courserepo.getPricePlan();
+				return priceList;
+			}
+
 	@ModelAttribute("courseList")
 	public List<CoursesBean> getAllCourses() {
 		List<CoursesBean> courseList = new ArrayList<CoursesBean>();

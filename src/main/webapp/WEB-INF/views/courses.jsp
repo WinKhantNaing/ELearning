@@ -56,11 +56,9 @@
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
 </head>
 
 <body>
-
 	<!-- header -->
 	<jsp:include page="indexheader.jsp"></jsp:include>
 	<!-- page title -->
@@ -94,35 +92,32 @@
 				</button>
 				<div class="collapse navbar-collapse " id="navbarTogglerDemo01">
 				<%-- <c:set var="login" scope="session" value="${sessionLogin }"/> --%>
-				<c:if test="${sessionLogin==true}">
+				
 				<ul class="navbar-nav navb mr-auto mt-2 mt-lg-0 bg-warning">
-
+                 <c:if test="${sessionLogin==true}"> 
 						<li class="nav-item"><a class="nav-link"
 							href="<c:url value="../course/progress" />">Progress</a></li>
 						<li class="nav-item"><a class="nav-link "
 							href="<c:url value="../course/complete" />">Complete</a></li>
+					 </c:if>
 					</ul>
-				</c:if>
-					
-
-					<form:form class="form-inline my-2 my-lg-0"
+					<form:form class="form-inline my-2 my-lg-0 "
 						action="../course/searchcourse" modelAttribute="course-bean"
 						method="post">
 						<form:input class="form-control mr-sm-2" type="search"
 							path="courseName" placeholder="Search courses"
 							aria-label="Search" value="${searchCourse.courseName }" />
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						<button class="btn btn-outline-success my-2 my-sm-0 bg-warning" type="submit">Search</button>
 
 					</form:form>
-					<button class="btn my-2 my-sm-0" type="button"
-						onclick="location.href ='<c:url value="../course/seeAllCourses" />'">See
-						All Course</button>
+					<button class="btn my-2 my-sm-0 nav-item bg-warning" type="button"
+						onclick="location.href ='<c:url value="../course/seeAllCourses" />'">All Course</button>
 				</div>
 			</nav>
 		</div>
 	</section>
 	<div class="search-course">${message}</div>
-	<section class="section">
+	<section class="section pt-4">
 
 		<div class="container">
 
@@ -133,28 +128,28 @@
 					<div class="col-lg-4 col-sm-6 mb-5">
 						<div class="card p-0 border-primary rounded-0 hover-shadow">
 							<div class="card p-0 border-primary rounded-0">
-								<img class="card-img-top rounded-0"
+								<img class="card-img-top rounded-0" style="height:300px;"
 									src="<c:url value='${course.courseImagePath }' />"
 									alt="course thumb">
 							</div>
 
 							<div class="card-body">
 								<ul class="list-inline mb-2">
+								<a href="#">
+									<h4 class="card-title">${course.courseName }</h4>
+								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
 										${course.courseStatus}</li>
 									<!-- <li class="list-inline-item"><a class="text-color" href="ToeYadanaKyaw">Humanities</a></li> -->
 								</ul>
-								<a href="course-single.html">
-									<h4 class="card-title">${course.courseName }</h4>
-								</a>
+								
 								<div class="code-container">
 									<p class="card-text mb-3" id="scrollspyHeading1">
 										${course.courseDescription }</p>
 								</div>
 								<div class="mt-2">
 									<a href="<c:url value="../user/show-single-lesson/${course.courseId}" />"
-										class="btn btn-primary
-                        btn-sm">Apply
+										class="btn btn-primary btn-sm">Apply
 										now</a>
 								</div>
 							</div>
@@ -165,7 +160,7 @@
 
 		</div>
 	</section>
-	<jsp:include page="feedbackform.jsp"></jsp:include>
+	<jsp:include page="feedback.jsp"></jsp:include>
 	<!-- /courses -->
 	<jsp:include page="indexfooter.jsp"></jsp:include>
 	<!-- jQuery -->
