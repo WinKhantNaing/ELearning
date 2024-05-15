@@ -57,6 +57,7 @@
 
 <body>
 
+<span>${login}</span>
 	
 	<div class="preloader">
 		<img src="<c:url value="/resources/images/preloader.gif"/>"
@@ -149,9 +150,6 @@
                 <span>${success}</span>
                 <span>${error}</span>
                     <form:form action="register" class="row" id = "registrationForm" method = "post" modelAttribute="regiterbean">
-                        <!-- <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupPhone" name="signupPhone" placeholder="Phone">
-                        </div> -->
                         <div class="col-12">
                         <span id="usernameError" class="error"></span>
                             <form:input type="text" path = "uname" class="form-control mb-3" id="username" name="signupName" placeholder="Name"/>
@@ -211,36 +209,41 @@
 <footer>
 		<!-- newsletter -->
 		<!-- Start DEMO HTML (Use the following code into your project)-->
-
+		
+		<c:if test="${sessionLogin == true}">
 		<div class="newsletter">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
 						<h3 class="text-white">Rate Your Experiences</h3>
-						<form action="#">
+						<form:form action="Feedback" method = "post" modelAttribute = "give">
 							<div class="input-wrapper">
 								<div class="rate-box">
-
-									<input type="radio" name="star" id="star0" /> <label
-										class="star" for="star0"></label> <input type="radio"
-										name="star" id="star1" /> <label class="star" for="star1"></label>
-									<input type="radio" name="star" id="star2" checked="checked" />
-									<label class="star" for="star2"></label> <input type="radio"
-										name="star" id="star3" /> <label class="star" for="star3"></label>
-									<input type="radio" name="star" id="star4" /> <label
+		
+									<form:radiobutton path = "rating" name="star" value="1" id="star0" /> <label
+										class="star" for="star0"></label> <form:radiobutton
+										path = "rating" name="star" value="2" id="star1" /> <label class="star" for="star1"></label>
+									<form:radiobutton path = "rating" name="star" value="3" id="star2" checked="checked" />
+									<label class="star" for="star2"></label> <form:radiobutton
+										path = "rating" name="star" value="4" id="star3" /> <label class="star" for="star3"></label>
+									<form:radiobutton path = "rating" name="star" value="5" id="star4" /> <label
 										class="star" for="star4"></label>
 
 								</div>
-								<input type="text" class="form-control border-0" id="newsletter"
-									name="newsletter" placeholder="Enter Your Email...">
+								<form:input type="text" path = "comment" class="form-control border-0" id="newsletter"
+									name="newsletter" placeholder="Enter Your Email..."/>
 								<button type="submit" value="send" class="btn btn-primary"
 									style="margin-top: 21px">Join</button>
 							</div>
-						</form>
+						</form:form>
+						
 					</div>
 				</div>
 			</div>
 		</div>
+		</c:if>
+		
+		
 
 		<!-- END EDMO HTML (Happy Coding!)-->
 		<!-- footer content -->

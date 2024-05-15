@@ -30,6 +30,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<bean id="frepo" class="spring.repository.FeedbackRepository"></bean>
 	<!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> -->
 

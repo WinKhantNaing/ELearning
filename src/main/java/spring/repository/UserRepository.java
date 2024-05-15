@@ -45,6 +45,7 @@ public class UserRepository {
 				ResultSet rs = ps.executeQuery();
 				while(rs.next()) {
 					ubean = new UserBean();
+					ubean.setUserId(rs.getInt("id"));
 					ubean.setUseremail(rs.getString("email"));
 					ubean.setUserpassword(rs.getString("password"));
 					
