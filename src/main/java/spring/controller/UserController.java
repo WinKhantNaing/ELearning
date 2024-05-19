@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.UserBean;
 import spring.model.CoursesBean;
@@ -43,6 +44,7 @@ import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
 import spring.model.UserDTO;
 import spring.model.SingleLessonDTO;
+import spring.model.SubscriptionDTO;
 import spring.repository.UserRepository;
 
 @Controller
@@ -70,7 +72,15 @@ public class UserController {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
-
+	
+	
+	 @ModelAttribute("paymentbean") 
+	 public PaymentDTO getPaymentBean() {
+	 PaymentDTO payBean = new PaymentDTO(); return payBean; }
+	 
+	
+				
+	 
 	@PostMapping(value = "/register")
 	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
 		int result = userrepo.insertUser(bean);
@@ -93,6 +103,7 @@ public class UserController {
 			System.out.println("fail");
 			return "redirect:/";
 		} else {
+			session.setAttribute("sessionEmail", ubean.getUserEmail());//for subscription 
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
 			session.setAttribute("sessionLogin", isLogin);
@@ -129,18 +140,25 @@ public class UserController {
 	public String showAbout() {
 		return "about";
 	}
-	/*
-	 * public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession
-	 * session) {
-	 * 
-	 * boolean isLogin = false; UserDTO user = userrepo.loginUser(bean); if(user !=
-	 * null) {
-	 * 
-	 * isLogin = true; } session.setAttribute("user", isLogin);
-	 * session.setAttribute("user", user.getUserId());
-	 * 
-	 * }
-	 */
+
+	//for admin (Add subscription plan)
+	@PostMapping(value="/addsubplan")
+	public String addSubscriptionPlan(@ModelAttribute("subscriptionPlan")SubscriptionDTO subBean,RedirectAttributes redirectAttribute) {
+		int result = userrepo.addSubscriptionPlan(subBean);
+		if(result==1) {
+			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is successful");
+		}else {
+			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is fail!");
+		}
+		return "redirect:/subscription";
+	}
+	
+	//for admin to show (subscriptoin plan)
+	@GetMapping(value="/show-subscription-plan")
+	public String showSubscriptionTable() {
+		return "showSubscriptionPlan";
+	}
+	
 
 	@PostMapping(value = "/check-login")
 	public String checkLogin(HttpSession session) {
