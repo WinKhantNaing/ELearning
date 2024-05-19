@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class QuizOption implements Serializable{
+	private String unitName;
 	private int quizId;
 	private String quizQuestion;
 	private int optionId;
