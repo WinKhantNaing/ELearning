@@ -9,6 +9,6 @@ public class SingleLessonDTO {
 	private String name;
 	private String description;
 	private String purStatus;
-	
+	private String image;
 
 }

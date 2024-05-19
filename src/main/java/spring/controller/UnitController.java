@@ -3,6 +3,8 @@ package spring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,14 +35,15 @@ public class UnitController {
 	}
 
 	@GetMapping(value = "unitdetail/{unitId}")
-	public String showUntDetail(@PathVariable("unitId") int uid, Model m) {
+	public String showUntDetail(@PathVariable("unitId") int uid, Model m, HttpSession session) {
 
-		int userId = 1; // needed to change the value from session
-		int lessonId = 1; // changes needed
+		int userId = (int) session.getAttribute("sessionId"); // needed to change the value from session
+		int lessonId = (int) session.getAttribute("ssLessonId"); // changes needed
 
 		boolean insertResult = unitrepo.insertEnrollment(userId, uid);
 		boolean progressResult = unitrepo.changeProgress(userId, uid);
-
+		
+		
 		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(lessonId);
 		ArrayList<QuizOption> lstQuiz = (ArrayList<QuizOption>) unitrepo.selectQuiz(uid);
 		UniWorkBean uniWorkBean = unitrepo.selectUniWork(uid);

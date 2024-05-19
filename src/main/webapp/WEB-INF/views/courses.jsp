@@ -140,7 +140,7 @@ margin-right: 30px;
 
 							<div class="card-body">
 								<ul class="list-inline mb-2">
-								<a href="#">
+								<a href="<c:url value="../user/show-single-lesson/${course.courseId}" />">
 									<h4 class="card-title">${course.courseName }</h4>
 								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
