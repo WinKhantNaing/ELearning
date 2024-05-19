@@ -62,6 +62,11 @@ body {
 	color: red;
 }
 
+.quiz-info {
+	background-color: #ffc107;
+	color: #213555;
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
