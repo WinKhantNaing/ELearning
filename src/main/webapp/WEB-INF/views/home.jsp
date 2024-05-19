@@ -52,6 +52,8 @@
 <!-- venobox popup -->
 <link href="<c:url value="resources/plugins/venobox/venobox.css" />"
 	rel="stylesheet"></link>
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <!-- Main Stylesheet -->
 <link href="<c:url value="resources/css/style2.css" />" rel="stylesheet"></link>
@@ -314,23 +316,22 @@
 				<c:forEach items="${courseList}" var="course">
 				<div class="col-lg-4 col-sm-6 mb-5">
 					<div class="card p-0 border-primary rounded-0 hover-shadow">
-						<img class="card-img-top rounded-0"
+						<img class="card-img-top rounded-0" style="height:280px;"
 							src="<c:url value='${course.courseImagePath }' />" alt="course thumb">
 						<div class="card-body">
 							<ul class="list-inline mb-2">
-								<li class="list-inline-item"><i class="bi bi-star-fill"></i>${course.courseStatus}</li>
-								<!-- <li class="list-inline-item"><a class="text-color"
-									href="course-single.html">Humanities</a></li> -->
-							</ul>
-							<a href="course-single.html">
-								<h4 class="card-title">${course.courseName }</h4>
-							</a>
+								<a href="#">
+									<h4 class="card-title">${course.courseName }</h4>
+								</a>
+									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
+										${course.courseStatus}</li>
+									<!-- <li class="list-inline-item"><a class="text-color" href="ToeYadanaKyaw">Humanities</a></li> -->
+								</ul>
 							<div class="code-container">
 									<p class="card-text mb-3" id="scrollspyHeading1">
 										${course.courseDescription }</p>
 								</div>
-							<a href="<c:url value=" /ToeYadanaKyaw/${course.courseId }" />" class="btn btn-primary btn-sm">Apply
-								now</a>
+							<a href="<c:url value=" /ToeYadanaKyaw/${course.courseId }" />" class="btn btn-primary btn-sm">See more..</a>
 						</div>
 					</div>
 				</div>

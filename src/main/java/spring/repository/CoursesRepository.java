@@ -16,7 +16,7 @@ public class CoursesRepository {
 		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1");
+			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -40,7 +40,7 @@ public class CoursesRepository {
 		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1 order by id  limit 6");
+			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1 order by id  limit 6");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -154,7 +154,7 @@ public class CoursesRepository {
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from subscription");
+			PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				bean = new PriceCardDTO();
@@ -222,25 +222,22 @@ public class CoursesRepository {
 		return result;
 		
 	}
-	/*
-	 * public List<CourseBean> getAllCourse(){ List<CourseBean> allCourseLst = new
-	 * ArrayList<>(); CourseBean cbean = null; Connection con =
-	 * ConnectionClass.getConnection(); try { PreparedStatement ps =
-	 * con.prepareStatement("select * from lesson where isactive=1"); ResultSet rs =
-	 * ps.executeQuery(); while (rs.next()) { cbean = new CourseBean();
-	 * cbean.setCourseId(rs.getInt("id")); cbean.setPrefix(rs.getString("prefix"));
-	 * cbean.setCourseName(rs.getString("name"));
-	 * cbean.setCourseDescription(rs.getString("description"));
-	 * cbean.setCourseStatus(rs.getString("status"));
-	 * cbean.setCourseImagePath(rs.getString("imagepath")); allCourseLst.add(cbean);
-	 * 
-	 * }
-	 * 
-	 * } catch (SQLException e) { System.out.println("get all course: " +
-	 * e.getMessage()); } return allCourseLst;
-	 * 
-	 * }
-	 */
+	
+	public double getSubscribeAmount(int subId) {
+		double amount = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select price from subscription where id=?");
+			ps.setInt(1, subId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				amount=rs.getDouble("price");
+			}
+		} catch (SQLException e) {
+			System.out.println("GETTING amount " + e.getMessage());
+		}
+		return amount;
+	}
 	
 	public CoursesBean getOneCourse(int CourseId) {
 		Connection con = ConnectionClass.getConnection();

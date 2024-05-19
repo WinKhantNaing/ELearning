@@ -67,40 +67,6 @@
 	</div>
 
 	<header class="fixed-top header">
-		<%-- <%-- <div class="top-header py-2 bg-white">
-						<div class="container">
-							<div class="row no-gutters">
-								<div class="col-lg-8 text-center text-lg-right">
-									<ul class="list-inline">
-										<li class="list-inline-item"><a
-												class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-												href="<c:url value=" #loginModal" />" data-toggle="modal"
-											data-target="#loginModal">login</a></li>
-										<li class="list-inline-item">
-											<a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-												href="<c:url value=" #signupModal" />" data-toggle="modal"
-											data-target="#signupModal">register</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						</div> --%>
-		<%-- <div class="navigation w-100">
-							<div class="container">
-								<nav class="navbar navbar-expand-lg navbar-dark p-0">
-									<a class="navbar-brand" href="index.html"><img src="<c:url value="/resources/images/logo.png" />" alt="logo"></a>
-									<button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
-										data-target="#navigation" aria-controls="navigation" aria-expanded="false"
-										aria-label="Toggle navigation">
-										<span class="navbar-toggler-icon"></span>
-									</button> --%>
-
-		<%-- 			<div class="collapse navbar-collapse" id="navigation">
-										<ul class="navbar-nav ml-auto text-center">
-											<li class="nav-item active"><a class="nav-link" href="<c:url value ="/" />">Home</a></li> --%>
-
-
 		<div class="navigation w-100">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -172,44 +138,7 @@
 				<div class="modal-body">
 					<div class="login">
 						<span>${success}</span> <span>${error}</span>
-						<%-- <form:form action="user/register" class="row" id="registrationForm" method="post"
-										modelAttribute="regiterbean"> --%>
-						<!-- <div class="col-12">
-							</li>
-							
-							<li class="nav-item"><a
-								class="nav-link"
-								href="<c:url value="#loginModal"/>" data-toggle="modal"
-								data-target="#loginModal">login</a></li>
-								
-								<li class="nav-item">
-								<a class="nav-link"
-									href="<c:url value="#signupModal"/>" data-toggle="modal"
-									data-target="#signupModal">register</a>
-							</li>
-
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
-
-		
-	</header>
-	
-	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Register</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="login">
-                <span>${success}</span>
-                <span>${error}</span>-->
+						
 						<form:form
 							action="${pageContext.request.contextPath}/user/register"
 							class="row" id="registrationForm" method="post"

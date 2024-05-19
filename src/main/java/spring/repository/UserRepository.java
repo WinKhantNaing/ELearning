@@ -12,6 +12,7 @@ import spring.model.CoursesBean;
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
 import spring.model.SingleLessonDTO;
+import spring.model.SubscriptionDTO;
 import spring.model.UserBean;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public class UserRepository {
 
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select user_id from payment where user_id = ?;");
+			PreparedStatement ps = con.prepareStatement("select user_id from payment where user_id = ?");
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 
@@ -97,45 +98,29 @@ public class UserRepository {
 
 	}
 
-	/*
-	 * public List<PriceCardDTO> showPrice() {
-	 * 
-	 * PriceCardDTO priceCard = null; List<PriceCardDTO> priceCardList = new
-	 * ArrayList<PriceCardDTO>();
-	 * 
-	 * 
-	 * Connection con = ConnectionClass.getConnection(); try { PreparedStatement ps
-	 * = con.prepareStatement("select * from subscription"); ResultSet rs =
-	 * ps.executeQuery(); // int i = 0; while(rs.next()) { priceCard = new
-	 * PriceCardDTO(); priceCard.setPlan(rs.getString("subscriptionplan"));
-	 * priceCard.setPrice(rs.getDouble("price"));
-	 * priceCard.setDuration(rs.getString("duration"));
-	 * 
-	 * priceCardList.add(priceCard);
-	 * 
-	 * System.out.println(priceCard);
-	 * System.out.println(priceCardList.get(i++).getPlan());
-	 * 
-	 * }
-	 * 
-	 * } catch (SQLException e) {
-	 * 
-	 * System.out.println("Select from subscription : "+ e.getMessage()); }
-	 * 
-	 * // System.out.println("pcl"+ priceCardList.size()); //
-	 * priceCardList.forEach(c->System.out.println(c.getPlan())); return
-	 * priceCardList;
-	 * 
-	 * 
-	 * }
-	 */
+	//for admin (Add subscription plan)
+	public int addSubscriptionPlan(SubscriptionDTO bean) {
+		Connection con = ConnectionClass.getConnection();
+		int result = 0;
+		try {
+			PreparedStatement ps = con.prepareStatement("insert into subscription (subscriptionplan , duration, price) value(?,?,?)");
+			ps.setString(1, bean.getSubPlan());
+			ps.setString(2, bean.getDuration());
+			ps.setDouble(3, bean.getPrice());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Adding subscription plan :"+ e.getMessage());
+		}
+		return result;
+	}
+	
 	public int addUser(UserBean bean) {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		if (!checkEmail(bean.getUserEmail())) {
 			try {
 				PreparedStatement ps = con
-						.prepareStatement("insert into user(username,email,password,gender,role) value(?,?,?,?,?);");
+						.prepareStatement("insert into user(username,email,password,gender,role) value(?,?,?,?,?)");
 				ps.setString(1, bean.getUserName());
 				ps.setString(2, bean.getUserEmail());
 				ps.setString(3, bean.getPassword());

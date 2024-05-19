@@ -56,6 +56,14 @@
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
+<style>
+.search-icon{
+color:white;
+margin-left: -30px;
+margin-right: 30px;
+}
+
+</style>
 </head>
 
 <body>
@@ -91,33 +99,30 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse " id="navbarTogglerDemo01">
-				<%-- <c:set var="login" scope="session" value="${sessionLogin }"/> --%>
 				
 				<ul class="navbar-nav navb mr-auto mt-2 mt-lg-0 bg-warning">
                  <c:if test="${sessionLogin==true}"> 
 						<li class="nav-item"><a class="nav-link"
-							href="<c:url value="../course/progress" />">Progress</a></li>
+							href="<c:url value="../course/progress" />">Progress Courses</a></li>
 						<li class="nav-item"><a class="nav-link "
-							href="<c:url value="../course/complete" />">Complete</a></li>
+							href="<c:url value="../course/complete" />">Complete Courses</a></li>
+							<li class="nav-item"><a class="nav-link"
+							href="<c:url value="../course/courses" />">All Courses</a></li>
+							
 					 </c:if>
+					 
 					</ul>
-					<form:form class="form-inline my-2 my-lg-0 "
-						action="../course/searchcourse" modelAttribute="course-bean"
-						method="post">
-						<form:input class="form-control mr-sm-2" type="search"
-							path="courseName" placeholder="Search courses"
-							aria-label="Search" value="${searchCourse.courseName }" />
-						<button class="btn btn-outline-success my-2 my-sm-0 bg-warning" type="submit">Search</button>
-
-					</form:form>
-					<button class="btn my-2 my-sm-0 nav-item bg-warning" type="button"
-						onclick="location.href ='<c:url value="../course/seeAllCourses" />'">All Course</button>
+					<c:if test="${sessionLogin!=true}"><i class="bi bi-search search-icon"></i>
+					 <input id='myInput' class="form-control col-xs-12" onkeyup='searchCourses()' aria-label="Search" type='text' placeholder='Search courses with name'  >
+					 </c:if>
+					  <c:if test="${sessionLogin==true}"> 
+					 <input id='myInput' class="form-control col-xs-12 col-md-6" onkeyup='searchCourses()' aria-label="Search" type='text' placeholder='Search courses with name...'>
+				</c:if>
 				</div>
 			</nav>
 		</div>
 	</section>
-	<div class="search-course">${message}</div>
-	<section class="section pt-4">
+	<section class="section pt-1 mt-1">
 
 		<div class="container">
 
@@ -125,10 +130,10 @@
 
 				<!-- course item -->
 				<c:forEach items="${courseList}" var="course">
-					<div class="col-lg-4 col-sm-6 mb-5">
+					<div class="col-lg-4 col-sm-6 mb-5 course-item">
 						<div class="card p-0 border-primary rounded-0 hover-shadow">
 							<div class="card p-0 border-primary rounded-0">
-								<img class="card-img-top rounded-0" style="height:300px;"
+								<img class="card-img-top rounded-0" style="height:280px;"
 									src="<c:url value='${course.courseImagePath }' />"
 									alt="course thumb">
 							</div>
@@ -149,20 +154,22 @@
 								</div>
 								<div class="mt-2">
 									<a href="<c:url value="../user/show-single-lesson/${course.courseId}" />"
-										class="btn btn-primary btn-sm">Apply
-										now</a>
+										class="btn btn-primary btn-sm">See more..</a>
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-
 		</div>
 	</section>
 	<jsp:include page="feedback.jsp"></jsp:include>
 	<!-- /courses -->
 	<jsp:include page="indexfooter.jsp"></jsp:include>
+
+
+     <script src="<c:url value="/resources/js/course.js" />"></script>
 	<!-- jQuery -->
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
