@@ -34,7 +34,7 @@ import spring.repository.CoursesRepository;
 public class CourseController {
 	@Autowired
 	CoursesRepository courserepo;
-	
+
 	@ModelAttribute("registerbean")
 	public RegisterBean getRegisterBean() {
 		RegisterBean rbean = new RegisterBean();
@@ -46,7 +46,7 @@ public class CourseController {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
-	
+
 	@ModelAttribute("courseList")
 	public List<CoursesBean> getAllCourses() {
 		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
@@ -65,21 +65,28 @@ public class CourseController {
 	 * session) { boolean loginResult = (boolean)
 	 * session.getAttribute("sessionLogin"); if(loginResult == true) { return
 	 * "redirect:courses"; }else { return "redirect:/"; } }
-	 */	
+	 */
 	@GetMapping(value = "/courses")
 	public String courses() {
 		return "courses";
 	}
 
 	// for ma toe yadanarkyaw (show course subscriptionplan)
-		@ModelAttribute("subscriptionplan")
-		public List<PriceCardDTO> showPriceSubscription() {
-			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-			priceList = courserepo.getPricePlan();
-			return priceList;
-		}
+	@ModelAttribute("subscriptionplan")
+	public List<PriceCardDTO> showPriceSubscription() {
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		priceList = courserepo.getPricePlan();
+		return priceList;
+	}
 
-	
+	@GetMapping(value = "/get-subscribe")
+	public ModelAndView getSubscribe() {
+		
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		priceList = courserepo.getPricePlan();
+
+		return new ModelAndView("subscription", "subscriptionplan", priceList);
+	}
 
 	@GetMapping(value = "/seeAllCourses")
 	public String courseSearch(HttpSession session) {
@@ -105,7 +112,7 @@ public class CourseController {
 	@GetMapping(value = "/complete")
 	public String showComplete(HttpSession session, Model m) {
 		List<CoursesBean> completeList = new ArrayList<CoursesBean>();
-		int userId = (int)session.getAttribute("sessionId");
+		int userId = (int) session.getAttribute("sessionId");
 		completeList = courserepo.getCompleteCourses(userId);
 		m.addAttribute("courseList", completeList);
 		return "courses";
@@ -114,13 +121,12 @@ public class CourseController {
 	@GetMapping(value = "/progress")
 	public String showProgress(HttpSession session, Model m) {
 		List<CoursesBean> progressList = new ArrayList<CoursesBean>();
-		int userId = (int)session.getAttribute("sessionId");
+		int userId = (int) session.getAttribute("sessionId");
 		progressList = courserepo.getProgressCourses(userId);
 		m.addAttribute("courseList", progressList);
 		return "courses";
 	}
 
-	
 	@GetMapping(value = "/subcription/{subId}")
 	public String showPaymentForm(@PathVariable("subId") int cid, Model m) {
 		PriceCardDTO priceBean = courserepo.getDuration(cid);
@@ -161,7 +167,7 @@ public class CourseController {
 	}
 
 	@GetMapping(value = "showcourses")
-	public String showall(Model m,HttpSession session) {
+	public String showall(Model m, HttpSession session) {
 
 		List<CoursesBean> courseLst = new ArrayList<>();
 		courseLst = courserepo.getCourses();
@@ -209,7 +215,7 @@ public class CourseController {
 
 	@GetMapping(value = "updateCourse")
 	public ModelAndView updatecourse(@RequestParam("cid") int courseId, Model m) {
-		 CoursesBean	cbean = courserepo.getOneCourse(courseId);
+		CoursesBean cbean = courserepo.getOneCourse(courseId);
 		m.addAttribute("cbean", cbean);
 		return new ModelAndView("updateCourse", "courseUpdateBean", new CoursesBean());
 

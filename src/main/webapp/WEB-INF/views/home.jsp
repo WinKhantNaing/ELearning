@@ -52,7 +52,11 @@
 <!-- venobox popup -->
 <link href="<c:url value="resources/plugins/venobox/venobox.css" />"
 	rel="stylesheet"></link>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <!-- Main Stylesheet -->
 <link href="<c:url value="resources/css/style2.css" />" rel="stylesheet"></link>
 <link href="<c:url value="resources/css/style.css" />" rel="stylesheet"></link>
@@ -109,6 +113,15 @@
 		</div>
 	</div>
 	<!-- Modal -->
+
+	<c:if test="${loginError}">
+		<script>
+			$(document).ready(function() {
+				$('#loginModal').modal('show');
+			});
+		</script>
+	</c:if>
+
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -120,6 +133,10 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				
+					<p>${loginFail}</p>
+				
+
 				<div class="modal-body">
 					<form action="#" class="row">
 						<div class="col-12">
@@ -303,7 +320,8 @@
 						<div class="border-top w-100 border-primary d-none d-sm-block"></div>
 						<div>
 							<a href='<c:url value="course/courses"/>'
-								class="btn btn-sm btn-outline-primary ml-sm-3 d-none d-sm-block">see all</a>
+								class="btn btn-sm btn-outline-primary ml-sm-3 d-none d-sm-block">see
+								all</a>
 						</div>
 					</div>
 				</div>
@@ -312,40 +330,42 @@
 			<div class="row justify-content-center">
 				<!-- course item -->
 				<c:forEach items="${courseList}" var="course">
-				<div class="col-lg-4 col-sm-6 mb-5">
-					<div class="card p-0 border-primary rounded-0 hover-shadow">
-						<img class="card-img-top rounded-0"
-							src="<c:url value='${course.courseImagePath }' />" alt="course thumb">
-						<div class="card-body">
-							<ul class="list-inline mb-2">
-								<li class="list-inline-item"><i class="bi bi-star-fill"></i>${course.courseStatus}</li>
-								<!-- <li class="list-inline-item"><a class="text-color"
+					<div class="col-lg-4 col-sm-6 mb-5">
+						<div class="card p-0 border-primary rounded-0 hover-shadow">
+							<img class="card-img-top rounded-0"
+								src="<c:url value='${course.courseImagePath }' />"
+								alt="course thumb">
+							<div class="card-body">
+								<ul class="list-inline mb-2">
+									<li class="list-inline-item"><i class="bi bi-star-fill"></i>${course.courseStatus}</li>
+									<!-- <li class="list-inline-item"><a class="text-color"
 									href="course-single.html">Humanities</a></li> -->
-							</ul>
-							<a href="course-single.html">
-								<h4 class="card-title">${course.courseName }</h4>
-							</a>
-							<div class="code-container">
+								</ul>
+								<a href="course-single.html">
+									<h4 class="card-title">${course.courseName }</h4>
+								</a>
+								<div class="code-container">
 									<p class="card-text mb-3" id="scrollspyHeading1">
 										${course.courseDescription }</p>
 								</div>
-							<a href="<c:url value=" /ToeYadanaKyaw/${course.courseId }" />" class="btn btn-primary btn-sm">Apply
-								now</a>
+								<a
+									href="<c:url value="/user/show-single-lesson/${course.courseId }" />"
+									class="btn btn-primary btn-sm">Apply now</a>
+							</div>
 						</div>
 					</div>
-				</div>
 				</c:forEach>
-				 
-				
-			<!-- mobile see all button -->
-			<div class="row">
-				<div class="col-12 text-center">
-					<a href="courses.html"
-						class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell
-						all</a>
+
+
+				<!-- mobile see all button -->
+				<div class="row">
+					<div class="col-12 text-center">
+						<a href="courses.html"
+							class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell
+							all</a>
+					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 	<!-- /courses -->
 
@@ -668,9 +688,11 @@
 	</section>
 
 	<%@ include file="indexfooter.jsp"%>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script
-		src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
 	<script
 		src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js" />"></script>

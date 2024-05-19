@@ -127,9 +127,9 @@
 								aria-expanded="false"> Administration </a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item"
-										href='<c:url value="../user/adduser"/>'>Add User</a></li>
+										href='<c:url value="user/adduser"/>'>Add User</a></li>
 									<li><a class="dropdown-item"
-										href='<c:url value="../course/showcourses"/>'>Show Courses</a></li>
+										href='<c:url value="../../course/showcourses"/>'>Show Courses</a></li>
 								</ul></li>
 							<li>
 								<div style="margin-top: 24px;">

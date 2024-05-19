@@ -94,15 +94,16 @@
 				</button>
 				<div class="collapse navbar-collapse " id="navbarTogglerDemo01">
 				<%-- <c:set var="login" scope="session" value="${sessionLogin }"/> --%>
-				<c:if test="${sessionLogin==true}">
+				
 				<ul class="navbar-nav navb mr-auto mt-2 mt-lg-0 bg-warning">
-
+<c:if test="${sessionLogin==true}">
 						<li class="nav-item"><a class="nav-link"
 							href="<c:url value="../course/progress" />">Progress</a></li>
 						<li class="nav-item"><a class="nav-link "
 							href="<c:url value="../course/complete" />">Complete</a></li>
+					</c:if>
 					</ul>
-				</c:if>
+				
 					
 
 					<form:form class="form-inline my-2 my-lg-0"

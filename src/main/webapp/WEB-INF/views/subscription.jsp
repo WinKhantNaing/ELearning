@@ -10,7 +10,7 @@
                 integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
                 crossorigin="anonymous">
             <!-- <link rel="stylesheet" href="./css/subscription.css"> -->
-            <link href="<c:url value=" /resources/css/subscriptionPlan.css" />" rel="stylesheet">
+            <link href="<c:url value="/resources/css/subscriptionPlan.css" />" rel="stylesheet">
         </head>
 
         <body>
@@ -27,7 +27,7 @@
                             <li>Progress tracking</li>
                             <li>Early access to upcoming features and events</li>
                         </ul>
-                        <button type="button" onclick="location.href='<c:url value=" /course/subcription/${list.subId}" />' "
+                        <button type="button" onclick="location.href='<c:url value="/course/subcription/${list.subId}" />' "
                         class="button">BUY</button>
                     </div>
 
