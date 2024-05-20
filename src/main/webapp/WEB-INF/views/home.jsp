@@ -336,7 +336,7 @@
 							src="<c:url value='${course.courseImagePath }' />" alt="course thumb">
 						<div class="card-body">
 							<ul class="list-inline mb-2">
-								<a href="<c:url value="/user/show-single-lesson/${course.courseId }" />">
+								<a href="#">
 									<h4 class="card-title">${course.courseName }</h4>
 								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
@@ -347,9 +347,10 @@
 									<p class="card-text mb-3" id="scrollspyHeading1">
 										${course.courseDescription }</p>
 								</div>
-							<a href="<c:url value="/user/show-single-lesson/${course.courseId }" />" class="btn btn-primary btn-sm">See more..</a>
+							<a href="<c:url value=" /ToeYadanaKyaw/${course.courseId }" />" class="btn btn-primary btn-sm">See more..</a>
 						</div>
 					</div>
+				</div>
 				</c:forEach>
 
 

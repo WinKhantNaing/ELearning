@@ -112,16 +112,11 @@ public class UserController {
 		if (ubean == null) {
 			
 			System.out.println("fail");
-			return "redirect:/";
-		} else {
-			session.setAttribute("sessionEmail", ubean.getUserEmail());//for subscription 
 			m.addAttribute("loginError", true);
 			m.addAttribute("loginFail", "Login Fail!!1 Please Login Again.");
-			return "home";
-			
-		} 
-		else {
-			
+			return "redirect:/";
+		}else {		
+			session.setAttribute("sessionEmail", ubean.getUserEmail());//for subscription 
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
 			session.setAttribute("sessionLogin", isLogin);

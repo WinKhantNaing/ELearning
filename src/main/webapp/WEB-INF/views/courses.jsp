@@ -62,7 +62,6 @@ color:white;
 margin-left: -30px;
 margin-right: 30px;
 }
-
 </style>
 </head>
 
@@ -126,21 +125,21 @@ margin-right: 30px;
 
 		<div class="container">
 
-			<div class="row justify-content-center">
+			<div class="row justify-content-center card-content">
 
 				<!-- course item -->
 				<c:forEach items="${courseList}" var="course">
-					<div class="col-lg-4 col-sm-6 mb-5 course-item">
-						<div class="card p-0 border-primary rounded-0 hover-shadow">
-							<div class="card p-0 border-primary rounded-0">
-								<img class="card-img-top rounded-0" style="height:280px;"
+					<div class="col-lg-4 col-sm-6 mb-5 course-item card" style="border:none">
+						<div class="p-0 border-primary rounded-0 hover-shadow">
+							<div class="card-image p-0 border-primary rounded-0">
+								<img class="card-img-top rounded-0" style="height:210px;"
 									src="<c:url value='${course.courseImagePath }' />"
 									alt="course thumb">
 							</div>
 
-							<div class="card-body">
+							<div class="card-body card-info">
 								<ul class="list-inline mb-2">
-								<a href="<c:url value="../user/show-single-lesson/${course.courseId}" />">
+								<a href="<c:url value="../user/show-single-lesson/${course.courseId}"/>">
 									<h4 class="card-title">${course.courseName }</h4>
 								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
@@ -158,18 +157,30 @@ margin-right: 30px;
 
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</c:forEach>
+				<div class="pagination">
+      <!-- <li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li> -->
+        </div>
 			</div>
 		</div>
 	</section>
+      
 	<jsp:include page="feedback.jsp"></jsp:include>
 	<!-- /courses -->
 	<jsp:include page="indexfooter.jsp"></jsp:include>
 
 
-     <script src="<c:url value="/resources/js/course.js" />"></script>
+  <script src="<c:url value="/resources/js/course.js" />"></script> 
 	<!-- jQuery -->
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
