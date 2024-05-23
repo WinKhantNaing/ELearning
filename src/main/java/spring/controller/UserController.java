@@ -1,7 +1,6 @@
 package spring.controller;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,29 +22,21 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.UserBean;
-import spring.model.CoursesBean;
-import spring.model.PaySubBean;
-import spring.model.PhotoDto;
-import spring.model.ProfileDto;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.HttpSessionMutexListener;
 
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
-import spring.model.UserBean;
+
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-import org.springframework.web.servlet.view.RedirectView;
 
-import spring.model.LoginDTO;
-import spring.model.PaymentDTO;
-import spring.model.PriceCardDTO;
 import spring.model.UserDTO;
 import spring.model.SingleLessonDTO;
+
 import spring.model.SubscriptionDTO;
 import spring.model.UnitNameListDTO;
 import spring.repository.UserRepository;
+
 
 @Controller
 @RequestMapping("/user")
@@ -119,6 +106,8 @@ public class UserController {
 
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
+			session.setAttribute("sessionimg",ubean.getFilePath());
+			session.setAttribute("sessionuserRole",ubean.getUserRole());
 			session.setAttribute("sessionLogin", isLogin);
 			String url = (String) session.getAttribute("sessionUrl");
 			System.out.println("Url" + url);
@@ -271,4 +260,35 @@ public class UserController {
 		return "home";
 	}
 
+
+	/*
+	 * @GetMapping(value = "/subscription-plan") public String
+	 * subscribePayment(Model m) {
+	 * 
+	 * List<PriceCardDTO> priceCardList = userrepo.showPrice();
+	 * m.addAttribute("priceCardList", priceCardList);
+	 * 
+	 * return "subscriptionPlan"; }
+	 * 
+	 * @GetMapping(value = "/confirm-payment") public String confirmPayment() {
+	 * 
+	 * return "paymentConfirmation";
+	 * 
+	 * }
+	 * 
+	 * public String showSingleLesson() { return null;
+	 * 
+	 * }
+	 */
+	
+	@GetMapping(value="logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+		return "/";
+		
+	}
+	
 }

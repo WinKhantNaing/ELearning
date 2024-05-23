@@ -86,7 +86,7 @@ public class CoursesRepository {
 				courseCompleteList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Complete Courses :" +e.getMessage());
 		}
 		return courseCompleteList; 
 	}
@@ -118,7 +118,7 @@ public class CoursesRepository {
 				courseProgressList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Progress Courses :" +e.getMessage());
 		}
 		return courseProgressList; 
 	}

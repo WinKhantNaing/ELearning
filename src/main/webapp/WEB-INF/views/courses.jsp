@@ -133,9 +133,14 @@ margin-right: 30px;
 					<div class="col-lg-4 col-sm-6 mb-5 course-item">
 						<div class="card p-0 border-primary rounded-0 hover-shadow">
 							<div class="card p-0 border-primary rounded-0">
+
+						
+								<img class="card-img-top rounded-0" style="height:280px;" src="${pageContext.request.contextPath}${'\\'}${course.courseImagePath }" alt="course thumb">
+
 								<img class="card-img-top rounded-0" style="height:280px;"
 									src="<c:url value='${course.courseImagePath }' />"
 									alt="course thumb">
+
 							</div>
 
 							<div class="card-body">

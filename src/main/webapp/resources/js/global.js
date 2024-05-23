@@ -1,6 +1,5 @@
 
-
-
+s
 (function ($) {
 
 	'use strict';
@@ -151,3 +150,5 @@ $('.image-upload-wrap').bind('dragover', function () {
 $('.image-upload-wrap').bind('dragleave', function () {
 	$('.image-upload-wrap').removeClass('image-dropping');
 });
+
+

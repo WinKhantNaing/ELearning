@@ -1,5 +1,7 @@
 package spring.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -9,6 +11,8 @@ public class ProfileDto {
 	private String userName;
 	private String userEmail;
 	private String password;
-	private String gender;
+	private String userRole;
+	private MultipartFile file;
+	private String filePath;
 	
 }

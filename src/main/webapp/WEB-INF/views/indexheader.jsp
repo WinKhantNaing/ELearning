@@ -87,6 +87,32 @@
 							<li class="nav-item @@about"><a class="nav-link" href='#'>About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href='<c:url value="/course/courses" />'>COURSES</a></li>
+
+						<c:if test="${sessionLogin == true}">
+							<c:if test="${sessionuserRole=='admin'}">
+								<li class="nav-item dropdown view"><a
+									class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+									role="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> Administration </a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<li><a class="dropdown-item"
+											href='<c:url value="../user/adduser"/>'>Add User</a></li>
+										<li><a class="dropdown-item"
+											href='<c:url value="../course/showcourses"/>'>Show Courses</a></li>
+									</ul></li>
+							</c:if>
+								<li>
+									<div style="margin-top: 35px;">
+										<a href="<c:url value="/profile/profiledetail" />"> 
+										<img src="${pageContext.request.contextPath}${'\\'}${sessionimg}"
+											name="aboutme" width="30" height="30" class="img-circle"
+											style="border-radius: 25px; object-fit: cover"></a>
+									</div>
+								</li>
+								
+							</c:if>
+
+
 							<li class="nav-item dropdown view"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -105,6 +131,7 @@
 										style="border-radius: 25px;"></a>
 								</div>
 							</li>
+
 							<li class="nav-item"><a class="nav-link"
 								href="<c:url value="#loginModal" />" data-toggle="modal"
 								data-target="#loginModal">login</a></li>
