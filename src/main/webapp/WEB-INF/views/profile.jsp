@@ -78,7 +78,7 @@
 									<p class="text-muted font-size-sm">
 									<h6>${subscription}</h6>
 									</p>
-									<a class="btn btn-danger" href="#" role="button">Logout</a>
+									<a class="btn btn-danger" href="../user/logout" role="button">Logout</a>
 								</div>
 							</div>
 						</div>

@@ -84,7 +84,7 @@ background-image: radial-gradient(circle at top, rgba(83,69,91,1) 0, rgba(32,30,
 
 </table>
 <div class="buttonOk">
-<button type="button" class="btn btn-success mt-5" onclick="location.href ='<c:url value="/course/courses" />'">OK</button>
+<button type="button" class="btn btn-success mt-5" onclick="location.href ='<c:url value="/unit/showunit" />'">OK</button>
 </div>
                 </div>
                 

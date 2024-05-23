@@ -37,7 +37,8 @@ public class HomeController {
 
 	@GetMapping(value = "/")
 	public String home() {
-		return "home";//showSubscriptionPlan
+//		return "redirect:unit/add-unit";//showSubscriptionPlan
+		return "home";
 	}
 
 	@ModelAttribute("registerbean")

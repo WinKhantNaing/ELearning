@@ -121,6 +121,16 @@
 			});
 		</script>
 	</c:if>
+	 <%-- <c:if test="${loginAlert}">
+        <script type="text/javascript">
+            function confirmApply(event) {
+                $('#loginModal').modal('show');
+                $('#loginModalConfirm').click(function() {
+                    event.preventDefault();
+                });
+            }
+        </script>
+    </c:if> --%>
 
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
@@ -134,7 +144,7 @@
 					</button>
 				</div>
 				
-					<p>${loginFail}</p>
+					
 				
 
 				<div class="modal-body">
@@ -152,7 +162,7 @@
 								id="loginPassword" name="loginPassword" placeholder="Password">
 						</div>
 						<div class="col-12">
-							<button type="submit" class="btn btn-primary">LOGIN</button>
+							<button type="submit" class="btn btn-primary" id="loginModalConfirm">LOGIN</button>
 						</div>
 					</form>
 				</div>

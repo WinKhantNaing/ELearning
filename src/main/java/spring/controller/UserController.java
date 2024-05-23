@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,25 +72,21 @@ public class UserController {
 	}
 
 	@ModelAttribute("loginbean")
- 	public LoginBean getLoginBean() {
+	public LoginBean getLoginBean() {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
-	
-	
-	 @ModelAttribute("paymentbean") 
-	 public PaymentDTO getPaymentBean() {
-	 PaymentDTO payBean = new PaymentDTO(); return payBean; }
-	 
-	
-				
-	 
-	@GetMapping(value = "/get-login")
-	public ModelAndView getLogin() {
-		
-		return new ModelAndView("home", "loginbean", new LoginBean());
+
+	@ModelAttribute("paymentbean")
+	public PaymentDTO getPaymentBean() {
+		PaymentDTO payBean = new PaymentDTO();
+		return payBean;
 	}
-	
+
+	@GetMapping(value = "/get-login")
+	public String getLogin() {
+		return "home";
+	}
 
 	@PostMapping(value = "/register")
 	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
@@ -105,27 +103,29 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/login")
-	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m) {
+	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m,
+			RedirectAttributes redirectAttribute) {
 		boolean isLogin = false;
 		UserBean ubean = userrepo.selectUser(bean);
-		
+
 		if (ubean == null) {
-			
+
 			System.out.println("fail");
-			return "redirect:/";
+			redirectAttribute.addFlashAttribute("loginError", true);
+			redirectAttribute.addFlashAttribute("loginFail", "Login Fail!! Please Login Again.");
+			return "redirect:get-login";
+
 		} else {
-			session.setAttribute("sessionEmail", ubean.getUserEmail());//for subscription 
-			m.addAttribute("loginError", true);
-			m.addAttribute("loginFail", "Login Fail!!1 Please Login Again.");
-			return "home";
-			
-		} 
-		else {
-			
+
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
 			session.setAttribute("sessionLogin", isLogin);
-			return "home";
+			String url = (String) session.getAttribute("sessionUrl");
+			System.out.println("Url" + url);
+			if (url == null) {
+				return "home";
+			}
+			return "redirect:check-unit-status";
 
 		}
 	}
@@ -159,72 +159,92 @@ public class UserController {
 		return "about";
 	}
 
-	//for admin (Add subscription plan)
-	@PostMapping(value="/addsubplan")
-	public String addSubscriptionPlan(@ModelAttribute("subscriptionPlan")SubscriptionDTO subBean,RedirectAttributes redirectAttribute) {
+	// for admin (Add subscription plan)
+	@PostMapping(value = "/addsubplan")
+	public String addSubscriptionPlan(@ModelAttribute("subscriptionPlan") SubscriptionDTO subBean,
+			RedirectAttributes redirectAttribute) {
 		int result = userrepo.addSubscriptionPlan(subBean);
-		if(result==1) {
+		if (result == 1) {
 			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is successful");
-		}else {
+		} else {
 			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is fail!");
 		}
 		return "redirect:/subscription";
 	}
-	
-	//for admin to show (subscriptoin plan)
-	@GetMapping(value="/show-subscription-plan")
+
+	// for admin to show (subscriptoin plan)
+	@GetMapping(value = "/show-subscription-plan")
 	public String showSubscriptionTable() {
 		return "showSubscriptionPlan";
 	}
-	
-	
+
 	@GetMapping(value = "/show-single-lesson/{id}")
-	public String showSingleLesson(@PathVariable("id")int lessonId, Model m, HttpSession session) {
-		
+	public String showSingleLesson(@PathVariable("id") int lessonId, Model m, HttpSession session,
+			HttpServletRequest request) {
+
+		session.removeAttribute("sessionUrl");
+
+		String url = request.getRequestURL().toString();
+		System.out.println("Url:" + url);
+		m.addAttribute("currentUrl", url);
 		session.setAttribute("ssLessonId", lessonId);
-		
+
 		SingleLessonDTO slDTO = userrepo.selectOneLesson(lessonId);
-			m.addAttribute("slDTO", slDTO);
-			
-			List<UnitNameListDTO> unitNameLst = new ArrayList<UnitNameListDTO>();
-			unitNameLst = userrepo.showUnitNameList(lessonId);
-			m.addAttribute("unitNameLst", unitNameLst);
-			
-			int unitCount = userrepo.countUnit(lessonId);
-			m.addAttribute("unitCount", unitCount);
-			
-			return "singleLesson";
-	
+		m.addAttribute("slDTO", slDTO);
+
+		List<UnitNameListDTO> unitNameLst = new ArrayList<UnitNameListDTO>();
+		unitNameLst = userrepo.showUnitNameList(lessonId);
+		m.addAttribute("unitNameLst", unitNameLst);
+
+		int unitCount = userrepo.countUnit(lessonId);
+		m.addAttribute("unitCount", unitCount);
+
+		return "singleLesson";
+
 	}
-	
+
+	/*
+	 * @GetMapping("/return-lesson-url") public String returnLessonUrl(HttpSession
+	 * session) {
+	 * 
+	 * String lessonUrl = (String) session.getAttribute("ssLessonUrl");
+	 * 
+	 * if (lessonUrl == null) {
+	 * 
+	 * return "redirect:/"; }
+	 * 
+	 * return "redirect:" + lessonUrl; }
+	 */
+
 	@GetMapping(value = "/check-login")
-	public String checkLogin(HttpSession session, Model m, RedirectAttributes redirectAttribute) {
+	public String checkLogin(HttpSession session, Model m, RedirectAttributes redirectAttribute,
+			@RequestParam String url) {
 
-		if(session.getAttribute("sessionLogin") == null) {
-			redirectAttribute.addFlashAttribute("loginAlert", "You need to login first to apply the lessons");
+		if (session.getAttribute("sessionLogin") == null) {
+//			redirectAttribute.addFlashAttribute("loginAlert", true);
 			redirectAttribute.addFlashAttribute("loginError", true);
+			session.setAttribute("sessionUrl", url);
 			return "redirect:get-login";
-		}
-		else
-		{
-		
-			return "redirect:check-unit-status";
-		}	
+		} else {
 
-	}	
+			return "redirect:check-unit-status";
+		}
+
+	}
 
 	@GetMapping(value = "/check-unit-status")
 	public String checkUnitStatus(HttpSession session) {
-		
+
 		int lessonId = (int) session.getAttribute("ssLessonId");
-		
+
 		boolean unitStatus = userrepo.getUnitStatus(lessonId);
-		if(unitStatus) {
-			
+
+		if (unitStatus) {
+
 			return "redirect:../unit/showunit";
 		}
-		
-		return "redirect:check-payment";	
+
+		return "redirect:check-payment";
 	}
 
 	@GetMapping(value = "/check-payment")
@@ -235,11 +255,20 @@ public class UserController {
 		if (purStatus) {
 
 			return "redirect:../unit/showunit";
-			
+
 		} else {
-			redirectAttribute.addFlashAttribute("purchaseAlert", "You need to subscribe first to apply this premium lesson");
+			redirectAttribute.addFlashAttribute("purchaseAlert",
+					"You need to subscribe first to apply this premium lesson");
+//			session.setAttribute("purchaseAlert", "You need to subscribe first to apply this premium lesson");
 			return "redirect:../course/get-subscribe";
 		}
 	}
-	
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+		return "home";
+	}
+
 }

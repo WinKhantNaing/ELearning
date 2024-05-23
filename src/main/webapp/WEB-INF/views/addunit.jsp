@@ -42,6 +42,10 @@
 <!-- Main CSS-->
 <link href="<c:url value ="/adduserresources/css/main.css" />"
 	rel="stylesheet" media="all">
+	
+<link rel="stylesheet" href="<c:url value ="/richtexteditor/rte_theme_default.css" />" />
+
+<script type="text/javascript" src="<c:url value ="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"/>"></script>
 </head>
 
 <body>
@@ -52,53 +56,32 @@
 					<h2 class="title">Adding New Course Form</h2>
 
 					<!-- form start here -->
-
-					<form action="#" method="POST" enctype="multipart/form-data">
-						<%-- <form:form modelAttribute="coursebean" action="savecourse" method="POST" enctype="multipart/form-data"> --%>
+					
+					<form:form modelAttribute="add-unit-dto" action="../unit/create-unit" method="POST" enctype="multipart/form-data"> 
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
-									<label class="label">Unit Name</label> <input
-										class="input--style-4" style="width: 412.5px;" />
-									<%-- <form:input path="courseName" class="input--style-4" style="width:300px;" /> --%>
+									<label class="label">Unit Name</label> 
+									<form:input path="unitName" class="input--style-4" style="width:412.5px;" /> 
 								</div>
 							</div>
 						</div>
-						<div class="row row-space">
-							<div class="col-2">
-								<div class="input-group">
-									<label class="label">Unit Content</label>
-									<div class="file-upload">
-										<div class="image-upload-wrap">
-											<input type='file' class="file-upload-input"
-												onchange="readURL(this);" style="width: 412.5px;" />
-											<%-- <form:input type='file' path="courseImage" class="file-upload-input"
-                                                    onchange="readURL(this);" /> --%>
-											<div class="drag-text">
-												<h3>Attach any relevant documents or images</h3>
-											</div>
-										</div>
-										<div class="file-upload-content">
-											<img class="file-upload-image" src="#" alt="your image" />
-											<div class="image-title-wrap">
-												<button type="button" onclick="removeUpload()"
-													class="remove-image">
-													Remove <span class="image-title">Uploaded File</span>
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						
+							<label class="label">Unit Content</label>
+							<form:textarea path="content" name="content" id="content" rows="10" cols="80" style="margin-bottom: 40px;" />
+								
+						<script>
+						        CKEDITOR.replace('content');
+						</script>
 
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Question for WorkOut</label>
 									<div class="wrapper-ta">
-										<textarea name="the-textarea" id="the-textarea"
-											maxlength="300" placeholder="Start Typin..." style="width: 412.5px;"></textarea>
+										<form:textarea path="workOut" name="the-textarea" id="the-textarea"
+											maxlength="300" placeholder="Start Typin..."
+											style="width: 412.5px;" />
 										<div id="the-count">
 											<span id="current">0</span> <span id="maximum">/300</span>
 										</div>
@@ -106,14 +89,14 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Little Hints for WorkOut</label>
 									<div class="wrapper-ta">
-										<textarea name="the-textarea1" id="the-textarea1"
-											maxlength="50" placeholder="Start Typin..." style="width: 412.5px;"></textarea>
+										<form:textarea path="hint" name="the-textarea1" id="the-textarea1"
+											maxlength="50" placeholder="Start Typin..."
+											style="width: 412.5px;" />
 										<div id="the-count1">
 											<span id="current1">0</span> <span id="maximum1">/50</span>
 										</div>
@@ -121,14 +104,14 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Quiz</label>
 									<div class="wrapper-ta">
-										<textarea name="the-textarea2" id="the-textarea2"
-											maxlength="300" placeholder="Start Typin..." style="width: 412.5px;"></textarea>
+										<form:textarea path="quiz" name="the-textarea2" id="the-textarea2"
+											maxlength="300" placeholder="Start Typin..."
+											style="width: 412.5px;" />
 										<div id="the-count2">
 											<span id="current2">0</span> <span id="maximum2">/300</span>
 										</div>
@@ -136,14 +119,14 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Option 1</label>
 									<div class="wrapper-ta">
-										<textarea name="the-textarea" id="the-textarea"
-											maxlength="100" placeholder="Start Typin..." style="width: 412.5px;"></textarea>
+										<form:textarea path="option1" name="the-textarea" id="the-textarea"
+											maxlength="100" placeholder="Start Typin..."
+											style="width: 412.5px;" />
 										<div id="the-count3">
 											<span id="current3">0</span> <span id="maximum3">/100</span>
 										</div>
@@ -151,14 +134,14 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Option 2</label>
 									<div class="wrapper-ta">
-										<textarea name="the-textarea" id="the-textarea"
-											maxlength="100" placeholder="Start Typin..." style="width: 412.5px;"></textarea>
+										<form:textarea path="option2" name="the-textarea" id="the-textarea"
+											maxlength="100" placeholder="Start Typin..."
+											style="width: 412.5px;" />
 										<div id="the-count4">
 											<span id="current4">0</span> <span id="maximum4">/100</span>
 										</div>
@@ -166,31 +149,32 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<label class="label">Answer</label>
 									<div class="p-t-10">
-										<label class="radio-container m-r-45">Option 1<input
-											type="radio" checked="checked" name="membership"> <span
-											class="checkmark"></span>
-										</label> <label class="radio-container">Option 2<input
-											type="radio" name="membership"> <span
-											class="checkmark"></span>
+										<label class="radio-container m-r-45">Option 1
+										 <form:radiobutton path="answer" checked="checked"
+                                                            value="0"></form:radiobutton>
+                                                        <span class="checkmark"></span>
+										</label> <label class="radio-container">Option 2
+										 <form:radiobutton path="answer" checked="checked"
+                                                            value="1"></form:radiobutton>
+                                                        <span class="checkmark"></span>
 										</label>
 									</div>
 								</div>
 							</div>
 						</div>
-
 						<div class="p-t-15">
 							<button type="submit" class="btn btn--radius-2 btn--blue">Add</button>
 						</div>
 
 						<!-- form end here -->
-						<%-- </form:form> --%>
-					</form>
+					</form:form>
+
+						<!--Include the JS & CSS-->
 				</div>
 			</div>
 		</div>
@@ -212,6 +196,7 @@
 
 	<script class="jsbin"
 		src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" />"></script>
+		
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 

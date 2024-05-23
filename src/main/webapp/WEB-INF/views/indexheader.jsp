@@ -188,6 +188,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+			    <p>${loginFail}</p>
 				<div class="modal-body">
 					<form:form action="${pageContext.request.contextPath}/user/login"
 						class="row" id="loginForm" modelAttribute="loginbean"

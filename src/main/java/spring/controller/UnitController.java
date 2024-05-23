@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import spring.model.AddUnitDTO;
 import spring.model.LessonUnitBean;
 import spring.model.QuizOption;
 import spring.model.UniWorkBean;
@@ -60,4 +63,39 @@ public class UnitController {
 		QuizOption bean = new QuizOption();
 		return bean;
 	}
+	
+	@ModelAttribute("add-unit-dto")
+	public AddUnitDTO addUnitDTO() {
+		return new AddUnitDTO();
+	}
+	
+	@GetMapping(value = "/add-unit")
+	public ModelAndView addUnit() {
+		
+		return new ModelAndView("addunit", "add-unit-dto", new AddUnitDTO());
+		
+	}
+	
+	@PostMapping(value = "/create-unit")
+	public String createUnit( @ModelAttribute("add-unit-dto") AddUnitDTO auDTO, HttpSession session) {
+		
+		int lessonId = 2;
+//		int lessonId = (int) session.getAttribute("ssLessonId");
+		
+		System.out.println("auDTO answer"+ auDTO.getAnswer());
+		
+		int result = unitrepo.insertUnit(auDTO, lessonId);
+		
+		
+		
+		if(result>0) {
+			
+			return "";
+			
+		}
+		
+		return "addunit";
+		
+	}
+	
 }
