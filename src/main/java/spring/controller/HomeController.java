@@ -55,9 +55,9 @@ public class HomeController {
 		return lbean;
 	}
 	
-	@ModelAttribute("courseList")
-	public List<CoursesBean> getAllCourses() {
-		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
-		courseList = courserepo.getHomeCourses();
-		return courseList;}
+//	@ModelAttribute("courseList")
+//	public List<CoursesBean> getAllCourses() {
+//		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
+//		courseList = courserepo.getHomeCourses();
+//		return courseList;}
 }

@@ -7,12 +7,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,30 +14,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.UserBean;
 import spring.model.CoursesBean;
 import spring.model.PaySubBean;
 import spring.model.PhotoDto;
 import spring.model.ProfileDto;
-
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HttpSessionMutexListener;
-
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
-import spring.model.UserBean;
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 import org.springframework.web.servlet.view.RedirectView;
-
 import spring.model.LoginDTO;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
 import spring.model.UserDTO;
 import spring.model.SingleLessonDTO;
-import spring.repository.UserRepository;
 
 @Controller
 @RequestMapping("/user")
@@ -100,7 +90,7 @@ public class UserController {
 
 		}
 	}
-
+//user crud
 	@GetMapping(value = "/adduser")
 	public ModelAndView showuser() {
 		return new ModelAndView("adduser", "userbean", new UserBean());
@@ -124,11 +114,50 @@ public class UserController {
 		m.addAttribute("lstUser", lstUser);
 		return "showuser";
 	}
+	
+	@GetMapping(value = "/edituser/{sessionId}")
+	public String editUser(@PathVariable("sessionId") int userId,Model m) {
+		//System.out.println("passed!!"+userId);
+	    UserBean user = userrepo.selectOne(userId);
+	   System.out.println("after select one" + user.getUserId());
+	    m.addAttribute("eubean",user);
+	   return "useredit";
+	}
+	
+	
+	
+
+	@PostMapping(value= "/updateuser")
+	public String updateUser(@ModelAttribute("eubean") UserBean bean, Model m) {
+		
+		int result = userrepo.updateUser(bean);
+		if(result>0) {
+		
+			return "redirect:/user/showusertb";
+		}else {
+			m.addAttribute("user", bean);
+			return "courseedit";
+		}
+		
+	}
+	
+    @GetMapping(value = "/deleteuser/{userId}")
+    public String deleteUser(@PathVariable("userId") int userId) {
+        int result = userrepo.deleteUser(userId);
+        if (result > 0) {
+            // Successful deletion
+            return "redirect:/user/showusertb";
+        } else {
+            // Failed deletion
+            return "redirect:/user/showusertb";
+        }
+    }
 
 	@GetMapping(value = "/about")
 	public String showAbout() {
 		return "about";
 	}
+	
 	/*
 	 * public void isLogin(@ModelAttribute("bean") LoginDTO bean, HttpSession
 	 * session) {
@@ -177,12 +206,13 @@ public class UserController {
 		}
 
 	}
+
 	@GetMapping("/show-single-lesson/{id}")
-	public String showSingleLesson(@PathVariable("id")int lessonId, Model m) {
-		
+	public String showSingleLesson(@PathVariable("id") int lessonId, Model m) {
+
 		SingleLessonDTO slDTO = userrepo.selectOneLesson(lessonId);
 		m.addAttribute("slDTO", slDTO);
-		
+
 		return "redirect:check-login";
 	}
 

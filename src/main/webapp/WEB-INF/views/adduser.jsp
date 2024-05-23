@@ -9,6 +9,7 @@
 <html lang="en">
 
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Colorlib Templates">
@@ -29,19 +30,16 @@
     <link href="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.css"/>" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-
     <link href="<c:url value ="/adduserresources/css/main.css"/>" rel="stylesheet" media="all">
 </head>
-
+<%-- <jsp:include page="showuser.jsp" /> --%>
 <body>
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Adding New User Form</h2>
-
                     <form:form action="createuser" method="post"  modelAttribute="userbean">
-
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -65,21 +63,6 @@
                                     <form:input class="input--style-4" type="password" path="password"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="row mb-4">
-                                <div class="input-group">
-                                    <label class="col-form-label col-md-2 pt-0">Gender</label>
-                                    <div class="col-md-4">
-                                        <div class="form-check-inline">
-					                        <form:radiobutton label="Male"  class="form-check-input"	id="gridRadios1" path="gender" value="Male" />
-					                    </div>		
-					                    <div class="form-check-inline">
-					                        <form:radiobutton label="Female" class="form-check-input"  id="gridRadios2" path="gender" value="Female" />
-					                    </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>                      
                         <div class="input-group">
                             <label class="label">Role</label>
@@ -101,7 +84,6 @@
         </div>
     </div>
 
-
     <!-- Jquery JS-->
     <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
     <!-- Vendor JS-->
@@ -115,5 +97,4 @@
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
-<!-- end document-->
-
+<!-- end document--><!-- end document-->

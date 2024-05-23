@@ -26,6 +26,8 @@ import spring.model.PhotoDto;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.UserDTO;
+import user.model.CourseBean;
+import user.repositoty.ConnectionClass;
 
 public class UserRepository {
 
@@ -129,18 +131,18 @@ public class UserRepository {
 	 * 
 	 * }
 	 */
+	
+	// user crud
 	public int addUser(UserBean bean) {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		if (!checkEmail(bean.getUserEmail())) {
 			try {
-				PreparedStatement ps = con
-						.prepareStatement("insert into user(username,email,password,gender,role) value(?,?,?,?,?);");
+				PreparedStatement ps = con.prepareStatement("insert into user(username,email,password,role) value(?,?,?,?);");
 				ps.setString(1, bean.getUserName());
 				ps.setString(2, bean.getUserEmail());
 				ps.setString(3, bean.getPassword());
-				ps.setString(4, bean.getGender());
-				ps.setString(5, bean.getUserRole());
+				ps.setString(4, bean.getUserRole());
 				result = ps.executeUpdate();
 
 			} catch (SQLException e) {
@@ -159,7 +161,7 @@ public class UserRepository {
 
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select email from user where email=?");
+			PreparedStatement ps = con.prepareStatement("select count(*) from user where email=?");
 			ps.setString(1, UserEmail);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -182,10 +184,11 @@ public class UserRepository {
 
 			while (rs.next()) {
 				user = new UserBean();
+				user.setPrefix(rs.getString("prefix"));
+				user.setUserId(rs.getInt("id"));
 				user.setUserName(rs.getString("username"));
 				user.setUserEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setGender(rs.getString("gender"));
 				user.setUserRole(rs.getString("role"));
 				userlst.add(user);
 			}
@@ -195,28 +198,57 @@ public class UserRepository {
 		return userlst;
 	}
 
-	public UserBean selectOne(int userEmail) {
+	public UserBean selectOne(int userid) {
 		UserBean bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from from user where email=?");
-			ps.setInt(2, userEmail);
+			PreparedStatement ps = con.prepareStatement("select * from user where id=?");
+			ps.setInt(1, userid);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				bean = new UserBean();
+				bean.setUserId(rs.getInt("id"));
 				bean.setUserName(rs.getString("username"));
 				bean.setUserEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
-				bean.setGender(rs.getString("gender"));
 				bean.setUserRole(rs.getString("role"));
-
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("select one User : " + e.getMessage());
 		}
 		return bean;
 	}
-
+	public int updateUser(UserBean bean) {
+	    int result = 0;
+	    Connection con = ConnectionClass.getConnection();
+	    try {
+	        PreparedStatement ps = con.prepareStatement("update user set username=?, email=? where id=?");
+	        ps.setString(1, bean.getUserName());
+	        ps.setString(2, bean.getUserEmail());
+	        ps.setInt(3, bean.getUserId());
+	        result = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("User update: " + e.getMessage());
+	    }
+	    return result;
+	}
+	
+	public int deleteUser(int userId) {
+	    int result = 0;
+	    Connection con = ConnectionClass.getConnection();
+	    try {
+	        PreparedStatement ps = con.prepareStatement("delete from user where id=?");
+	        ps.setInt(1, userId);
+	        result = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("user delete :" + e.getMessage());
+	    }
+	    return result;
+	}
+	
+	
+	
 	public String uploadFile(MultipartFile file) {
 		String filePath = null;
 		try {
@@ -326,8 +358,7 @@ public class UserRepository {
 		Connection con = ConnectionClass.getConnection();
 		int i = 0;
 		try {
-			PreparedStatement ps = con
-					.prepareStatement("update user set username=?,email=?,password=?,gender=? where id=1");
+			PreparedStatement ps = con.prepareStatement("update user set username=?,email=?,password=?,gender=? where id=1");
 			ps.setString(1, user.getUserName());
 			ps.setString(2, user.getUserEmail());
 			ps.setString(3, user.getPassword());
