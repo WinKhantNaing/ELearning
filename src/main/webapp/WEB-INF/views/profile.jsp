@@ -24,10 +24,14 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
-
 <link href="<c:url value=" /resources/css/profile.css" />"
 	rel="stylesheet">
 <link href="<c:url value=" /resources/css/main.css" />" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 
 <link
 	href="<c:url value =" /resources/vendor/mdi-font/css/material-design-iconic-font.min.css" />"
@@ -143,104 +147,40 @@
 				<div class="col-md-8">
 					<div class="card mb-3">
 						<div class="card-body">
-							<button type="button" class="btn w-100 hover-btn"
-								data-bs-toggle="modal" data-bs-target="#nameModal">
-								<div class="row">
-									<div class="col-sm-6" style="text-align: left;">
-										<h6 class="mb-0">Full Name</h6>
-									</div>
-									<div class="col-sm-6 text-secondary" style="text-align: left;">${user.userName}</div>
-								</div>
-							</button>
 
-							<!-- Name Modal -->
-							<div class="modal fade" id="nameModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<h1 class="modal-title fs-5" id="exampleModalLabel"
-											style="padding: 15px;">Edit Your Name</h1>
-										<form:form action="changeusername" method="post"
-											modelAttribute="user">
-											<div class="mb-3" style="padding: 20px;">
-												<form:label for="exampleFormControlInput1"
-													class="form-label" path="userName">Name</form:label>
-												<form:input class="form-control"
-													id="exampleFormControlInput1"
-													placeholder="name@example.com" path="userName"
-													value="${user.userName}"
-													style="
-												    border: none;
-												    border-bottom: 1px solid #80808040;
-												    border-radius: 0;
-												" />
-											</div>
-											<div
-												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
-										</form:form>
-									</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Full Name</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">${user.userName}</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Email</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">${user.userEmail}</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Password</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">${user.password}</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Gender</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">${user.gender}</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-12">
+									<a class="btn btn-info" href="profileedit" role="button">Edit</a>
 								</div>
 							</div>
-
-							<hr>
-
-							<button type="button" class="btn w-100 hover-btn"
-								data-bs-toggle="modal" data-bs-target="#emailModal">
-								<div class="row">
-									<div class="col-sm-6" style="text-align: left;">
-										<h6 class="mb-0">Email</h6>
-									</div>
-									<div class="col-sm-6 text-secondary" style="text-align: left;">${user.userEmail}</div>
-								</div>
-							</button>
-
-							<!-- Email Modal -->
-							<div class="modal fade" id="emailModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<h1 class="modal-title fs-5" id="exampleModalLabel"
-											style="padding: 15px;">Edit Your Email</h1>
-										<form:form action="changeemail" method="post"
-											modelAttribute="user">
-											<div class="mb-3" style="padding: 20px;">
-												<form:label for="exampleFormControlInput2"
-													class="form-label" path="userEmail">Email</form:label>
-												<form:input class="form-control"
-													id="exampleFormControlInput2" placeholder="Enter Email"
-													path="userEmail" value="${user.userEmail}"
-													style="
-												    border: none;
-												    border-bottom: 1px solid #80808040;
-												    border-radius: 0;
-												" />
-											</div>
-											<div
-												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
-										</form:form>
-									</div>
-								</div>
-							</div>
-
-							<hr>
-
-							<button type="button" class="btn w-100" data-bs-toggle="modal"
-								data-bs-target="#exampleModal">
-								<div class="row">
-									<div class="col-sm-6" style="text-align: left;">
-										<h6 class="mb-0">Password</h6>
-									</div>
-									<div class="col-sm-6 text-secondary" style="text-align: left;">${user.password}</div>
-								</div>
-							</button>
 						</div>
 					</div>
 
@@ -321,8 +261,6 @@
 
 	<!-- Main JS-->
 	<script src="<c:url value =" /resources/js/global.js" />"></script>
-
-	<script src="<c:url value ="/resources/js/profile.js" />"></script>
 
 </body>
 

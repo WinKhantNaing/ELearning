@@ -17,7 +17,6 @@ import spring.model.CoursesBean;
 import spring.model.PaySubBean;
 import spring.model.PhotoDto;
 import spring.model.ProfileDto;
-import spring.model.UserBean;
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 
@@ -33,9 +32,9 @@ public class ProfileController {
 	@GetMapping(value = "/profiledetail")
 	public ModelAndView checklogin(HttpSession session, Model m) {
 		int id = (int) session.getAttribute("sessionId");
-
-		List<CoursesBean> lstUserCourse = userrepo.getCompleteCourses(id);
-		m.addAttribute("lstUserCourse", lstUserCourse);
+		
+			List<CoursesBean> lstUserCourse = userrepo.getCompleteCourses(id);
+			m.addAttribute("lstUserCourse", lstUserCourse);
 		ProfileDto user = userrepo.profileUser(id);
 		m.addAttribute("user", user);
 		int i = userrepo.levelCount(id);
@@ -60,27 +59,23 @@ public class ProfileController {
 			subscription = "Free User";
 		}
 		m.addAttribute("subscription", subscription);
+		
 
 		ModelAndView mv = new ModelAndView("profile", "pbean", new PhotoDto());
 		return mv;
 	}
-
-	@PostMapping(value = "/changeusername")
-	public String changeName(@ModelAttribute("user") UserBean bean, HttpSession session) {
-		int userId = (int) session.getAttribute("sessionId");
-		userrepo.updateName(userId, bean.getUserName());
-
-		return "redirect:profiledetail";
-	}
-
-	@PostMapping(value = "/changeemail")
-	public String changeEmail(@ModelAttribute("user") UserBean bean, HttpSession session) {
-		int userId = (int) session.getAttribute("sessionId");
-		userrepo.updateEmail(userId, bean.getUserEmail());
-
-		return "redirect:profiledetail";
-	}
-
+	
+	/*
+	 * @PostMapping(value = "/profilePhoto") public String
+	 * showphoto(@ModelAttribute("pbean") PhotoDto photo, HttpSession session) { int
+	 * userId = (int) session.getAttribute("sessionId"); if (userId == 1) { //
+	 * Handle the case where sessionId is not set
+	 * System.out.println("2.Session ID is not set."); // Return an empty list or
+	 * handle appropriately } int result = userrepo.insertPhoto(photo, userId); if
+	 * (result > 0) { System.out.println("profile photo upload success."); } else {
+	 * System.out.println("profile photo upload fail."); } return
+	 * "redirect:profile"; }
+	 */
 	@ModelAttribute("payDescription")
 	public List<PaySubBean> getPaymentDescription(HttpSession session) {
 		int id = (int) session.getAttribute("sessionId");
@@ -88,10 +83,5 @@ public class ProfileController {
 		payList = userrepo.getUserHistoryPlan(id);
 		return payList;
 
-	}
-
-	@ModelAttribute("user")
-	public UserBean use() {
-		return new UserBean();
 	}
 }

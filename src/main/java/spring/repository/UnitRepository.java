@@ -12,7 +12,6 @@ import org.springframework.cglib.proxy.NoOp;
 import spring.model.LessonUnitBean;
 import spring.model.QuizOption;
 import spring.model.UniWorkBean;
-import spring.model.UserBean;
 
 public class UnitRepository {
 
@@ -50,7 +49,7 @@ public class UnitRepository {
 		try {
 			PreparedStatement ps = con
 					.prepareStatement("select content, workout.question, workout.hint from elearning.unit\r\n"
-							+ "join elearning.workout on elearning.unit.id = elearning.workout.unit_id\r\n"
+							+ "join elearning.workout on elearning.unit.workout_id = elearning.workout.id\r\n"
 							+ "where elearning.unit.id = ?");
 			ps.setInt(1, unitId);
 			ResultSet rs = ps.executeQuery();
@@ -123,7 +122,7 @@ public class UnitRepository {
 			PreparedStatement ps = con.prepareStatement(
 					"select unit_name, quiz.id, quiz.question, optionId, selection, is_correct, unit.id from elearning.quiz\r\n"
 							+ "join elearning.option on elearning.quiz.id = elearning.option.quiz_id\r\n"
-							+ "join elearning.unit on elearning.quiz.unit_id = elearning.unit.id\r\n"
+							+ "join elearning.unit on elearning.quiz.id = elearning.unit.quiz_id\r\n"
 							+ "where elearning.unit.id = ?");
 			ps.setInt(1, unitId);
 			ResultSet rs = ps.executeQuery();
@@ -165,21 +164,4 @@ public class UnitRepository {
 		}
 		return lstUnitId;
 	}
-
-	public int changeComplete(int userId, int unitId) {
-		Connection con = ConnectionClass.getConnection();
-		int result = 0;
-
-		try {
-			PreparedStatement ps = con.prepareStatement("update elearning.enrollment set unit_status = \"complete\"\r\n"
-					+ "where user_id = ? and unit_id = ?");
-			ps.setInt(1, userId);
-			ps.setInt(2, unitId);
-			result = ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Change Progress: " + e.getMessage());
-		}
-		return result;
-	}
-
 }

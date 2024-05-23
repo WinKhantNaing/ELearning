@@ -47,7 +47,7 @@
 					<!-- newsletter -->
 					<!-- Start DEMO HTML (Use the following code into your project)-->
 
-					<!-- <div class="newsletter">
+					<div class="newsletter">
 						<div class="container">
 							<div class="row">
 								<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
@@ -75,7 +75,7 @@
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 
 					<!-- END EDMO HTML (Happy Coding!)-->
 					<!-- footer content -->
