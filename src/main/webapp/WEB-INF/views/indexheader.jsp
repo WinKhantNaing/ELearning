@@ -84,7 +84,7 @@
 							<li class="nav-item active"><a class="nav-link"
 								href="<c:url value ="/" />">Home</a></li>
 
-							<li class="nav-item @@about"><a class="nav-link" href='#'>About</a></li>
+							<li class="nav-item @@about"><a class="nav-link" href=<c:url value = "/about" />>About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href='<c:url value="/course/courses" />'>COURSES</a></li>
 
@@ -204,6 +204,7 @@
 		</div>
 	</div>
 	<!-- Modal -->
+	
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -222,6 +223,7 @@
 						method="post">
 
 						<div class="col-12">
+							
 							<span class="error-message" id="loginnameError"></span>
 							<form:input type="text" path="email" class="form-control mb-3"
 								id="loginname" name="loginName" placeholder="Email" />
@@ -234,14 +236,35 @@
 						</div>
 						<div class="col-12">
 							<button type="submit" class="btn btn-primary">LOGIN</button>
-						</div>
+						</div> 
+		
+						
+						<!-- <div class="col-12">
+							<button type="submit" class="btn btn-primary">LOGIN</button>
+						</div> -->
 					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
+	
+	<script>
+        $(document).ready(function() {
+            if (window.location.hash === "#loginModal" && '${loginerror}' !== '') {
+                $('#loginModal').modal('show');
+            }
+        });
+    </script>
+    
+    
+    <c:if test = "${loginError}">
+	<script> 
+	$(document).ready(function(){
+		$('#loginModal').modal('show');
+	});
+	</script>
+	</c:if>
+	
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
 	<script

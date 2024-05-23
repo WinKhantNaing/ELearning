@@ -2,6 +2,7 @@ package spring.controller;
 
 import java.util.List;
 
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,9 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.UserBean;
 
-
+import spring.model.FeedbakBean;
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
+
 
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
@@ -38,6 +40,7 @@ import spring.model.UnitNameListDTO;
 import spring.repository.UserRepository;
 
 
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -45,6 +48,7 @@ public class UserController {
 	@Autowired
 	UserRepository userrepo;
 	CoursesRepository courserepo;
+	
 	ServletContext context;
 
 	@GetMapping(value = "/index")
@@ -58,11 +62,19 @@ public class UserController {
 		return rbean;
 	}
 
+	
 	@ModelAttribute("loginbean")
 	public LoginBean getLoginBean() {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
+	
+	@ModelAttribute("give")
+	public FeedbakBean getFeedbackBean() {
+		FeedbakBean fbean = new FeedbakBean();
+		return fbean;
+	}
+
 
 	@ModelAttribute("paymentbean")
 	public PaymentDTO getPaymentBean() {
@@ -79,28 +91,38 @@ public class UserController {
 	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
 		int result = userrepo.insertUser(bean);
 		if (result < 0) {
+			
 			m.addAttribute("success", "Register Course Successful");
+			System.out.println("Register successful");
+			
 
 		} else {
+			m.addAttribute("RegisterError", true);
 			m.addAttribute("error", "Register course fail");
+			System.out.println("Register fail");
 
 		}
 		return "redirect:/";
 
 	}
 
+	
 	@PostMapping(value = "/login")
+
 	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m,
 			RedirectAttributes redirectAttribute) {
+
 		boolean isLogin = false;
 		UserBean ubean = userrepo.selectUser(bean);
 
 		if (ubean == null) {
 
+
 			System.out.println("fail");
 			redirectAttribute.addFlashAttribute("loginError", true);
 			redirectAttribute.addFlashAttribute("loginFail", "Login Fail!! Please Login Again.");
 			return "redirect:get-login";
+
 
 		} else {
 
@@ -109,6 +131,11 @@ public class UserController {
 			session.setAttribute("sessionimg",ubean.getFilePath());
 			session.setAttribute("sessionuserRole",ubean.getUserRole());
 			session.setAttribute("sessionLogin", isLogin);
+
+			session.setAttribute("name", ubean.getUserName());
+			
+
+	
 			String url = (String) session.getAttribute("sessionUrl");
 			System.out.println("Url" + url);
 			if (url == null) {
@@ -119,6 +146,7 @@ public class UserController {
 		}
 	}
 //user crud
+
 	@GetMapping(value = "/adduser")
 	public ModelAndView showuser() {
 		return new ModelAndView("adduser", "userbean", new UserBean());
@@ -304,6 +332,19 @@ public class UserController {
 		session.invalidate();
 		return "home";
 	}
+	
+	
+	@PostMapping(value = "/Feedback")
+	public String giveFeedback(@ModelAttribute("give") FeedbakBean fbean, Model m, HttpSession session) {
+		
+			int userId = (int) session.getAttribute("sessionId");
+			userrepo.insertFeedback(fbean, userId);
+			if(userId==0) {
+				System.out.println("insert fail");
+			}else System.out.println("insert success");
+			return "redirect:/";
+		
+		}
 
 
 	/*

@@ -10,7 +10,11 @@ import java.sql.SQLException;
 
 import spring.model.CommentDto;
 import spring.model.CoursesBean;
+
+import spring.model.FeedbakBean;
+
 import spring.model.CurrentPlanDTO;
+
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
 import spring.model.SingleLessonDTO;
@@ -53,7 +57,8 @@ public class UserRepository {
 		}
 		return result;
 	}
-
+	
+	
 	public UserBean selectUser(LoginBean bean) {
 		UserBean ubean = null;
 		Connection con = ConnectionClass.getConnection();
@@ -79,6 +84,7 @@ public class UserRepository {
 	}
 	
 
+
 	public int checkExpiration() {
 		
 		Connection con = ConnectionClass.getConnection();
@@ -95,6 +101,7 @@ public class UserRepository {
 		return result;	
 		
 	}
+
 
 	public boolean checkPayment(int userId) {
 
@@ -266,7 +273,7 @@ public class UserRepository {
 	public String uploadFile(MultipartFile file) {
 		String filePath = null;
 		try {
-			String path = "C:\\JAVA.51\\ELearning\\src\\main\\webapp\\resources\\images\\profilephoto";
+			String path = "C:\\\\JAVA.51\\\\ELearning\\\\src\\\\main\\\\webapp\\\\resources\\\\images\\\\profilephoto";
 			String filename = file.getOriginalFilename();
 			byte[] bytes = file.getBytes();
 			BufferedOutputStream stream = new BufferedOutputStream(
@@ -335,8 +342,10 @@ public class UserRepository {
 
 		Connection con = ConnectionClass.getConnection();
 		try {
+
 			PreparedStatement ps = con
 					.prepareStatement("select count(*) from enrollment where unit_status='complete' and user_id=?");
+
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -633,5 +642,22 @@ public class UserRepository {
 		return status;
 		
 	}
+
+
+public int insertFeedback(FeedbakBean bean, int userId) {
+	int result = 0;
+	Connection con = ConnectionClass.getConnection();
+	try {
+		PreparedStatement ps = con.prepareStatement("insert into feedback(rating,comment,user_id1) values(?,?,?)");
+		ps.setInt(1, bean.getRating());
+		ps.setString(2, bean.getComment());
+		ps.setInt(3, userId);
+		result = ps.executeUpdate();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		System.out.println("Feedback : "+ e.getMessage());
+	}
+	return result;
+}
 	
 }
