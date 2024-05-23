@@ -11,13 +11,12 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href='<c:url value="/resources/css/style.css" />'>
-    <link rel="stylesheet" href='<c:url value="/resources/css/subForm.css" />'>
   <link href='<c:url value ="/adduserresources/vendor/select2/select2.min.css"/>' rel="stylesheet" media="all">
     <link href='<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.css"/>' rel="stylesheet" media="all">
     <!-- Main CSS-->
+    <link rel="stylesheet" href='<c:url value="/resources/css/subForm.css" />'>
     <link href='<c:url value ="/adduserresources/css/main.css"/>' rel="stylesheet" media="all">
 <title>Insert title here</title>
-
 </head>
 <body class="body">
 <div class="container">
@@ -26,18 +25,21 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                   <h2 >Subscription Plan Add</h2>
+                   <h2 >Subscription Plan Update</h2>
                     </div>
                 </div>
                 <div class="panel-body">
-                <form:form action="user/sub-plan-add" modelAttribute="subPlanBean" method="post" id="subForm">
+                <form:form action="../subscriptionPlan" modelAttribute="planBean" method="post">
                        <div class="row">
                             <div class="col-xs-12 mb-3">
                                 <div class="form-group">
                                     <label >Subscription plan</label>
                                     <div class="input-group col-xs-12">
-                                          <form:select class="form-select" path="plan" id="timePeriod" onchange="updateOptions()">
-                   <form:option value="Daily" /> 
+                                    <form:hidden path="subId"  value="${subId}" />
+                                    <%-- <form:input path="plan" class="input--style-4" type="text" value="${plan}"/> --%>
+                                          <form:select class="form-select" path="plan"  id="timePeriod" onchange="updateOptions()">
+                   <form:option value="${plan}" />
+                    <form:option value="Daily" />  
                    <form:option value="Monthly" />
                     <form:option value="Yearly" />  
                      
@@ -51,7 +53,9 @@
                                 <div class="form-group">
                                     <label >Duration</label>
                                     <div class="input-group col-xs-12">
-                                         <form:select path="duration" id="options" class="form-select" type="text"/>
+                                         <form:select path="duration" id="options" class="form-select" value="${duration}" >
+                                         </form:select>
+                                         
                                     </div>
                                 </div>
                             </div>
@@ -61,15 +65,14 @@
                                 <div class="form-group">
                                     <label >Price</label>
                                     <div class="input-group col-xs-12">
-                                    <span id="priceError" class="error-message" style="color:red; font-size:13px;"></span>
-                                           <form:input path="price" id="price" class="input--style-4" type="text"/>
-                                           
+                                           <form:input path="price" class="input--style-4" type="text" value="${price}"/>
+                                            <form:hidden path="isActive" value="1"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="button-position" >
-                 		<button type="submit" class="btn btn-primary mt-1 pl-2 pr-2 show-button">Add</button>
+                 		<button type="submit" class="btn btn-primary mt-1 pl-2 pr-2 show-button" >Update</button>
 						</div>
                       </form:form>
                         </div>
@@ -79,7 +82,7 @@
                             </div>
                         </div>
                         
-<script src="<c:url value="/resources/js/subPrice.js" />"></script>
+
 <script src="<c:url value="/resources/js/subPlan.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>

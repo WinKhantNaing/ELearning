@@ -42,7 +42,7 @@
 
 
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-
+<link href="<c:url value="/resources/css/course.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/color.css" />" rel="stylesheet">
 <link href="<c:url value='/resources/css/feedback.css'/>"
 	rel="stylesheet">
@@ -96,6 +96,10 @@
 										href='<c:url value="user/adduser"/>'>Add User</a></li>
 									<li><a class="dropdown-item"
 										href='<c:url value="../../course/showcourses"/>'>Show Courses</a></li>
+										<li><a class="dropdown-item"
+										href='<c:url value="/add-subscription-plan"/>'>Add Subscription plan</a></li>
+										<li><a class="dropdown-item"
+										href='<c:url value="/show-plan-list"/>'>Show Subscription plan</a></li>
 								</ul></li>
 							<li>
 								<div style="margin-top: 24px;">
@@ -112,6 +116,9 @@
 							<li class="nav-item"><a class="nav-link"
 								href="<c:url value="#signupModal" />" data-toggle="modal"
 								data-target="#signupModal">register</a></li>
+								
+								<li class="nav-item"><a  class="nav-link" data-bs-toggle="modal" 
+								data-bs-target="#subscriptionModal">Subscription</a></li>
 
 
 						</ul>
@@ -177,9 +184,9 @@
 		</div>
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+	<div class="modal" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content rounded-0 border-0 p-4">
 				<div class="modal-header border-0">
 					<h3>Login</h3>
@@ -192,7 +199,7 @@
 					<form:form action="${pageContext.request.contextPath}/user/login"
 						class="row" id="loginForm" modelAttribute="loginbean"
 						method="post">
-
+						<span style="color:red;">${message}</span>
 						<div class="col-12">
 							<span class="error-message" id="loginnameError"></span>
 							<form:input type="text" path="email" class="form-control mb-3"
@@ -212,8 +219,30 @@
 			</div>
 		</div>
 	</div>
-
-
+	
+	<!-- for subscription modal -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Subscription Plan</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+       <div class="mt-4 mb-4" >
+      <button type="button" class="plans" style="background-color:#E2EC57;" onclick="location.href='<c:url value="/monthly-subscription"/>'">Monthly Plan</button>
+      </div>
+       <div class="mt-4 mb-4" >
+      <button type="button" class="plans" style="background-color:#D2DE20;" onclick="location.href='<c:url value="/yearly-subscription"/>'">Yearly Plan</button>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
 	<script
@@ -233,7 +262,7 @@
 		src="<c:url value="
 					https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" />"></script>
 	<script src="<c:url value="/resources/plugins/google-map/gmap.js" />"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<!-- Main Script -->
 	<script src="<c:url value="/resources/js/script.js" />"></script>
 	<script src="<c:url value="/resources/js/register.js" />"></script>

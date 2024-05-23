@@ -68,7 +68,7 @@ $(function(){
   $(".previous-page").on("click", function(){
     return showPage(currentPage - 1);
   });
-  $('#myInput').on('input', function () {
+ $('#myInput').on('input', function () {
 	  if ($(this).val().trim() === "") {
 	    	//Define filteredCount initially as the total number of items
 	        // If the input is cleared, reset the pagination and item count
@@ -107,28 +107,7 @@ for (i = 0; i < cardContainer.length; i++) {
 }
 }
 
-// Additional event listener to handle input clearing
-$('#myInput').on('blur', function() {
-    if ($(this).val().trim() != "") {
-    	searchCourses();
-    }else{
-        // If the input is cleared, reset the pagination and item count
-        numberOfItems = $(".card-content .card").length;
-        
-        // Update filteredCount to reflect the new count of items after filtering
-        filteredCount = numberOfItems;
-        
-        // Recalculate totalPages based on the updated filteredCount
-        totalPages = Math.ceil(filteredCount / limitPerPage);
-        
-        // Show the current page after resetting pagination
-        showPage(currentPage);
-    }
-    
 });
-});
-
-
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	  const toastElList = document.querySelectorAll('.toast');

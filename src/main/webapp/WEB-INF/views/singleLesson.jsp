@@ -7,8 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-	<c:choose>
-		<c:when test="${loginAlert!=null}">
+	<c:if test="${!sessionLogin}">
 			<script type="text/javascript">
 		    	function confirmApply(event) {
 		        var confirmed = confirm("You need to login first to apply the lessons");
@@ -17,18 +16,8 @@
 		        	}
 		    	}
 			</script>
-		</c:when>
-		<c:otherwise>
-			<script type="text/javascript">
-			    function confirmApply(event) {
-			        var confirmed = confirm("You need to subscribe first to apply this premium lesson");
-			        if (!confirmed) {
-			            event.preventDefault();
-			        }
-			    }
-			</script>
-		</c:otherwise>
-	</c:choose>
+		</c:if>
+		
 </head>
 <body>
 	<jsp:include page="indexheader.jsp"></jsp:include>
@@ -77,15 +66,7 @@
 								</div>
 							</div>
 						</li>
-						<!-- <li class="list-inline-item mr-4 mb-3 mb-sm-0">
-            <div class="d-flex align-items-center">
-              <i class="ti-alarm-clock text-primary icon-md mr-2"></i>
-              <div class="text-left">
-                <h6 class="mb-0">DURATION</h6>
-                <p class="mb-0">03 Hours</p>
-              </div>
-            </div>
-          </li> -->
+						
 						<li class="list-inline-item mr-4 mb-3 mb-sm-0">
 							<div class="d-flex align-items-center">
 								<i class="ti-wallet text-primary icon-md mr-2"></i>

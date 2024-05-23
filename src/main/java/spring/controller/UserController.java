@@ -8,11 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,34 +15,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.UserBean;
-import spring.model.CoursesBean;
-import spring.model.PaySubBean;
-import spring.model.PhotoDto;
-import spring.model.ProfileDto;
-
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.HttpSessionMutexListener;
 
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
-import spring.model.UserBean;
+
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-import org.springframework.web.servlet.view.RedirectView;
 
-import spring.model.LoginDTO;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
-import spring.model.UserDTO;
+
 import spring.model.SingleLessonDTO;
-import spring.model.SubscriptionDTO;
+
 import spring.model.UnitNameListDTO;
-import spring.repository.UserRepository;
+
 
 @Controller
 @RequestMapping("/user")
@@ -85,7 +70,6 @@ public class UserController {
 	 
 	@GetMapping(value = "/get-login")
 	public ModelAndView getLogin() {
-		
 		return new ModelAndView("home", "loginbean", new LoginBean());
 	}
 	
@@ -154,17 +138,7 @@ public class UserController {
 		return "about";
 	}
 
-	//for admin (Add subscription plan)
-	@PostMapping(value="/addsubplan")
-	public String addSubscriptionPlan(@ModelAttribute("subscriptionPlan")SubscriptionDTO subBean,RedirectAttributes redirectAttribute) {
-		int result = userrepo.addSubscriptionPlan(subBean);
-		if(result==1) {
-			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is successful");
-		}else {
-			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is fail!");
-		}
-		return "redirect:/subscription";
-	}
+
 	
 	//for admin to show (subscriptoin plan)
 	@GetMapping(value="/show-subscription-plan")
@@ -202,11 +176,11 @@ public class UserController {
 		}
 		else
 		{
-		
 			return "redirect:check-unit-status";
 		}	
 
 	}	
+	
 
 	@GetMapping(value = "/check-unit-status")
 	public String checkUnitStatus(HttpSession session) {
@@ -237,4 +211,54 @@ public class UserController {
 		}
 	}
 	
+	
+	// for admin to delete subscription plan
+	@GetMapping(value="/delete/{subId}")
+	public String deleteSubscriptionPlan(@PathVariable("subId")int cid) {
+		int result = userrepo.deleteSubscriptionPlan(cid);
+		return "redirect:/show-plan-list";
+	}
+	
+	// for admin to active subscription plan
+		@GetMapping(value="/active/{subId}")
+		public String activeSubscriptionPlan(@PathVariable("subId")int cid) {
+			int result = userrepo.activeSubscriptionPlan(cid);
+			return "redirect:/show-plan-list";
+		}
+		
+		// for admin to select for update subscription plan
+				@GetMapping(value="/update/{subId}")
+				public ModelAndView updateSubscriptionPlan(@PathVariable("subId")int cid) {
+					PriceCardDTO bean = userrepo.selectSubscriptionPlan(cid);
+					return new ModelAndView("subPlanUpdate","planBean",bean);
+				}
+				
+	  //for admin to update subscription plan
+				@PostMapping(value="/subscriptionPlan")
+				public String updateSubscriptionPlan(@ModelAttribute("planBean")PriceCardDTO bean, RedirectAttributes redirectAttribute) {
+					int result = userrepo.updateSubscriptionPlan(bean);
+					if(result > 0 ) {
+						redirectAttribute.addFlashAttribute("message","Plan update is successful.");
+					}else {
+						redirectAttribute.addFlashAttribute("message","Plan update is fail!");
+					}
+					redirectAttribute.addFlashAttribute("plan",true);
+					return "redirect:/show-plan-list";
+				}
+				
+		//for admin to add subscription plan
+				@PostMapping(value="/sub-plan-add")
+				public String addSubscriptionPlan(@ModelAttribute("subPlanBean")PriceCardDTO bean,RedirectAttributes redirectAttribute) {
+					int result = userrepo.addSubscriptionPlan(bean);
+					if(result > 0) {
+						
+						redirectAttribute.addFlashAttribute("message","Adding plan is successful.");
+					}else {
+						
+						redirectAttribute.addFlashAttribute("message","Adding plan is fail.");
+					}
+					redirectAttribute.addFlashAttribute("plan",true);
+					return "redirect:/show-plan-list";
+				}
+
 }

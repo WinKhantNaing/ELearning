@@ -52,6 +52,8 @@
 <!-- venobox popup -->
 <link href="<c:url value="resources/plugins/venobox/venobox.css" />"
 	rel="stylesheet"></link>
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -66,13 +68,25 @@
 	rel="shortcut icon" type="image/x-icon"></link>
 <link href="<c:url value="resources/resources/images/favicon.png" />"
 	rel="icon" type="image/x-icon"></link>
+	<style>
+.show-button{
+text-align: center;}
+</style>
 </head>
 
-<body>
+<body> 
+ 
 	<%@ include file="indexheader.jsp"%>
 	<!-- /header -->
+		<c:if test="${loginError}">
+		<script>
+			$(document).ready(function() {
+				$('#loginModal').modal('show');
+			});
+		</script>
+	</c:if>
 	<!-- Modal -->
-	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
+	<%-- <div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content rounded-0 border-0 p-4">
@@ -85,46 +99,49 @@
 				</div>
 				<div class="modal-body">
 					<div class="login">
-						<form action="#" class="row">
+						<span>${success}</span> <span>${error}</span>
+						
+						<form:form
+							action="${pageContext.request.contextPath}/user/register"
+							class="row" id="registrationForm" method="post"
+							modelAttribute="registerbean">
 							<div class="col-12">
-								<input type="text" class="form-control mb-3" id="signupPhone"
-									name="signupPhone" placeholder="Phone">
+								<span id="usernameError" class="error"></span>
+								<form:input type="text" path="uname" class="form-control mb-3"
+									id="username" name="signupName" placeholder="Name" />
 							</div>
 							<div class="col-12">
-								<input type="text" class="form-control mb-3" id="signupName"
-									name="signupName" placeholder="Name">
+								<span id="emailError" class="error"></span><br>
+								<form:input type="email" path="uemail" class="form-control mb-3"
+									id="email" name="signupEmail" placeholder="Email" />
 							</div>
 							<div class="col-12">
-								<input type="email" class="form-control mb-3" id="signupEmail"
-									name="signupEmail" placeholder="Email">
+								<span id="passwordError" class="error"></span><br>
+								<form:input type="password" path="upassword"
+									class="form-control mb-3" id="password" name="signupPassword"
+									placeholder="Password" />
 							</div>
+
 							<div class="col-12">
-								<input type="password" class="form-control mb-3"
-									id="signupPassword" name="signupPassword"
-									placeholder="Password">
+								<span id="confirmPasswordError" class="error"></span><br>
+								<form:input type="password" path="conpassword"
+									class="form-control mb-3" id="confirmPassword"
+									name="signupConPassword" placeholder="ComfirmPassword" />
 							</div>
+
 							<div class="col-12">
 								<button type="submit" class="btn btn-primary">SIGN UP</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Modal -->
-
-	<c:if test="${loginError}">
-		<script>
-			$(document).ready(function() {
-				$('#loginModal').modal('show');
-			});
-		</script>
-	</c:if>
-
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+	<div class="modal" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content rounded-0 border-0 p-4">
 				<div class="modal-header border-0">
 					<h3>Login</h3>
@@ -133,33 +150,31 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				
-					<p>${loginFail}</p>
-				
-
 				<div class="modal-body">
-					<form action="#" class="row">
+					<form:form action="${pageContext.request.contextPath}/user/login"
+						class="row" id="loginForm" modelAttribute="loginbean"
+						method="post">
+
 						<div class="col-12">
-							<input type="text" class="form-control mb-3" id="loginPhone"
-								name="loginPhone" placeholder="Phone">
+							<span class="error-message" id="loginnameError"></span>
+							<form:input type="text" path="email" class="form-control mb-3"
+								id="loginname" name="loginName" placeholder="Email" />
 						</div>
 						<div class="col-12">
-							<input type="text" class="form-control mb-3" id="loginName"
-								name="loginName" placeholder="Name">
-						</div>
-						<div class="col-12">
-							<input type="password" class="form-control mb-3"
-								id="loginPassword" name="loginPassword" placeholder="Password">
+							<span class="error-message" id="loginpasswordError"></span>
+							<form:input type="password" path="password"
+								class="form-control mb-3" id="loginpassword"
+								name="loginPassword" placeholder="Password" />
 						</div>
 						<div class="col-12">
 							<button type="submit" class="btn btn-primary">LOGIN</button>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
-
+ --%>
 	<!-- hero slider -->
 	<section class="hero-section overlay bg-cover"
 		data-background="resources/images/banner/banner-1.jpg">
@@ -319,7 +334,7 @@
 						<h2 class="mb-0 text-nowrap mr-3">Our Course</h2>
 						<div class="border-top w-100 border-primary d-none d-sm-block"></div>
 						<div>
-							<a href='<c:url value="course/courses"/>'
+							<a href='<c:url value="/course/courses"/>'
 								class="btn btn-sm btn-outline-primary ml-sm-3 d-none d-sm-block">see
 								all</a>
 						</div>
@@ -332,11 +347,11 @@
 				<c:forEach items="${courseList}" var="course">
 				<div class="col-lg-4 col-sm-6 mb-5">
 					<div class="card p-0 border-primary rounded-0 hover-shadow">
-						<img class="card-img-top rounded-0" style="height:280px;"
+						<img class="card-img-top rounded-0" style="height:230px;"
 							src="<c:url value='${course.courseImagePath }' />" alt="course thumb">
 						<div class="card-body">
 							<ul class="list-inline mb-2">
-								<a href="#">
+								<a href="<c:url value="/user/show-single-lesson/${course.courseId}"/>">
 									<h4 class="card-title">${course.courseName }</h4>
 								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
@@ -345,9 +360,10 @@
 								</ul>
 							<div class="code-container">
 									<p class="card-text mb-3" id="scrollspyHeading1">
-										${course.courseDescription }</p>
-								</div>
-							<a href="<c:url value=" /ToeYadanaKyaw/${course.courseId }" />" class="btn btn-primary btn-sm">See more..</a>
+										${course.courseDescription }</p></div>
+								<div class="mt-2 show-button" >
+							<a href="<c:url value="/user/show-single-lesson/${course.courseId}"/>" class="btn btn-primary btn-sm">See more..</a>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -685,6 +701,8 @@
 	</section>
 
 	<%@ include file="indexfooter.jsp"%>
+	
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

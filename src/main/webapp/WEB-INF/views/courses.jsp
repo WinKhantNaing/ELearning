@@ -57,11 +57,16 @@
 <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
 <style>
+.show-button{
+text-align: center;}
+    
 .search-icon{
 color:white;
 margin-left: -30px;
 margin-right: 30px;
 }
+.pagination{
+justify-content: center;}
 </style>
 </head>
 
@@ -139,8 +144,8 @@ margin-right: 30px;
 
 							<div class="card-body card-info">
 								<ul class="list-inline mb-2">
-								<a href="<c:url value="../user/show-single-lesson/${course.courseId}"/>">
-									<h4 class="card-title">${course.courseName }</h4>
+								<a href='<c:url value="../user/show-single-lesson/${course.courseId}"/>'>
+									<h4 class="card-title">${course.courseName}</h4>
 								</a>
 									<li class="list-inline-item"><i class="bi bi-star-fill"></i>
 										${course.courseStatus}</li>
@@ -151,7 +156,7 @@ margin-right: 30px;
 									<p class="card-text mb-3" id="scrollspyHeading1">
 										${course.courseDescription }</p>
 								</div>
-								<div class="mt-2">
+								<div class="mt-2 show-button" >
 									<a href="<c:url value="../user/show-single-lesson/${course.courseId}" />"
 										class="btn btn-primary btn-sm">See more..</a>
 
@@ -162,14 +167,14 @@ margin-right: 30px;
 					</div>
 				</c:forEach>
 				<div class="pagination">
-      <!-- <li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+         <!--  <li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
           <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
           <li class="page-item dots"><a class="page-link" href="#">...</a></li>
           <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
           <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
           <li class="page-item dots"><a class="page-link" href="#">...</a></li>
           <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li> -->
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>  -->
         </div>
 			</div>
 		</div>
@@ -180,7 +185,7 @@ margin-right: 30px;
 	<jsp:include page="indexfooter.jsp"></jsp:include>
 
 
-  <script src="<c:url value="/resources/js/course.js" />"></script> 
+  <script src="<c:url value="/resources/js/course.js"/>"></script> 
 	<!-- jQuery -->
 	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
