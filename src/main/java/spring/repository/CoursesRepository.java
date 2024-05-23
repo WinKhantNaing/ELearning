@@ -16,14 +16,14 @@ public class CoursesRepository {
 		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1");
+			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
 				courseBean.setCourseName(rs.getString("name"));
-				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
 				
@@ -40,7 +40,7 @@ public class CoursesRepository {
 		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from lesson where active=1 order by id  limit 6");
+			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1 order by id  limit 6");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				courseBean = new CoursesBean();
@@ -80,13 +80,13 @@ public class CoursesRepository {
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
 				courseBean.setCourseName(rs.getString("name"));
-				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
 				courseCompleteList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Complete Courses :" +e.getMessage());
 		}
 		return courseCompleteList; 
 	}
@@ -118,7 +118,7 @@ public class CoursesRepository {
 				courseProgressList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Progress Courses :" +e.getMessage());
 		}
 		return courseProgressList; 
 	}
