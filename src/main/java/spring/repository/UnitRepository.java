@@ -12,6 +12,7 @@ import org.springframework.cglib.proxy.NoOp;
 import spring.model.LessonUnitBean;
 import spring.model.QuizOption;
 import spring.model.UniWorkBean;
+import spring.model.AddUnitDTO;
 
 public class UnitRepository {
 
@@ -127,6 +128,101 @@ public class UnitRepository {
 			System.out.println("Select Quiz: " + e.getMessage());
 		}
 		return lstQuiz;
+
+	}
+
+	public int insertUnit(AddUnitDTO auDTO, int lessonId) {
+
+		Connection con = ConnectionClass.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		try {
+
+			String sqlUnit = "insert into unit(unit_name, lesson_id, content) values(?, ?, ?)";
+			ps = con.prepareStatement(sqlUnit, PreparedStatement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, auDTO.getUnitName());
+			ps.setInt(2, lessonId);
+			ps.setString(3, auDTO.getContent());
+			result += ps.executeUpdate();
+
+			System.out.println("unit table : " + auDTO);
+
+			rs = ps.getGeneratedKeys();
+			while (rs.next()) {
+
+				int unitId = rs.getInt(1);
+				try {
+					String sqlWorkOut = "insert into workout(question, hint, unit_id) values(?, ?, ?)";
+					ps = con.prepareStatement(sqlWorkOut);
+					ps.setString(1, auDTO.getWorkOut());
+					ps.setString(2, auDTO.getHint());
+					ps.setInt(3, unitId);
+
+					System.out.println("workout table : " + auDTO + unitId);
+
+					result += ps.executeUpdate();
+
+				} catch (SQLException e) {
+					System.out.println("Add workout :" + e.getMessage());
+				}
+
+				try {
+					String sqlQuiz = "insert into quiz(question, unit_id) values(?, ?)";
+					ps = con.prepareStatement(sqlQuiz, PreparedStatement.RETURN_GENERATED_KEYS);
+					ps.setString(1, auDTO.getQuiz());
+					ps.setInt(2, unitId);
+
+					System.out.println("quiz table : " + auDTO + unitId);
+
+					result += ps.executeUpdate();
+				} catch (SQLException e) {
+					System.out.println("Add quiz :" + e.getMessage());
+				}
+
+				rs = ps.getGeneratedKeys();
+				while (rs.next()) {
+
+					int quizId = rs.getInt(1);
+					try {
+						String sqlOption = "insert into `option`(`option`, is_correct, quiz_id) values(?, ?, ?)";
+						ps = con.prepareStatement(sqlOption);
+
+						ps.setString(1, auDTO.getOption1());
+//						ps.setBoolean(2, auDTO.getOption1().equals(auDTO.getAnswer()));
+						ps.setInt(2, auDTO.getAnswer());
+						ps.setInt(3, quizId);
+
+						System.out.println("option table for op1 : " + auDTO + quizId);
+
+						result += ps.executeUpdate();
+
+						ps.setString(1, auDTO.getOption2());
+//						ps.setBoolean(2, auDTO.getOption2().equals(auDTO.getAnswer()));
+						ps.setInt(2, auDTO.getAnswer());
+						ps.setInt(3, quizId);
+
+						System.out.println("option table op2 : " + auDTO.getAnswer() + quizId);
+
+						result += ps.executeUpdate();
+
+					} catch (SQLException e) {
+						System.out.println("Add option1 :" + e.getMessage());
+					}
+
+				}
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Add unit :" + e.getMessage());
+		}
+
+		System.out.println("total result : " + result);
+
+		return result;
 
 	}
 }

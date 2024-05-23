@@ -6,3 +6,59 @@
         padding: 1px;
         font-family: monospace; /* Ensures monospaced font */
      }
+list-inline-item{
+	font-size: 14px;
+}
+.form-control{
+     border:none;
+     }
+    .page-header{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    }
+     .cc-img {
+        margin: 0 auto;
+    }
+    .radio-button{
+    margin-right: 20%;
+    }
+    
+    .methods{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:35px;
+    font-size: 14px;
+    }
+    .method-container{
+    margin-bottom: 120px;
+    }
+  
+/* HIDE RADIO */
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  outline: 2px solid #f00;
+} 
+.image-method{
+display:flex;
+justify-content: space-around;
+margin-bottom: 20px;
+}
+
+
+h1{
+margin-left: 35%;
+}
