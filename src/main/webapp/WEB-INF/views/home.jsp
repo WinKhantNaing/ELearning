@@ -68,6 +68,13 @@
 	<%@ include file="indexheader.jsp"%>
 	<!-- /header -->
 	<!-- Modal -->
+	<c:if test = "${RegisterError}">
+	<script> 
+	$(document).ready(function(){
+		$('#signupModal').modal('show');
+	});
+	</script>	
+	</c:if>
 	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -109,6 +116,14 @@
 		</div>
 	</div>
 	<!-- Modal -->
+	
+	<c:if test = "${loginError}">
+	<script> 
+	$(document).ready(function(){
+		$('#loginModal').modal('show');
+	});
+	</script>	
+	</c:if>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -694,5 +709,9 @@
 	<script src="<c:url value="/resources/js/script.js" />"></script>
 	<script src="<c:url value="/resources/js/register.js" />"></script>
 	<script src="<c:url value="/resources/js/login.js" />"></script>
+	
+	
+	
+	
 </body>
 </html>

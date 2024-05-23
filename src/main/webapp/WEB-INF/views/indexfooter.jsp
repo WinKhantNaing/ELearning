@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 
 		<!DOCTYPE html>
 		<html>
@@ -47,35 +48,38 @@
 					<!-- newsletter -->
 					<!-- Start DEMO HTML (Use the following code into your project)-->
 
-					<div class="newsletter">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-									<h3 class="text-white">Rate Your Experiences</h3>
-									<form action="#">
-										<div class="input-wrapper">
-											<div class="rate-box">
+		<c:if test="${sessionLogin == true}">
+		<div class="newsletter">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+						<h3 class="text-white">Rate Your Experiences</h3>
+						<form:form action="user/Feedback" method = "post" modelAttribute = "give">
+							<div class="input-wrapper">
+								<div class="rate-box">
+		
+									<form:radiobutton path = "rating" name="star" value="5" id="star0" /> <label
+										class="star" for="star0"></label> <form:radiobutton
+										path = "rating" name="star" value="4" id="star1" /> <label class="star" for="star1"></label>
+									<form:radiobutton path = "rating" name="star" value="3" id="star2" checked="checked" />
+									<label class="star" for="star2"></label> <form:radiobutton
+										path = "rating" name="star" value="2" id="star3" /> <label class="star" for="star3"></label>
+									<form:radiobutton path = "rating" name="star" value="1" id="star4" /> <label
+										class="star" for="star4"></label>
 
-												<input type="radio" name="star" id="star0" /> <label class="star"
-													for="star0"></label> <input type="radio" name="star" id="star1" />
-												<label class="star" for="star1"></label>
-												<input type="radio" name="star" id="star2" checked="checked" />
-												<label class="star" for="star2"></label> <input type="radio" name="star"
-													id="star3" /> <label class="star" for="star3"></label>
-												<input type="radio" name="star" id="star4" /> <label class="star"
-													for="star4"></label>
-
-											</div>
-											<input type="text" class="form-control border-0" id="newsletter"
-												name="newsletter" placeholder="Enter Your Email...">
-											<button type="submit" value="send" class="btn btn-primary"
-												style="margin-top: 21px">Join</button>
-										</div>
-									</form>
 								</div>
+								<form:input type="text" path = "comment" class="form-control border-0" id="newsletter"
+									name="newsletter" placeholder="Enter Your Email..."/>
+								<button type="submit" value="send" class="btn btn-primary"
+									style="margin-top: 21px">Send</button>
 							</div>
-						</div>
+						</form:form>
+						
 					</div>
+				</div>
+			</div>
+		</div>
+		</c:if>
 
 					<!-- END EDMO HTML (Happy Coding!)-->
 					<!-- footer content -->

@@ -1,18 +1,13 @@
 package spring.controller;
 
 import java.util.List;
-import java.util.ArrayList;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,27 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.model.UserBean;
-import spring.model.CoursesBean;
-import spring.model.PaySubBean;
-import spring.model.PhotoDto;
-import spring.model.ProfileDto;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.HttpSessionMutexListener;
-
+import spring.model.FeedbakBean;
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
-import spring.model.UserBean;
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-import org.springframework.web.servlet.view.RedirectView;
-
-import spring.model.LoginDTO;
-import spring.model.PaymentDTO;
-import spring.model.PriceCardDTO;
 import spring.model.UserDTO;
 import spring.model.SingleLessonDTO;
-import spring.repository.UserRepository;
 
 @Controller
 @RequestMapping("/user")
@@ -52,6 +34,7 @@ public class UserController {
 	@Autowired
 	UserRepository userrepo;
 	CoursesRepository courserepo;
+	
 	ServletContext context;
 
 	@GetMapping(value = "/index")
@@ -65,42 +48,60 @@ public class UserController {
 		return rbean;
 	}
 
+	
 	@ModelAttribute("loginbean")
 	public LoginBean getLoginBean() {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
+	
+	@ModelAttribute("give")
+	public FeedbakBean getFeedbackBean() {
+		FeedbakBean fbean = new FeedbakBean();
+		return fbean;
+	}
+
 
 	@PostMapping(value = "/register")
 	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
 		int result = userrepo.insertUser(bean);
 		if (result < 0) {
+			
 			m.addAttribute("success", "Register Course Successful");
+			System.out.println("Register successful");
+			
 
 		} else {
+			m.addAttribute("RegisterError", true);
 			m.addAttribute("error", "Register course fail");
+			System.out.println("Register fail");
 
 		}
 		return "redirect:/";
 
 	}
 
+	
 	@PostMapping(value = "/login")
-	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session) {
+	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m) {
 		boolean isLogin = false;
 		UserBean ubean = userrepo.selectUser(bean);
 		if (ubean == null) {
-			System.out.println("fail");
-			return "redirect:/";
+			System.out.println("Login fail");
+			m.addAttribute("loginError", true);
+			session.setAttribute("loginerror", "email is not match");
+			return "home";
 		} else {
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
 			session.setAttribute("sessionLogin", isLogin);
-			return "home";
+			session.setAttribute("name", ubean.getUserName());
+			return "redirect:/";
 
 		}
 	}
 
+	
 	@GetMapping(value = "/adduser")
 	public ModelAndView showuser() {
 		return new ModelAndView("adduser", "userbean", new UserBean());
@@ -185,6 +186,19 @@ public class UserController {
 		
 		return "redirect:check-login";
 	}
+	
+	
+	@PostMapping(value = "/Feedback")
+	public String giveFeedback(@ModelAttribute("give") FeedbakBean fbean, Model m, HttpSession session) {
+		
+			int userId = (int) session.getAttribute("sessionId");
+			userrepo.insertFeedback(fbean, userId);
+			if(userId==0) {
+				System.out.println("insert fail");
+			}else System.out.println("insert success");
+			return "redirect:/";
+		
+		}
 
 	/*
 	 * @GetMapping(value = "/subscription-plan") public String
