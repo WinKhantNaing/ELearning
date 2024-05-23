@@ -1,34 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-	<c:choose>
-		<c:when test="${loginAlert!=null}">
-			<script type="text/javascript">
-		    	function confirmApply(event) {
-		        var confirmed = confirm("You need to login first to apply the lessons");
-		        if (!confirmed) {
-		            event.preventDefault();
-		        	}
-		    	}
-			</script>
-		</c:when>
-		<c:otherwise>
-			<script type="text/javascript">
-			    function confirmApply(event) {
-			        var confirmed = confirm("You need to subscribe first to apply this premium lesson");
-			        if (!confirmed) {
-			            event.preventDefault();
-			        }
-			    }
-			</script>
-		</c:otherwise>
-	</c:choose>
+<c:if test="${!sessionLogin}">
+	<script type="text/javascript">
+		function confirmApply(event) {
+			var confirmed = confirm("You need to login first to apply the lessons");
+			if (!confirmed) {
+				event.preventDefault();
+			}
+		}
+	</script>
+</c:if>
+
+ <c:if test="${purchaseAlert}">
+	<script type="text/javascript">
+		function confirmApply(event) {
+			var confirmed = confirm("You need to subscribe first to apply this premium lesson");
+			if (!confirmed) {
+				event.preventDefault();
+			}
+		}
+	</script>
+</c:if> 
+
 </head>
 <body>
 	<jsp:include page="indexheader.jsp"></jsp:include>
@@ -99,8 +99,9 @@
 				</div>
 				<div
 					class="col-xl-3 text-sm-right text-left order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
-					<a href="../../user/check-login" class="btn btn-primary"
-						onclick="confirmApply(event)">Apply now</a>
+					<a href="../../user/check-login?url=${currentUrl}"
+						class="btn btn-primary" onclick="confirmApply(event)">Apply
+						now</a>
 				</div>
 				<!-- border -->
 				<div class="col-12 mt-4 order-4">

@@ -82,7 +82,7 @@ public class UserRepository {
 		int result = 0;
 		
 		try {
-			PreparedStatement ps = con.prepareStatement("update payment set isExpired = 0 where end_date < CURRENT_DATE");
+			PreparedStatement ps = con.prepareStatement("update payment set is_expired = 0 where end_date < CURRENT_DATE");
 			result = ps.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -99,7 +99,7 @@ public class UserRepository {
 
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select id from payment where user_id = ? and isExpired <> 0");
+			PreparedStatement ps = con.prepareStatement("select id from payment where user_id = ? and is_expired <> 0");
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 
