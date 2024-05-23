@@ -523,7 +523,7 @@ textarea.form-control {
   height: 6px;
   width: 100%;
   content: "";
-  background: #fff;
+/*   background: #fff; */
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.3s ease;

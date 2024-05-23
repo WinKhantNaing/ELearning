@@ -67,40 +67,6 @@
 	</div>
 
 	<header class="fixed-top header">
-		<%-- <%-- <div class="top-header py-2 bg-white">
-						<div class="container">
-							<div class="row no-gutters">
-								<div class="col-lg-8 text-center text-lg-right">
-									<ul class="list-inline">
-										<li class="list-inline-item"><a
-												class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-												href="<c:url value=" #loginModal" />" data-toggle="modal"
-											data-target="#loginModal">login</a></li>
-										<li class="list-inline-item">
-											<a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-												href="<c:url value=" #signupModal" />" data-toggle="modal"
-											data-target="#signupModal">register</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						</div> --%>
-		<%-- <div class="navigation w-100">
-							<div class="container">
-								<nav class="navbar navbar-expand-lg navbar-dark p-0">
-									<a class="navbar-brand" href="index.html"><img src="<c:url value="/resources/images/logo.png" />" alt="logo"></a>
-									<button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
-										data-target="#navigation" aria-controls="navigation" aria-expanded="false"
-										aria-label="Toggle navigation">
-										<span class="navbar-toggler-icon"></span>
-									</button> --%>
-
-		<%-- 			<div class="collapse navbar-collapse" id="navigation">
-										<ul class="navbar-nav ml-auto text-center">
-											<li class="nav-item active"><a class="nav-link" href="<c:url value ="/" />">Home</a></li> --%>
-
-
 		<div class="navigation w-100">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg navbar-dark p-0">
@@ -121,15 +87,41 @@
 							<li class="nav-item @@about"><a class="nav-link" href=<c:url value = "/about" />>About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href='<c:url value="/course/courses" />'>COURSES</a></li>
+
+						<c:if test="${sessionLogin == true}">
+							<c:if test="${sessionuserRole=='admin'}">
+								<li class="nav-item dropdown view"><a
+									class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+									role="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> Administration </a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<li><a class="dropdown-item"
+											href='<c:url value="../user/adduser"/>'>Add User</a></li>
+										<li><a class="dropdown-item"
+											href='<c:url value="../course/showcourses"/>'>Show Courses</a></li>
+									</ul></li>
+							</c:if>
+								<li>
+									<div style="margin-top: 35px;">
+										<a href="<c:url value="/profile/profiledetail" />"> 
+										<img src="${pageContext.request.contextPath}${'\\'}${sessionimg}"
+											name="aboutme" width="30" height="30" class="img-circle"
+											style="border-radius: 25px; object-fit: cover"></a>
+									</div>
+								</li>
+								
+							</c:if>
+
+
 							<li class="nav-item dropdown view"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> Administration </a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item"
-										href='<c:url value="../user/adduser"/>'>Add User</a></li>
+										href='<c:url value="/user/adduser"/>'>Show All Users</a></li>
 									<li><a class="dropdown-item"
-										href='<c:url value="../course/showcourses"/>'>Show Courses</a></li>
+										href='<c:url value="../../course/showcourses"/>'>Show Courses</a></li>
 								</ul></li>
 							<li>
 								<div style="margin-top: 24px;">
@@ -139,6 +131,7 @@
 										style="border-radius: 25px;"></a>
 								</div>
 							</li>
+
 							<li class="nav-item"><a class="nav-link"
 								href="<c:url value="#loginModal" />" data-toggle="modal"
 								data-target="#loginModal">login</a></li>
@@ -172,44 +165,7 @@
 				<div class="modal-body">
 					<div class="login">
 						<span>${success}</span> <span>${error}</span>
-						<%-- <form:form action="user/register" class="row" id="registrationForm" method="post"
-										modelAttribute="regiterbean"> --%>
-						<!-- <div class="col-12">
-							</li>
-							
-							<li class="nav-item"><a
-								class="nav-link"
-								href="<c:url value="#loginModal"/>" data-toggle="modal"
-								data-target="#loginModal">login</a></li>
-								
-								<li class="nav-item">
-								<a class="nav-link"
-									href="<c:url value="#signupModal"/>" data-toggle="modal"
-									data-target="#signupModal">register</a>
-							</li>
-
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
-
-		
-	</header>
-	
-	<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Register</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="login">
-                <span>${success}</span>
-                <span>${error}</span>-->
+						
 						<form:form
 							action="${pageContext.request.contextPath}/user/register"
 							class="row" id="registrationForm" method="post"
@@ -260,6 +216,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+			    <p>${loginFail}</p>
 				<div class="modal-body">
 					<form:form action="${pageContext.request.contextPath}/user/login"
 						class="row" id="loginForm" modelAttribute="loginbean"

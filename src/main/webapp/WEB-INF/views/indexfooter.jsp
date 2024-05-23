@@ -45,6 +45,7 @@
 		<body>
 
 			<footer>
+
 					<!-- newsletter -->
 					<!-- Start DEMO HTML (Use the following code into your project)-->
 
@@ -80,6 +81,9 @@
 			</div>
 		</div>
 		</c:if>
+
+
+				
 
 					<!-- END EDMO HTML (Happy Coding!)-->
 					<!-- footer content -->

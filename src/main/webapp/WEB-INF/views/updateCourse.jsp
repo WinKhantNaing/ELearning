@@ -170,17 +170,17 @@
 
 	<!-- Jquery JS-->
 	<script
-		src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
+		src="<c:url value="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
 	<!-- Vendor JS-->
 	<script
-		src="<c:url value ="/adduserresources/vendor/select2/select2.min.js"/>"></script>
+		src="<c:url value="/adduserresources/vendor/select2/select2.min.js"/>"></script>
 	<script
-		src="<c:url value ="/adduserresources/vendor/datepicker/moment.min.js"/>"></script>
+		src="<c:url value="/adduserresources/vendor/datepicker/moment.min.js"/>"></script>
 	<script
-		src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js"/>"></script>
+		src="<c:url value="/adduserresources/vendor/datepicker/daterangepicker.js"/>"></script>
 
 	<!-- Main JS-->
-	<script src="<c:url value ="resources/js/global.js"/>"></script>
+	<script src="<c:url value="resources/js/global.js"/>"></script>
 
 	<script class="jsbin"
 		src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"/>"></script>
