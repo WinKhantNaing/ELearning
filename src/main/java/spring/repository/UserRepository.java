@@ -26,8 +26,6 @@ import spring.model.PhotoDto;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.UserDTO;
-import user.model.CourseBean;
-import user.repositoty.ConnectionClass;
 
 public class UserRepository {
 
@@ -238,11 +236,11 @@ public class UserRepository {
 	    int result = 0;
 	    Connection con = ConnectionClass.getConnection();
 	    try {
-	        PreparedStatement ps = con.prepareStatement("delete from user where id=?");
+	        PreparedStatement ps = con.prepareStatement("update user set status = 0 where id = ?");
 	        ps.setInt(1, userId);
 	        result = ps.executeUpdate();
 	    } catch (SQLException e) {
-	        System.out.println("user delete :" + e.getMessage());
+	        System.out.println("user soft delete :" + e.getMessage());
 	    }
 	    return result;
 	}
