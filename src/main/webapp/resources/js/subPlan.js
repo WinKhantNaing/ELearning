@@ -16,13 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 "1 month", "2 months", "3 months", "4 months", "5 months", "6 months", 
                 "7 months", "8 months", "9 months", "10 months", "11 months", "12 months"
             ];
-        } else if (timePeriod === 'Yearly') {
+        }else{
             options = [
                 "1 year", "2 years", "3 years", "4 years", "5 years", "6 years", 
                 "7 years", "8 years", "9 years", "10 years"
             ];
-        }else{
-        	options = [ "1 day", "3 days", "7 days","10 days", "15 days" , "20 days"]
         }
         
 

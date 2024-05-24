@@ -37,7 +37,7 @@
                                     <label >Subscription plan</label>
                                     <div class="input-group col-xs-12">
                                           <form:select class="form-select" path="plan" id="timePeriod" onchange="updateOptions()">
-                   <form:option value="Daily" /> 
+                  
                    <form:option value="Monthly" />
                     <form:option value="Yearly" />  
                      
