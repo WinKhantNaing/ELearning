@@ -18,7 +18,6 @@ import spring.model.CurrentPlanDTO;
 import spring.model.LoginBean;
 import spring.model.RegisterBean;
 import spring.model.SingleLessonDTO;
-import spring.model.SubscriptionDTO;
 import spring.model.UnitNameListDTO;
 import spring.model.UserBean;
 
@@ -27,7 +26,6 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-
 import spring.model.PaySubBean;
 import spring.model.ProfileDto;
 import spring.model.UserDTO;
@@ -122,25 +120,8 @@ public class UserRepository {
 		} catch (SQLException e) {
 			System.out.println("Payment check : " + e.getMessage());
 		}
-		System.out.println("User status : " + status);
 		return status;
 
-	}
-
-	//for admin (Add subscription plan)
-	public int addSubscriptionPlan(SubscriptionDTO bean) {
-		Connection con = ConnectionClass.getConnection();
-		int result = 0;
-		try {
-			PreparedStatement ps = con.prepareStatement("insert into subscription (subscriptionplan , duration, price) value(?,?,?)");
-			ps.setString(1, bean.getSubPlan());
-			ps.setString(2, bean.getDuration());
-			ps.setDouble(3, bean.getPrice());
-			result = ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Adding subscription plan :"+ e.getMessage());
-		}
-		return result;
 	}
 	
 	public int addUser(UserBean bean) {
@@ -208,16 +189,7 @@ public class UserRepository {
 		return userlst;
 	}
 
-	public UserBean selectOne(int userid) {
-		UserBean bean = null;
-		Connection con = ConnectionClass.getConnection();
-		try {
-			PreparedStatement ps = con.prepareStatement("select * from user where id=?");
-			ps.setInt(1, userid);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				bean = new UserBean();
-				bean.setUserId(rs.getInt("id"));
+
 	public ProfileDto selectOne(int userId) {
 		ProfileDto bean = null;
 		Connection con = ConnectionClass.getConnection();
@@ -693,6 +665,21 @@ public int insertFeedback(FeedbakBean bean, int userId) {
 		}
 		return result;
 	}
+	
+	
+	//for admin to delete subscription plan 
+	public int deleteSubscriptionPlan(int cid) {
+		int result=0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("update subscription set isactive=0 where id=?");
+			ps.setInt(1, cid);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Delete subscription plan :"+ e.getMessage());
+		}
+		return result;
+	}
 
 	public int updateEmail(int userId, String email) {
 		Connection con = ConnectionClass.getConnection();
@@ -730,4 +717,74 @@ public int insertFeedback(FeedbakBean bean, int userId) {
 		return result;
 	}
 
+	
+	//for admin to active subscription plan 
+		public int activeSubscriptionPlan(int cid) {
+			int result=0;
+			Connection con = ConnectionClass.getConnection();
+			try {
+				PreparedStatement ps = con.prepareStatement("update subscription set isactive=1 where id=?");
+				ps.setInt(1, cid);
+				result = ps.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("Active subscription plan :"+ e.getMessage());
+			}
+			return result;
+	}
+		
+		//for admin to select subscription plan 
+				public PriceCardDTO selectSubscriptionPlan(int cid) {
+					PriceCardDTO bean=null;
+					Connection con = ConnectionClass.getConnection();
+					try {
+						PreparedStatement ps = con.prepareStatement("select * from subscription where id=?");
+						ps.setInt(1, cid);
+						ResultSet rs = ps.executeQuery();
+						while(rs.next()) {
+							bean = new  PriceCardDTO();
+							bean.setSubId(rs.getInt("id"));
+							bean.setPlan(rs.getString("subscriptionplan"));
+							bean.setDuration(rs.getString("duration"));
+							bean.setPrice(rs.getDouble("price"));
+							bean.setIsActive(rs.getInt("isactive"));
+						}
+					} catch (SQLException e) {
+						System.out.println("Select subscription plan :"+ e.getMessage());
+					}
+					return bean;
+			}
+				
+				//for admin to update subscription plan 
+				public int updateSubscriptionPlan(PriceCardDTO bean) {
+					int result = 0;
+					Connection con = ConnectionClass.getConnection();
+					try {
+						PreparedStatement ps = con.prepareStatement("update subscription set subscriptionplan=?,duration=?,price=?,isactive=? where id = ?");
+						ps.setString(1,bean.getPlan());
+						ps.setString(2,bean.getDuration());
+						ps.setDouble(3, bean.getPrice());
+						ps.setInt(4, bean.getIsActive());
+						ps.setInt(5, bean.getSubId());
+						result = ps.executeUpdate();
+					} catch (SQLException e) {
+						System.out.println("Update subscription plan :"+ e.getMessage());
+					}
+					return result;
+			}
+
+				//for admin (Add subscription plan)
+				public int addSubscriptionPlan(PriceCardDTO bean) {
+					Connection con = ConnectionClass.getConnection();
+					int result = 0;
+					try {
+						PreparedStatement ps = con.prepareStatement("insert into subscription (subscriptionplan , duration, price) value(?,?,?)");
+						ps.setString(1, bean.getPlan());
+						ps.setString(2, bean.getDuration());
+						ps.setDouble(3, bean.getPrice());
+						result = ps.executeUpdate();
+					} catch (SQLException e) {
+						System.out.println("Adding subscription plan :"+ e.getMessage());
+					}
+					return result;
+				}
 }

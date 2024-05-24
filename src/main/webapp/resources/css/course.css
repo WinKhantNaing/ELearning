@@ -1,3 +1,9 @@
+.plans{
+	 border-color:#DAEBEF; 
+	 height:60px; 
+	 width:100%; 
+	 border-radius:5px;
+}  
 /* for description scrollbar */
 .code-container {
         width: 100%; /* Adjust width as needed */

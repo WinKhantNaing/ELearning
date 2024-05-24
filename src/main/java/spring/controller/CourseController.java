@@ -74,22 +74,7 @@ public class CourseController {
 		return "courses";
 	}
 
-	// for ma toe yadanarkyaw (show course subscriptionplan)
-	@ModelAttribute("subscriptionplan")
-	public List<PriceCardDTO> showPriceSubscription() {
-		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-		priceList = courserepo.getPricePlan();
-		return priceList;
-	}
 
-	@GetMapping(value = "/get-subscribe")
-	public ModelAndView getSubscribe() {
-		
-		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-		priceList = courserepo.getPricePlan();
-
-		return new ModelAndView("subscription", "subscriptionplan", priceList);
-	}
 
 	@GetMapping(value = "/complete")
 	public String showComplete(HttpSession session, Model m) {
@@ -118,12 +103,14 @@ public class CourseController {
 		LocalDate startDate = LocalDate.now();
 		m.addAttribute("startDate", startDate);
 		String sTime = arrayDu[1];
-		if (sTime.equals("month") || sTime.equals("months") || sTime.equals("Month") || sTime.equals("Months")
-				|| sTime.equals("MONTH") || sTime.equals("MONTHS")) {
+		if (sTime.equals("month") || sTime.equals("months")) {
 			LocalDate endDate = startDate.plusMonths(time);
 			m.addAttribute("endDate", endDate);
-		} else {
+		} else if(sTime.equals("year") || sTime.equals("years")) {
 			LocalDate endDate = startDate.plusYears(time);
+			m.addAttribute("endDate", endDate);
+		}else {
+			LocalDate endDate = startDate.plusDays(time);
 			m.addAttribute("endDate", endDate);
 		}
 		 m.addAttribute("showModal", true);

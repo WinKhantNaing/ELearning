@@ -147,14 +147,13 @@ public class CoursesRepository {
 		return searchList;
 	}
 	
-		
-	//for ma toe yadanarkyaw (show course subscriptionplan)
-	public List<PriceCardDTO> getPricePlan(){
+	//for  user to  show Yearly subscriptionplan
+	public List<PriceCardDTO> getDailyPricePlan(){
 		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1");
+			PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Daily'");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				bean = new PriceCardDTO();
@@ -162,6 +161,76 @@ public class CoursesRepository {
 				bean.setPlan(rs.getString("subscriptionplan"));
 				bean.setDuration(rs.getString("duration"));
 				bean.setPrice(rs.getDouble("price"));
+				bean.setIsActive(rs.getInt("isactive"));
+				priceList.add(bean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Getting price plan : " +e.getMessage());
+		}
+		return priceList;
+	}
+	
+	//for  user to  show Yearly subscriptionplan
+		public List<PriceCardDTO> getMonthlyPricePlan(){
+			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+			PriceCardDTO bean = null;
+			Connection con = ConnectionClass.getConnection();
+			try {
+				PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Monthly'");
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					bean = new PriceCardDTO();
+					bean.setSubId(rs.getInt("id"));
+					bean.setPlan(rs.getString("subscriptionplan"));
+					bean.setDuration(rs.getString("duration"));
+					bean.setPrice(rs.getDouble("price"));
+					bean.setIsActive(rs.getInt("isactive"));
+					priceList.add(bean);
+				}
+			} catch (SQLException e) {
+				System.out.println("Getting price plan : " +e.getMessage());
+			}
+			return priceList;
+		}
+		
+		//for  user to  show Yearly subscriptionplan
+		public List<PriceCardDTO> getYearlyPricePlan(){
+			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+			PriceCardDTO bean = null;
+			Connection con = ConnectionClass.getConnection();
+			try {
+				PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Yearly'");
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					bean = new PriceCardDTO();
+					bean.setSubId(rs.getInt("id"));
+					bean.setPlan(rs.getString("subscriptionplan"));
+					bean.setDuration(rs.getString("duration"));
+					bean.setPrice(rs.getDouble("price"));
+					bean.setIsActive(rs.getInt("isactive"));
+					priceList.add(bean);
+				}
+			} catch (SQLException e) {
+				System.out.println("Getting price plan : " +e.getMessage());
+			}
+			return priceList;
+		}
+
+	//for  admin (show course subscriptionplan)
+	public List<PriceCardDTO> getPricePlanList(){
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		PriceCardDTO bean = null;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from subscription");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				bean = new PriceCardDTO();
+				bean.setSubId(rs.getInt("id"));
+				bean.setPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setPrice(rs.getDouble("price"));
+				bean.setIsActive(rs.getInt("isactive"));
 				priceList.add(bean);
 			}
 		} catch (SQLException e) {
@@ -294,5 +363,19 @@ public class CoursesRepository {
 		}
 		return result;
 		
+	}
+	
+	//for admin to delete subscription plan 
+	public int deleteSubscriptionPlan(int cid) {
+		int result=0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("update subscription set isactive=0 where id=?");
+			ps.setInt(1, cid);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Delete subscription plan :"+ e.getMessage());
+		}
+		return result;
 	}
 }
