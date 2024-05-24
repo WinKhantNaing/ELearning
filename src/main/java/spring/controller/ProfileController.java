@@ -27,7 +27,6 @@ import spring.model.UserBean;
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 
-
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
@@ -40,11 +39,11 @@ public class ProfileController {
 	@GetMapping(value = "/profiledetail")
 	public ModelAndView profile(HttpSession session, Model m) {
 		int id = (int) session.getAttribute("sessionId");
-		
+
 		List<CoursesBean> lstUserCourse = new ArrayList<CoursesBean>();
 		lstUserCourse = userrepo.getCompleteCourses(id);
 		m.addAttribute("lstUserCourse", lstUserCourse);
-		
+
 		ProfileDto user = userrepo.profileUser(id);
 		m.addAttribute("user", user);
 		int i = userrepo.levelCount(id);
@@ -74,28 +73,27 @@ public class ProfileController {
 		return mv;
 	}
 
-	
 	@ModelAttribute("usercount")
 	public Integer userCount() {
 		int i = userrepo.userCount();
 		return i;
-		
+
 	}
-	
+
 	@ModelAttribute("subusercount")
 	public Integer subUserCount() {
 		int i = userrepo.subUserCount();
 		return i;
-		
+
 	}
-	
+
 	@ModelAttribute("feedbackcount")
 	public Integer feedBackCount() {
 		int i = userrepo.feedBackCount();
 		return i;
-		
+
 	}
-	
+
 	@PostMapping(value = "/changeusername")
 	public String changeName(@ModelAttribute("user") UserBean bean, HttpSession session) {
 		int userId = (int) session.getAttribute("sessionId");
@@ -112,38 +110,38 @@ public class ProfileController {
 		return "redirect:profiledetail";
 	}
 
-	@PostMapping(value = "/checkcurrentpassword")
-	public String checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession session, Model m) {
-		int userId = (int) session.getAttribute("sessionId");
-		boolean result = userrepo.checkCurrentPassword(userId, user.getPassword());
-		m.addAttribute("result", result);
-	}
+	/*
+	 * @PostMapping(value = "/checkcurrentpassword") public String
+	 * checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession
+	 * session, Model m) { int userId = (int) session.getAttribute("sessionId");
+	 * boolean result = userrepo.checkCurrentPassword(userId, user.getPassword());
+	 * m.addAttribute("result", result); }
+	 */
 
 	@ModelAttribute("payDescription")
-	public List<PaySubBean> getPaymentDescription(HttpSession session,Model m) {
+	public List<PaySubBean> getPaymentDescription(HttpSession session, Model m) {
 		int id = (int) session.getAttribute("sessionId");
 		List<PaySubBean> payList = new ArrayList<PaySubBean>();
 		payList = userrepo.getUserHistoryPlan(id);
 		return payList;
 	}
-	
+
 	@ModelAttribute("recentcomments")
 	public List<CommentDto> getRecentComments() {
 		List<CommentDto> commentList = new ArrayList<CommentDto>();
 		commentList = userrepo.recentComments();
 		return commentList;
 	}
-	
+
 	@ModelAttribute("currentsub")
-	public List<CurrentPlanDTO> currentSubPlan(HttpSession session,Model m) {
+	public List<CurrentPlanDTO> currentSubPlan(HttpSession session, Model m) {
 		int id = (int) session.getAttribute("sessionId");
 		List<CurrentPlanDTO> currentPayList = new ArrayList<CurrentPlanDTO>();
 		currentPayList = userrepo.getCurrentPlan(id);
 		return currentPayList;
-		
+
 	}
-	
-	
+
 	@PostMapping(value = "/profilePhoto")
 	public String showphoto(@ModelAttribute("pbean") ProfileDto photo, HttpSession session) {
 		int id = (int) session.getAttribute("sessionId");
@@ -155,23 +153,21 @@ public class ProfileController {
 		}
 		return "redirect:profiledetail";
 	}
-	
-	 
-	@GetMapping(value="/logout")
+
+	@GetMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	
+
 	@ModelAttribute("ufbean")
 	public ProfileDto editProfile(HttpSession session) {
 		int id = (int) session.getAttribute("sessionId");
-		ProfileDto ufbean=userrepo.selectOne(id);
+		ProfileDto ufbean = userrepo.selectOne(id);
 		return ufbean;
-		
+
 	}
-	
+
 	@PostMapping(value = "updateprofile")
 	public String profileUpdate(@ModelAttribute("ufbean") ProfileDto pbean, HttpSession session) {
 		System.out.println("entered!");

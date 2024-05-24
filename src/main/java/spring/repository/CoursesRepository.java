@@ -6,19 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import spring.model.CoursesBean;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
+
+
 public class CoursesRepository {
 
-	public List <CoursesBean> getCourses() {
+	public List<CoursesBean> getCourses() {
 		Connection con = ConnectionClass.getConnection();
-		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
+		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
 			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
@@ -26,23 +31,23 @@ public class CoursesRepository {
 				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
-				
+
 				courseList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Courses :" + e.getMessage());
 		}
-		return courseList; 
+		return courseList;
 	}
-	
-	public List <CoursesBean> getHomeCourses() {
+
+	public List<CoursesBean> getHomeCourses() {
 		Connection con = ConnectionClass.getConnection();
-		List <CoursesBean> courseList = new ArrayList<CoursesBean>();
+		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
 			PreparedStatement ps = con.prepareStatement("select * from lesson where isactive=1 order by id  limit 6");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
@@ -50,32 +55,29 @@ public class CoursesRepository {
 				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
-				
+
 				courseList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Courses :" + e.getMessage());
 		}
-		return courseList; 
+		return courseList;
 	}
-	
+
 	public List<CoursesBean> getCompleteCourses(int userId) {
 		Connection con = ConnectionClass.getConnection();
 		List<CoursesBean> courseCompleteList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n"
-					+ "FROM lesson\r\n"
-					+ "JOIN (\r\n"
+			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n" + "FROM lesson\r\n" + "JOIN (\r\n"
 					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
 					+ "    FROM unit\r\n"
 					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = ?\r\n"
-					+ "    GROUP BY unit.lesson_id\r\n"
-					+ ") eu ON eu.lesson_id = lesson.id\r\n"
+					+ "    GROUP BY unit.lesson_id\r\n" + ") eu ON eu.lesson_id = lesson.id\r\n"
 					+ "WHERE eu.total_units = eu.completed_units");
-			 ps.setInt(1, userId); 
+			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
@@ -86,28 +88,25 @@ public class CoursesRepository {
 				courseCompleteList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Complete Courses :" +e.getMessage());
+			System.out.println("Get Complete Courses :" + e.getMessage());
 		}
-		return courseCompleteList; 
+		return courseCompleteList;
 	}
-	
+
 	public List<CoursesBean> getProgressCourses(int userId) {
 		Connection con = ConnectionClass.getConnection();
 		List<CoursesBean> courseProgressList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n"
-					+ "FROM lesson\r\n"
-					+ "JOIN (\r\n"
+			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n" + "FROM lesson\r\n" + "JOIN (\r\n"
 					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
 					+ "    FROM unit\r\n"
 					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = ?\r\n"
-					+ "    GROUP BY unit.lesson_id\r\n"
-					+ ") eu ON eu.lesson_id = lesson.id\r\n"
+					+ "    GROUP BY unit.lesson_id\r\n" + ") eu ON eu.lesson_id = lesson.id\r\n"
 					+ "WHERE eu.total_units <> eu.completed_units");
-			 ps.setInt(1, userId); 
+			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
@@ -118,44 +117,45 @@ public class CoursesRepository {
 				courseProgressList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Progress Courses :" +e.getMessage());
+			System.out.println("Get Progress Courses :" + e.getMessage());
 		}
-		return courseProgressList; 
+		return courseProgressList;
 	}
-	
-	public List<CoursesBean> getSearchCourses(CoursesBean course){
+
+	public List<CoursesBean> getSearchCourses(CoursesBean course) {
 		List<CoursesBean> searchList = new ArrayList<CoursesBean>();
 		Connection con = ConnectionClass.getConnection();
 		CoursesBean bean = null;
 		try {
 			PreparedStatement ps = con.prepareStatement("select * from lesson where name like ?");
-		    ps.setString(1, "%"+course.getCourseName()+"%");
-		    ResultSet rs = ps.executeQuery();
-		    while(rs.next()) {
-		    	bean = new CoursesBean();
-		    	bean.setCourseId(rs.getInt("id"));
-		    	bean.setCoursePrefix(rs.getString("prefix"));
-		    	bean.setCourseName(rs.getString("name"));
-		    	bean.setCourseStatus(rs.getString("purchase_status"));
-		    	bean.setCourseImagePath(rs.getString("image"));
-		    	bean.setCourseDescription(rs.getString("description"));
-		    	searchList.add(bean);
-		    }
+			ps.setString(1, "%" + course.getCourseName() + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				bean = new CoursesBean();
+				bean.setCourseId(rs.getInt("id"));
+				bean.setCoursePrefix(rs.getString("prefix"));
+				bean.setCourseName(rs.getString("name"));
+				bean.setCourseStatus(rs.getString("purchase_status"));
+				bean.setCourseImagePath(rs.getString("image"));
+				bean.setCourseDescription(rs.getString("description"));
+				searchList.add(bean);
+			}
 		} catch (SQLException e) {
 			System.out.println("Get search course :" + e.getMessage());
 		}
 		return searchList;
 	}
-	
-	//for  user to  show Yearly subscriptionplan
-	public List<PriceCardDTO> getDailyPricePlan(){
+
+	// for user to show Yearly subscriptionplan
+	public List<PriceCardDTO> getDailyPricePlan() {
 		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Daily'");
+			PreparedStatement ps = con
+					.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Daily'");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				bean = new PriceCardDTO();
 				bean.setSubId(rs.getInt("id"));
 				bean.setPlan(rs.getString("subscriptionplan"));
@@ -165,66 +165,68 @@ public class CoursesRepository {
 				priceList.add(bean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Getting price plan : " +e.getMessage());
+			System.out.println("Getting price plan : " + e.getMessage());
 		}
 		return priceList;
 	}
-	
-	//for  user to  show Yearly subscriptionplan
-		public List<PriceCardDTO> getMonthlyPricePlan(){
-			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-			PriceCardDTO bean = null;
-			Connection con = ConnectionClass.getConnection();
-			try {
-				PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Monthly'");
-				ResultSet rs = ps.executeQuery();
-				while(rs.next()) {
-					bean = new PriceCardDTO();
-					bean.setSubId(rs.getInt("id"));
-					bean.setPlan(rs.getString("subscriptionplan"));
-					bean.setDuration(rs.getString("duration"));
-					bean.setPrice(rs.getDouble("price"));
-					bean.setIsActive(rs.getInt("isactive"));
-					priceList.add(bean);
-				}
-			} catch (SQLException e) {
-				System.out.println("Getting price plan : " +e.getMessage());
-			}
-			return priceList;
-		}
-		
-		//for  user to  show Yearly subscriptionplan
-		public List<PriceCardDTO> getYearlyPricePlan(){
-			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-			PriceCardDTO bean = null;
-			Connection con = ConnectionClass.getConnection();
-			try {
-				PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Yearly'");
-				ResultSet rs = ps.executeQuery();
-				while(rs.next()) {
-					bean = new PriceCardDTO();
-					bean.setSubId(rs.getInt("id"));
-					bean.setPlan(rs.getString("subscriptionplan"));
-					bean.setDuration(rs.getString("duration"));
-					bean.setPrice(rs.getDouble("price"));
-					bean.setIsActive(rs.getInt("isactive"));
-					priceList.add(bean);
-				}
-			} catch (SQLException e) {
-				System.out.println("Getting price plan : " +e.getMessage());
-			}
-			return priceList;
-		}
 
-	//for  admin (show course subscriptionplan)
-	public List<PriceCardDTO> getPricePlanList(){
+	// for user to show Yearly subscriptionplan
+	public List<PriceCardDTO> getMonthlyPricePlan() {
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		PriceCardDTO bean = null;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con
+					.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Monthly'");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				bean = new PriceCardDTO();
+				bean.setSubId(rs.getInt("id"));
+				bean.setPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setPrice(rs.getDouble("price"));
+				bean.setIsActive(rs.getInt("isactive"));
+				priceList.add(bean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Getting price plan : " + e.getMessage());
+		}
+		return priceList;
+	}
+
+	// for user to show Yearly subscriptionplan
+	public List<PriceCardDTO> getYearlyPricePlan() {
+		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+		PriceCardDTO bean = null;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con
+					.prepareStatement("select * from subscription where isactive=1 and subscriptionplan='Yearly'");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				bean = new PriceCardDTO();
+				bean.setSubId(rs.getInt("id"));
+				bean.setPlan(rs.getString("subscriptionplan"));
+				bean.setDuration(rs.getString("duration"));
+				bean.setPrice(rs.getDouble("price"));
+				bean.setIsActive(rs.getInt("isactive"));
+				priceList.add(bean);
+			}
+		} catch (SQLException e) {
+			System.out.println("Getting price plan : " + e.getMessage());
+		}
+		return priceList;
+	}
+
+	// for admin (show course subscriptionplan)
+	public List<PriceCardDTO> getPricePlanList() {
 		List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement("select * from subscription");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				bean = new PriceCardDTO();
 				bean.setSubId(rs.getInt("id"));
 				bean.setPlan(rs.getString("subscriptionplan"));
@@ -234,11 +236,11 @@ public class CoursesRepository {
 				priceList.add(bean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Getting price plan : " +e.getMessage());
+			System.out.println("Getting price plan : " + e.getMessage());
 		}
 		return priceList;
 	}
-	
+
 	public PriceCardDTO getDuration(int cid) {
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
@@ -246,7 +248,7 @@ public class CoursesRepository {
 			PreparedStatement ps = con.prepareStatement("select * from subscription where id = ?");
 			ps.setInt(1, cid);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				bean = new PriceCardDTO();
 				bean.setSubId(rs.getInt("id"));
 				bean.setPlan(rs.getString("subscriptionplan"));
@@ -258,12 +260,13 @@ public class CoursesRepository {
 		}
 		return bean;
 	}
-	
+
 	public int addSubscriptionPlan(PaymentDTO bean) {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps= con.prepareStatement("insert into payment (user_id,subscription_id,method,start_date, end_date) values(?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement(
+					"insert into payment (user_id,subscription_id,method,start_date, end_date) values(?,?,?,?,?)");
 			ps.setInt(1, bean.getUserId());
 			ps.setInt(2, bean.getSubId());
 			ps.setString(3, bean.getPaymentMethod());
@@ -275,11 +278,13 @@ public class CoursesRepository {
 		}
 		return result;
 	}
+
 	public int insertcourse(CoursesBean cbean) {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, image) values (?,?,?,?)");
+			PreparedStatement ps = con
+					.prepareStatement("insert into lesson (name , description, status, image) values (?,?,?,?)");
 			ps.setString(1, cbean.getCourseName());
 			ps.setString(2, cbean.getCourseDescription());
 			ps.setString(3, cbean.getCourseStatus());
@@ -289,9 +294,9 @@ public class CoursesRepository {
 			System.out.println("insert course : " + e.getMessage());
 		}
 		return result;
-		
+
 	}
-	
+
 	public double getSubscribeAmount(int subId) {
 		double amount = 0;
 		Connection con = ConnectionClass.getConnection();
@@ -299,15 +304,15 @@ public class CoursesRepository {
 			PreparedStatement ps = con.prepareStatement("select price from subscription where id=?");
 			ps.setInt(1, subId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				amount=rs.getDouble("price");
+			while (rs.next()) {
+				amount = rs.getDouble("price");
 			}
 		} catch (SQLException e) {
 			System.out.println("GETTING amount " + e.getMessage());
 		}
 		return amount;
 	}
-	
+
 	public CoursesBean getOneCourse(int CourseId) {
 		Connection con = ConnectionClass.getConnection();
 		CoursesBean cbean = null;
@@ -315,7 +320,7 @@ public class CoursesRepository {
 			PreparedStatement ps = con.prepareStatement("select * from lesson where id = ?");
 			ps.setInt(1, CourseId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				cbean = new CoursesBean();
 				cbean.setCourseId(rs.getInt("id"));
 				cbean.setCoursePrefix(rs.getString("prefix"));
@@ -323,33 +328,37 @@ public class CoursesRepository {
 				cbean.setCourseStatus(rs.getString("purchase_status"));
 				cbean.setCourseDescription(rs.getString("description"));
 				cbean.setCourseImagePath(rs.getString("image"));
-				cbean.setIsActive(rs.getInt("isactive"));			}
+				cbean.setIsActive(rs.getInt("isactive"));
+			}
 		} catch (SQLException e) {
 			System.out.println("get one course: " + e.getMessage());
 		}
-		
+
 		return cbean;
-		
+
 	}
-	//for Admin
+
+	// for Admin
 	public int updatecourse(CoursesBean bean) {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, image = ? WHERE id = ?");
-			ps.setString(1,bean.getCourseName());
+			PreparedStatement ps = con
+					.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, image = ? WHERE id = ?");
+			ps.setString(1, bean.getCourseName());
 			ps.setString(2, bean.getCourseDescription());
 			ps.setString(3, bean.getCourseStatus());
 			ps.setString(4, bean.getCourseImagePath());
 			ps.setInt(5, bean.getCourseId());
 			result = ps.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			System.out.println("update course: " + e.getMessage());
 		}
 		return result;
-		
+
 	}
+
 	// for Adimn
 	public int delete(int id) {
 		int result = 0;
@@ -362,19 +371,19 @@ public class CoursesRepository {
 			System.out.println("delete course: " + e.getMessage());
 		}
 		return result;
-		
+
 	}
-	
-	//for admin to delete subscription plan 
+
+	// for admin to delete subscription plan
 	public int deleteSubscriptionPlan(int cid) {
-		int result=0;
+		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement("update subscription set isactive=0 where id=?");
 			ps.setInt(1, cid);
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Delete subscription plan :"+ e.getMessage());
+			System.out.println("Delete subscription plan :" + e.getMessage());
 		}
 		return result;
 	}
