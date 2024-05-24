@@ -238,9 +238,9 @@ public class UserController {
 				public String updateSubscriptionPlan(@ModelAttribute("planBean")PriceCardDTO bean, RedirectAttributes redirectAttribute) {
 					int result = userrepo.updateSubscriptionPlan(bean);
 					if(result > 0 ) {
-						redirectAttribute.addFlashAttribute("message","Plan update is successful.");
+						redirectAttribute.addFlashAttribute("message","Update plan is successful.");
 					}else {
-						redirectAttribute.addFlashAttribute("message","Plan update is fail!");
+						redirectAttribute.addFlashAttribute("message","Update plan is fail!");
 					}
 					redirectAttribute.addFlashAttribute("plan",true);
 					return "redirect:/show-plan-list";
@@ -260,5 +260,4 @@ public class UserController {
 					redirectAttribute.addFlashAttribute("plan",true);
 					return "redirect:/show-plan-list";
 				}
-
 }

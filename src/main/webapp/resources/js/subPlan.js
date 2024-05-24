@@ -5,10 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateOptions() {
         const timePeriod = document.getElementById('timePeriod').value;
         const optionsDropdown = document.getElementById('options');
-
-        // Clear existing options
         optionsDropdown.innerHTML = '';
-
+        const currentOption = document.getElementById('currentOption').value;
+       // const currentValue = document.getElementById('current').value;
         // Define new options based on the selected time period
         let options;
         if (timePeriod === 'Monthly') { 
@@ -23,14 +22,21 @@ document.addEventListener("DOMContentLoaded", function() {
             ];
         }
         
-
+        console.log(currentOption);
+        
         // Add new options to the dropdown
         options.forEach(option => {
             const optElement = document.createElement('option');
             optElement.value = option;
             optElement.textContent = option;
+            console.log(option,currentOption);
+            if (option === currentOption) {
+                optElement.selected = true; // Preselect the option if it matches the duration
+            }
             optionsDropdown.appendChild(optElement);
         });
+        
+
     }
     
     // Attach event listener

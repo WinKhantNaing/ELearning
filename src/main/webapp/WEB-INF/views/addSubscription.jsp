@@ -26,7 +26,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                   <h2 >Subscription Plan Add</h2>
+                   <h2 >Add Subscription Plan</h2>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -52,6 +52,7 @@
                                     <label >Duration</label>
                                     <div class="input-group col-xs-12">
                                          <form:select path="duration" id="options" class="form-select" type="text"/>
+                                          
                                     </div>
                                 </div>
                             </div>

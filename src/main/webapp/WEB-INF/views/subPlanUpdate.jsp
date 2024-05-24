@@ -50,11 +50,13 @@
                         <div class="row">
                             <div class="col-xs-12 mb-3">
                                 <div class="form-group">
+                                <input type="hidden" value="${planBean.duration }" id="currentOption"/>
                                     <label >Duration</label>
                                     <div class="input-group col-xs-12">
-                                         <form:select path="duration" id="options" class="form-select" value="${duration}" >
-                                         </form:select>
+                                         <form:select path="duration" id="options" class="form-select" >
                                          
+                                         </form:select>
+                                  
                                     </div>
                                 </div>
                             </div>
