@@ -233,30 +233,32 @@
 							<hr>
 
 							<button type="button" class="btn w-100 hover-btn"
-								data-bs-toggle="modal" data-bs-target="#emailModal">
+								data-bs-toggle="modal" data-bs-target="#passwordModal">
 								<div class="row">
 									<div class="col-sm-6" style="text-align: left;">
 										<h6 class="mb-0">Password</h6>
 									</div>
-									<div class="col-sm-6 text-secondary" style="text-align: left;">${user.password}</div>
+									<div class="col-sm-6 text-secondary" style="text-align: left;">
+										${user.password}</div>
 								</div>
 							</button>
 
 							<!-- Password Modal -->
-							<div class="modal fade" id="emailModal" tabindex="-1"
+							<div class="modal fade" id="passwordModal" tabindex="-1"
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<h1 class="modal-title fs-5" id="exampleModalLabel"
 											style="padding: 15px;">Edit Your Password</h1>
-										<form:form action="changeemail" method="post"
+										<form:form action="checkcurrentpassword" method="post"
 											modelAttribute="user">
 											<div class="mb-3" style="padding: 20px;">
 												<form:label for="exampleFormControlInput2"
-													class="form-label" path="userEmail">Password</form:label>
-												<form:input class="form-control"
-													id="exampleFormControlInput2" placeholder="Enter Email"
-													path="userEmail" value="${user.password}"
+													class="form-label" path="password">Current Password
+																	</form:label>
+												<form:password class="form-control"
+													id="exampleFormControlInput2"
+													placeholder="Enter Current Password" path="password"
 													style="
 												    border: none;
 												    border-bottom: 1px solid #80808040;
@@ -267,7 +269,7 @@
 												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Save</button>
+												<button type="submit" class="btn btn-primary">Next</button>
 											</div>
 										</form:form>
 									</div>
