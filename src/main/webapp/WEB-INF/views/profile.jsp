@@ -93,6 +93,7 @@ table, tr, td {
 
 								<div class="mt-3">
 									<h5>${user.userName}</h5>
+
 									<c:if test="${sessionuserRole == 'user'}">
 										<p class="text-secondary mb-1">
 											<h6>
@@ -104,6 +105,15 @@ table, tr, td {
 										</p>
 									</c:if>
 									<a class="btn btn-danger" href="logout" role="button">Logout</a>
+
+									<p class="text-secondary mb-1">
+									<h6>Level -${level}</h6>
+									</p>
+									<p class="text-muted font-size-sm">
+									<h6>${subscription}</h6>
+									</p>
+									<a class="btn btn-danger" href="../user/logout" role="button">Logout</a>
+
 								</div>
 							</div>
 						</div>

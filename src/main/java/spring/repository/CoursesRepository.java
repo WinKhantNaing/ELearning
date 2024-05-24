@@ -47,7 +47,7 @@ public class CoursesRepository {
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
 				courseBean.setCourseName(rs.getString("name"));
-				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
 				
@@ -112,7 +112,7 @@ public class CoursesRepository {
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
 				courseBean.setCourseName(rs.getString("name"));
-				courseBean.setCourseStatus(rs.getString("status"));
+				courseBean.setCourseStatus(rs.getString("purchase_status"));
 				courseBean.setCourseImagePath(rs.getString("image"));
 				courseBean.setCourseDescription(rs.getString("description"));
 				courseProgressList.add(courseBean);
@@ -136,7 +136,7 @@ public class CoursesRepository {
 		    	bean.setCourseId(rs.getInt("id"));
 		    	bean.setCoursePrefix(rs.getString("prefix"));
 		    	bean.setCourseName(rs.getString("name"));
-		    	bean.setCourseStatus(rs.getString("status"));
+		    	bean.setCourseStatus(rs.getString("purchase_status"));
 		    	bean.setCourseImagePath(rs.getString("image"));
 		    	bean.setCourseDescription(rs.getString("description"));
 		    	searchList.add(bean);
@@ -154,7 +154,7 @@ public class CoursesRepository {
 		PriceCardDTO bean = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select * from subscription");
+			PreparedStatement ps = con.prepareStatement("select * from subscription where isactive=1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				bean = new PriceCardDTO();
@@ -210,7 +210,7 @@ public class CoursesRepository {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, imagepath) values (?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into lesson (name , description, status, image) values (?,?,?,?)");
 			ps.setString(1, cbean.getCourseName());
 			ps.setString(2, cbean.getCourseDescription());
 			ps.setString(3, cbean.getCourseStatus());
@@ -222,25 +222,22 @@ public class CoursesRepository {
 		return result;
 		
 	}
-	/*
-	 * public List<CourseBean> getAllCourse(){ List<CourseBean> allCourseLst = new
-	 * ArrayList<>(); CourseBean cbean = null; Connection con =
-	 * ConnectionClass.getConnection(); try { PreparedStatement ps =
-	 * con.prepareStatement("select * from lesson where isactive=1"); ResultSet rs =
-	 * ps.executeQuery(); while (rs.next()) { cbean = new CourseBean();
-	 * cbean.setCourseId(rs.getInt("id")); cbean.setPrefix(rs.getString("prefix"));
-	 * cbean.setCourseName(rs.getString("name"));
-	 * cbean.setCourseDescription(rs.getString("description"));
-	 * cbean.setCourseStatus(rs.getString("status"));
-	 * cbean.setCourseImagePath(rs.getString("imagepath")); allCourseLst.add(cbean);
-	 * 
-	 * }
-	 * 
-	 * } catch (SQLException e) { System.out.println("get all course: " +
-	 * e.getMessage()); } return allCourseLst;
-	 * 
-	 * }
-	 */
+	
+	public double getSubscribeAmount(int subId) {
+		double amount = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select price from subscription where id=?");
+			ps.setInt(1, subId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				amount=rs.getDouble("price");
+			}
+		} catch (SQLException e) {
+			System.out.println("GETTING amount " + e.getMessage());
+		}
+		return amount;
+	}
 	
 	public CoursesBean getOneCourse(int CourseId) {
 		Connection con = ConnectionClass.getConnection();
@@ -254,9 +251,9 @@ public class CoursesRepository {
 				cbean.setCourseId(rs.getInt("id"));
 				cbean.setCoursePrefix(rs.getString("prefix"));
 				cbean.setCourseName(rs.getString("name"));
-				cbean.setCourseStatus(rs.getString("status"));
+				cbean.setCourseStatus(rs.getString("purchase_status"));
 				cbean.setCourseDescription(rs.getString("description"));
-				cbean.setCourseImagePath(rs.getString("imagepath"));
+				cbean.setCourseImagePath(rs.getString("image"));
 				cbean.setIsActive(rs.getInt("isactive"));			}
 		} catch (SQLException e) {
 			System.out.println("get one course: " + e.getMessage());
@@ -270,7 +267,7 @@ public class CoursesRepository {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, imagepath = ? WHERE id = ?");
+			PreparedStatement ps = con.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, image = ? WHERE id = ?");
 			ps.setString(1,bean.getCourseName());
 			ps.setString(2, bean.getCourseDescription());
 			ps.setString(3, bean.getCourseStatus());
