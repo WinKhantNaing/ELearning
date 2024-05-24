@@ -13,6 +13,7 @@ body {
 	overflow-x: hidden;
 	transition: 0.5s;
 	padding-top: 60px;
+	z-index: 9999;
 }
 
 .sidenav a {
@@ -65,6 +66,21 @@ body {
 .quiz-info {
 	background-color: #ffc107;
 	color: #213555;
+}
+
+.main-container {
+	margin-top: 120px;
+}
+
+.navOpen {
+	position: fixed;
+	z-index: 9999;
+	top: 32px;
+	left: 32px;
+}
+
+.common-btn {
+	color: #FFBC3B;
 }
 
 @media screen and (max-height: 450px) {

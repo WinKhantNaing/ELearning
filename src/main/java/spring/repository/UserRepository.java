@@ -321,7 +321,6 @@ public class UserRepository {
 //
 //	}
 
-
 	public int updateProfile(ProfileDto user) {
 		Connection con = ConnectionClass.getConnection();
 		int i = 0;
@@ -360,7 +359,7 @@ public class UserRepository {
 				bean.setStartDate(rs.getString("start_date"));
 				bean.setEndDate(rs.getString("end_date"));
 				paySubList.add(bean);
-				System.out.println("get list "+ paySubList);
+				System.out.println("get list " + paySubList);
 			}
 		} catch (SQLException e) {
 			System.out.println("Getting payment and description : " + e.getMessage());
@@ -373,18 +372,15 @@ public class UserRepository {
 		List<CoursesBean> courseCompleteList = new ArrayList<CoursesBean>();
 		CoursesBean courseBean = null;
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n"
-					+ "FROM lesson\r\n"
-					+ "JOIN (\r\n"
+			PreparedStatement ps = con.prepareStatement("SELECT lesson.*\r\n" + "FROM lesson\r\n" + "JOIN (\r\n"
 					+ "    SELECT unit.lesson_id, COUNT(*) AS total_units, SUM(CASE WHEN enrollment.unit_status = 'complete' THEN 1 ELSE 0 END) AS completed_units\r\n"
 					+ "    FROM unit\r\n"
 					+ "    JOIN enrollment ON unit.id = enrollment.unit_id AND enrollment.user_id = ?\r\n"
-					+ "    GROUP BY unit.lesson_id\r\n"
-					+ ") eu ON eu.lesson_id = lesson.id\r\n"
+					+ "    GROUP BY unit.lesson_id\r\n" + ") eu ON eu.lesson_id = lesson.id\r\n"
 					+ "WHERE eu.total_units = eu.completed_units");
-			 ps.setInt(1, userId); 
+			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				courseBean = new CoursesBean();
 				courseBean.setCourseId(rs.getInt("id"));
 				courseBean.setCoursePrefix(rs.getString("prefix"));
@@ -395,35 +391,65 @@ public class UserRepository {
 				courseCompleteList.add(courseBean);
 			}
 		} catch (SQLException e) {
-			System.out.println("Get Courses :" +e.getMessage());
+			System.out.println("Get Courses :" + e.getMessage());
 		}
-		return courseCompleteList; 
+		return courseCompleteList;
 	}
-	
-public SingleLessonDTO selectOneLesson(int lessonId) {
-		
+
+	public SingleLessonDTO selectOneLesson(int lessonId) {
+
 		SingleLessonDTO slDTO = null;
-		
+
 		Connection con = ConnectionClass.getConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement("select * from lesson where id = ?");
 			ps.setInt(1, lessonId);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				
+			while (rs.next()) {
+
 				slDTO = new SingleLessonDTO();
 				slDTO.setLessonId(rs.getInt("id"));
 				slDTO.setName(rs.getString("name"));
 				slDTO.setDescription(rs.getString("description"));
 				slDTO.setPurStatus(rs.getString("purchase_status"));
-				
+
 			}
 		} catch (SQLException e) {
-			System.out.println("Select single lesson : "+ e.getMessage());
+			System.out.println("Select single lesson : " + e.getMessage());
 		}
-		
+
 		return slDTO;
-				
+
+	}
+
+	public int updateName(int userId, String name) {
+		Connection con = ConnectionClass.getConnection();
+		int result = 0;
+
+		try {
+			PreparedStatement ps = con.prepareStatement("update user set user.username = ?\r\n" + "where user.id = ?");
+			ps.setString(1, name);
+			ps.setInt(2, userId);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Update User Name: " + e.getMessage());
+		}
+		return result;
 	}
 	
+	public int updateEmail(int userId, String email) {
+		Connection con = ConnectionClass.getConnection();
+		int result = 0;
+
+		try {
+			PreparedStatement ps = con.prepareStatement("update user set user.email = ?\r\n" + "where user.id = ?");
+			ps.setString(1, email);
+			ps.setInt(2, userId);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Update User Name: " + e.getMessage());
+		}
+		return result;
+	}
+
 }
