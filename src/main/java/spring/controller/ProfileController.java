@@ -23,6 +23,8 @@ import spring.model.LoginBean;
 import spring.model.PaySubBean;
 
 import spring.model.ProfileDto;
+import spring.model.UserBean;
+import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 
 
@@ -94,6 +96,22 @@ public class ProfileController {
 		
 	}
 	
+	@PostMapping(value = "/changeusername")
+	public String changeName(@ModelAttribute("user") UserBean bean, HttpSession session) {
+		int userId = (int) session.getAttribute("sessionId");
+		userrepo.updateName(userId, bean.getUserName());
+
+		return "redirect:profiledetail";
+	}
+
+	@PostMapping(value = "/changeemail")
+	public String changeEmail(@ModelAttribute("user") UserBean bean, HttpSession session) {
+		int userId = (int) session.getAttribute("sessionId");
+		userrepo.updateEmail(userId, bean.getUserEmail());
+
+		return "redirect:profiledetail";
+	}
+
 	@ModelAttribute("payDescription")
 	public List<PaySubBean> getPaymentDescription(HttpSession session,Model m) {
 		int id = (int) session.getAttribute("sessionId");
@@ -165,4 +183,9 @@ public class ProfileController {
 	 * 
 	 * }
 	 */
+
+	@ModelAttribute("user")
+	public UserBean use() {
+		return new UserBean();
+	}
 }

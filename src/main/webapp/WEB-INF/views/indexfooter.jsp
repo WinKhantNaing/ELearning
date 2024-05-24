@@ -1,89 +1,92 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-		<!DOCTYPE html>
-		<html>
+			<!DOCTYPE html>
+			<html>
 
-		<head>
+			<head>
 
-			<meta charset="utf-8">
-			<title>Educenter - Education HTML Template</title>
+				<meta charset="utf-8">
+				<title>Educenter - Education HTML Template</title>
 
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta name="description" content="Construction Html5 Template">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-			<meta name="author" content="Themefisher">
-			<meta name="generator" content="Themefisher Educenter HTML Template v1.0">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<meta name="description" content="Construction Html5 Template">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+				<meta name="author" content="Themefisher">
+				<meta name="generator" content="Themefisher Educenter HTML Template v1.0">
 
-			<meta name="theme-name" content="educenter" />
+				<meta name="theme-name" content="educenter" />
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.css" />">
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/slick/slick.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/slick/slick.css" />">
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/themify-icons/themify-icons.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/themify-icons/themify-icons.css" />">
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/animate/animate.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/animate/animate.css" />">
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/aos/aos.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/aos/aos.css" />">
 
-			<link rel="stylesheet" href="<c:url value=" /resources/plugins/venobox/venobox.css" />">
+				<link rel="stylesheet" href="<c:url value=" /resources/plugins/venobox/venobox.css" />">
 
 
-			<link href="<c:url value=" /resources/css/style.css" />" rel="stylesheet">
-			<link href="<c:url value='resources/css/feedback.css'/>" rel="stylesheet">
-			<link rel="shortcut icon" href="<c:url value=" /resources/images/favicon.png" />"
-			type="image/x-icon">
-			<link rel="icon" href="<c:url value=" /resources/images/favicon.png" />"
-			type="image/x-icon">
+				<link href="<c:url value=" /resources/css/style.css" />" rel="stylesheet">
+				<link href="<c:url value='resources/css/feedback.css'/>" rel="stylesheet">
+				<link rel="shortcut icon" href="<c:url value=" /resources/images/favicon.png" />"
+				type="image/x-icon">
+				<link rel="icon" href="<c:url value=" /resources/images/favicon.png" />"
+				type="image/x-icon">
 
-		</head>
+			</head>
 
-		<body>
+			<body>
 
-			<footer>
+				<footer>
 
 					<!-- newsletter -->
 					<!-- Start DEMO HTML (Use the following code into your project)-->
 
-		<c:if test="${sessionLogin == true}">
-		<div class="newsletter">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-						<h3 class="text-white">Rate Your Experiences</h3>
-						<form:form action="user/Feedback" method = "post" modelAttribute = "give">
-							<div class="input-wrapper">
-								<div class="rate-box">
-		
-									<form:radiobutton path = "rating" name="star" value="5" id="star0" /> <label
-										class="star" for="star0"></label> <form:radiobutton
-										path = "rating" name="star" value="4" id="star1" /> <label class="star" for="star1"></label>
-									<form:radiobutton path = "rating" name="star" value="3" id="star2" checked="checked" />
-									<label class="star" for="star2"></label> <form:radiobutton
-										path = "rating" name="star" value="2" id="star3" /> <label class="star" for="star3"></label>
-									<form:radiobutton path = "rating" name="star" value="1" id="star4" /> <label
-										class="star" for="star4"></label>
+					<c:if test="${sessionLogin == true}">
+						<div class="newsletter">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+										<h3 class="text-white">Rate Your Experiences</h3>
+										<form:form action="user/Feedback" method="post" modelAttribute="give">
+											<div class="input-wrapper">
+												<div class="rate-box">
 
+													<form:radiobutton path="rating" name="star" value="5" id="star0" />
+													<label class="star" for="star0"></label>
+													<form:radiobutton path="rating" name="star" value="4" id="star1" />
+													<label class="star" for="star1"></label>
+													<form:radiobutton path="rating" name="star" value="3" id="star2"
+														checked="checked" />
+													<label class="star" for="star2"></label>
+													<form:radiobutton path="rating" name="star" value="2" id="star3" />
+													<label class="star" for="star3"></label>
+													<form:radiobutton path="rating" name="star" value="1" id="star4" />
+													<label class="star" for="star4"></label>
+
+												</div>
+												<form:input type="text" path="comment" class="form-control border-0"
+													id="newsletter" name="newsletter"
+													placeholder="Enter Your Email..." />
+												<button type="submit" value="send" class="btn btn-primary"
+													style="margin-top: 21px">Send</button>
+											</div>
+										</form:form>
+
+									</div>
 								</div>
-								<form:input type="text" path = "comment" class="form-control border-0" id="newsletter"
-									name="newsletter" placeholder="Enter Your Email..."/>
-								<button type="submit" value="send" class="btn btn-primary"
-									style="margin-top: 21px">Send</button>
 							</div>
-						</form:form>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-		</c:if>
+						</div>
+					</c:if>
 
 
-				
+
 
 					<!-- END EDMO HTML (Happy Coding!)-->
 					<!-- footer content -->
@@ -191,7 +194,6 @@
 					</div>
 				</footer>
 
-		</body>
+			</body>
 
-		</html>
-
+			</html>

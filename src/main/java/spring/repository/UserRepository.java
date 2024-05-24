@@ -360,6 +360,25 @@ public class UserRepository {
 
 	}
 
+//	public boolean subscription() {
+//
+//		boolean status = false;
+//		Connection con = ConnectionClass.getConnection();
+//		try {
+//			PreparedStatement ps = con.prepareStatement("select subscription_id from payment where user_id=?");
+//			ResultSet rs = ps.executeQuery();
+//			while (rs.next()) {
+//				status = true;
+//			}
+//
+//		} catch (SQLException e) {
+//			System.out.println("Select LevelCount:" + e.getMessage());
+//		}
+//
+//		return status;
+//
+//	}
+
 	public int updateProfile(ProfileDto user) {
 		Connection con = ConnectionClass.getConnection();
 		int i = 0;
@@ -395,7 +414,6 @@ public class UserRepository {
 				bean.setStartDate(rs.getString("start_date"));
 				bean.setEndDate(rs.getString("end_date"));
 				paySubList.add(bean);
-
 				System.out.println("get list " + paySubList);
 			}
 		} catch (SQLException e) {
@@ -660,4 +678,35 @@ public int insertFeedback(FeedbakBean bean, int userId) {
 	return result;
 }
 	
+
+	public int updateName(int userId, String name) {
+		Connection con = ConnectionClass.getConnection();
+		int result = 0;
+
+		try {
+			PreparedStatement ps = con.prepareStatement("update user set user.username = ?\r\n" + "where user.id = ?");
+			ps.setString(1, name);
+			ps.setInt(2, userId);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Update User Name: " + e.getMessage());
+		}
+		return result;
+	}
+	
+	public int updateEmail(int userId, String email) {
+		Connection con = ConnectionClass.getConnection();
+		int result = 0;
+
+		try {
+			PreparedStatement ps = con.prepareStatement("update user set user.email = ?\r\n" + "where user.id = ?");
+			ps.setString(1, email);
+			ps.setInt(2, userId);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Update User Name: " + e.getMessage());
+		}
+		return result;
+	}
+
 }

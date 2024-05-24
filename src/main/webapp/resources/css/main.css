@@ -1,22 +1,18 @@
-
 /* ==========================================================================
    #FONT
    ========================================================================== */
 .font-robo {
-
 	font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
 }
 
 .font-poppins {
 	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
-
 }
 
 /* ==========================================================================
    #GRID
    ========================================================================== */
 .row {
-
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -45,7 +41,6 @@
 	.col-2 {
 		width: 150%;
 	}
-
 }
 
 /* ==========================================================================
@@ -56,7 +51,6 @@
  * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
  */
 html {
-
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -71,7 +65,6 @@ html {
 	-webkit-box-sizing: inherit;
 	-moz-box-sizing: inherit;
 	box-sizing: inherit;
-
 }
 
 /* ==========================================================================
@@ -80,31 +73,25 @@ html {
 /**
  * A very simple reset that sits on top of Normalize.css.
  */
-
 body, h1, h2, h3, h4, h5, h6, blockquote, p, pre, dl, dd, ol, ul, figure,
 	hr, fieldset, legend {
 	margin: 0;
 	padding: 0;
-
 }
 
 /**
  * Remove trailing margins from nested lists.
  */
-
 li>ol, li>ul {
 	margin-bottom: 0;
-
 }
 
 /**
  * Remove default table spacing.
  */
 table {
-
 	border-collapse: collapse;
 	border-spacing: 0;
-
 }
 
 /**
@@ -112,7 +99,6 @@ table {
  *    on fieldsets.
  */
 fieldset {
-
 	min-width: 0;
 	/* [1] */
 	border: 0;
@@ -122,14 +108,12 @@ button {
 	outline: none;
 	background: none;
 	border: none;
-
 }
 
 /* ==========================================================================
    #PAGE WRAPPER
    ========================================================================== */
 .page-wrapper {
-
 	min-height: 100vh;
 }
 
@@ -165,14 +149,12 @@ h5 {
 
 h6 {
 	font-size: 13px;
-
 }
 
 /* ==========================================================================
    #BACKGROUND
    ========================================================================== */
 .bg-blue {
-
 	background: #2c6ed5;
 }
 
@@ -196,14 +178,12 @@ h6 {
 	background: -moz-linear-gradient(bottom left, #ffbc3b 0%, #ffc827 100%);
 	background: -o-linear-gradient(bottom left, #ffbc3b 0%, #ffc827 100%);
 	background: linear-gradient(to top right, #ffbc3b 0%, #ffc827 100%);
-
 }
 
 /* ==========================================================================
    #SPACING
    ========================================================================== */
 .p-t-100 {
-
 	padding-top: 100px;
 }
 
@@ -237,14 +217,12 @@ h6 {
 
 .m-r-45 {
 	margin-right: 45px;
-
 }
 
 /* ==========================================================================
    #WRAPPER
    ========================================================================== */
 .wrapper {
-
 	margin: 0 auto;
 }
 
@@ -258,14 +236,12 @@ h6 {
 
 .wrapper--w680 {
 	max-width: 680px;
-
 }
 
 /* ==========================================================================
    #BUTTON
    ========================================================================== */
 .btn {
-
 	display: inline-block;
 	line-height: 50px;
 	padding: 0 50px;
@@ -311,14 +287,12 @@ h6 {
 
 .btn--blue:hover {
 	background: #5c5c77;
-
 }
 
 /* ==========================================================================
    #DATE PICKER
    ========================================================================== */
 td.active {
-
 	background-color: #212529;
 }
 
@@ -363,14 +337,12 @@ input[type="date" i] {
 	font-size: 14px;
 	padding: 5px;
 	outline: none;
-
 }
 
 /* ==========================================================================
    #FORM
    ========================================================================== */
 input {
-
 	outline: none;
 	margin: 0;
 	border: none;
@@ -525,14 +497,12 @@ input {
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 	cursor: pointer;
-
 }
 
 /* ==========================================================================
    #SELECT2
    ========================================================================== */
 .select--no-search .select2-search {
-
 	display: none !important;
 }
 
@@ -628,26 +598,22 @@ input {
 
 .select2-container--default .select2-results__option {
 	padding-left: 22px;
-
 }
 
 /* ==========================================================================
    #TITLE
    ========================================================================== */
 .title {
-
 	font-size: 24px;
 	color: #525252;
 	font-weight: 400;
 	margin-bottom: 40px;
-
 }
 
 /* ==========================================================================
    #CARD
    ========================================================================== */
 .card {
-
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -746,8 +712,6 @@ textarea {
   font-size: 0.875rem;
 } */
 
-
-
 /* ==========================================================================
    #FILE UPLOAD
    ========================================================================== */
@@ -781,9 +745,9 @@ body {
 
 .image-upload-wrap {
 	border-radius: 40px;
-    width: 200px;
-    height: 200px;
-    margin: 40px 130px;
+	width: 200px;
+	height: 200px;
+	margin: 40px 130px;
 	border: 2px dashed;
 	position: relative;
 }
@@ -819,8 +783,6 @@ body {
 	border-radius: 100px;
 }
 
-
-
 .remove-image {
 	width: 90px;
 	margin: 0;
@@ -849,5 +811,8 @@ body {
 .remove-image:active {
 	border: 0;
 	transition: all .2s ease;
+}
 
+.hover-btn:hover {
+	background-color: #aeaeae1f;
 }
