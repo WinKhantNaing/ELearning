@@ -693,7 +693,7 @@ public int insertFeedback(FeedbakBean bean, int userId) {
 		}
 		return result;
 	}
-	
+
 	public int updateEmail(int userId, String email) {
 		Connection con = ConnectionClass.getConnection();
 		int result = 0;
@@ -705,6 +705,27 @@ public int insertFeedback(FeedbakBean bean, int userId) {
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Update User Name: " + e.getMessage());
+		}
+		return result;
+	}
+
+	public boolean checkCurrentPassword(int userId, String password) {
+		Connection con = ConnectionClass.getConnection();
+		boolean result = false;
+
+		try {
+			PreparedStatement ps = con
+					.prepareStatement("select user.password from user where user.id = ? and user.password = ?");
+			ps.setInt(1, userId);
+			ps.setString(2, password);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Check Current Password: " + e.getMessage());
 		}
 		return result;
 	}

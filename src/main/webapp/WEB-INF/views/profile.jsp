@@ -610,128 +610,245 @@
 													</c:forEach>
 												</div>
 											</div>
+											<div style="margin: 20px 0 20px; float: right; margin-right: 30px;">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Save</button>
+											</div>
+											</form:form>
 										</div>
-									</c:if>
+								</div>
+							</div>
+
+							<hr>
+
+							<button type="button" class="btn w-100 hover-btn" data-bs-toggle="modal"
+								data-bs-target="#emailModal">
+								<div class="row">
+									<div class="col-sm-6" style="text-align: left;">
+										<h6 class="mb-0">Email</h6>
+									</div>
+									<div class="col-sm-6 text-secondary" style="text-align: left;">${user.userEmail}
+									</div>
+								</div>
+							</button>
+
+							<!-- Email Modal -->
+							<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<h1 class="modal-title fs-5" id="exampleModalLabel" style="padding: 15px;">Edit
+											Your Email</h1>
+										<form:form action="changeemail" method="post" modelAttribute="user">
+											<div class="mb-3" style="padding: 20px;">
+												<form:label for="exampleFormControlInput2" class="form-label"
+													path="userEmail">Email</form:label>
+												<form:input class="form-control" id="exampleFormControlInput2"
+													placeholder="Enter Email" path="userEmail" value="${user.userEmail}"
+													style="
+												    border: none;
+												    border-bottom: 1px solid #80808040;
+												    border-radius: 0;
+												" />
+											</div>
+											<div style="margin: 20px 0 20px; float: right; margin-right: 30px;">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Save</button>
+											</div>
+										</form:form>
+									</div>
+								</div>
+							</div>
+
+							<hr>
+
+							<button type="button" class="btn w-100 hover-btn" data-bs-toggle="modal"
+								data-bs-target="#passwordModal">
+								<div class="row">
+									<div class="col-sm-6" style="text-align: left;">
+										<h6 class="mb-0">Password</h6>
+									</div>
+									<div class="col-sm-6 text-secondary" style="text-align: left;">
+										${user.password}</div>
+								</div>
+							</button>
+
+							<!-- Password Modal -->
+							<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<h1 class="modal-title fs-5" id="exampleModalLabel" style="padding: 15px;">Edit
+											Your Password</h1>
+										<form:form action="checkcurrentpassword" method="post" modelAttribute="user">
+											<div class="mb-3" style="padding: 20px;">
+												<form:label for="exampleFormControlInput2" class="form-label"
+													path="password">Current Password
+												</form:label>
+												<form:password class="form-control" id="exampleFormControlInput2"
+													placeholder="Enter Current Password" path="password" style="
+												    border: none;
+												    border-bottom: 1px solid #80808040;
+												    border-radius: 0;
+												" />
+											</div>
+											<div style="margin: 20px 0 20px; float: right; margin-right: 30px;">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Next</button>
+											</div>
+										</form:form>
+									</div>
 								</div>
 							</div>
 						</div>
+						</div>
 
-						<script>
+						<div class="row gutters-sm">
+							<div class="col-sm-8 mb-3">
+								<div class="card h-100">
+									<div class="card-body">
+										<h6 class="d-flex align-items-center mb-3" style="color: #FFEA00;">Histroy
+											Courses</h6>
+										<table>
+											<tr>
+												<td>Subsciption plan</td>
+												<td>&ensp; &ensp;Start date</td>
+												<td>&ensp; &ensp;End date</td>
+											</tr>
+											<c:forEach items="${payDescription}" var="bean">
+												<tr>
+													<td>${bean.subPlan}(${bean.duration})</td>
+													<td>&ensp; &ensp;${bean.startDate}</td>
+													<td>&ensp; &ensp;${bean.endDate}</td>
+												</tr>
+											</c:forEach>
+										</table>
 
-							const uploadInput = document.getElementById("pfimg");
-							const submitbtn = document.getElementById("submitbtn");
-							const warningmsg = document.getElementById("warningmsg");
+									</div>
+								</div>
+							</div>
 
-							submitbtn.addEventListener("click", (event) => {
-								if (uploadInput.value == '') {
-									event.preventDefault();
-									warningmsg.append("Please choose a photo");
-									return;
-								}
-							})
+							<script>
 
-						</script>
+								const uploadInput = document.getElementById("pfimg");
+								const submitbtn = document.getElementById("submitbtn");
+								const warningmsg = document.getElementById("warningmsg");
 
-						<script
-							src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-						<script src="https://kit.fontawesome.com/5bb5a852ac.js" crossorigin="anonymous"></script>
-
-						<script type="text/javascript">
-							const myModal = document.getElementById('exampleModal')
-							const myInput = document.getElementById('input')
-
-							myModal.addEventListener('shown.bs.modal', () => {
-								myInput.focus()
-							})
-
-							const editModal = document.getElementById('editModal')
-							const editInput = document.getElementById('input')
-
-							editModal.addEventListener('shown.bs.modal', () => {
-								editInput.focus()
-							})		
-						</script>
-
-						<script src="<c:url value =" /resources/vendor/jquery/jquery.min.js" />"></script>
-						<!-- Vendor JS-->
-						<script src="<c:url value =" /resources/vendor/select2/select2.min.js" />"></script>
-						<script src="<c:url value =" /resources/vendor/datepicker/moment.min.js" />"></script>
-						<script src="<c:url value =" /resources/vendor/datepicker/daterangepicker.js" />"></script>
-
-						<!-- Main JS-->
-						<script src="<c:url value =" /resources/js/global.js" />"></script>
-
-						<script src="<c:url value =" /resources/js/dashboard1.js" />"></script>
-						<script src="<c:url value =" /resources/js/level.js" />"></script>
-
-						<script src="<c:url value ="
-							/resources/aplugins/bower_components/jquery-sparkline/jquery.sparkline.min.js" />"></script>
-						<script src="<c:url value ="
-							/resources/aplugins/bower_components/chartist/dist/chartist.min.js" />"></script>
-						<script src="<c:url value ="
-							/resources/aplugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js" />
-						"></script>
-
-
-						<%--<script src="<c:url value=" https://code.jquery.com/jquery-3.6.0.min.js" />"></script> --%>
-						<script>
-							// JavaScript function to handle Update button click event
-							document.getElementById("updateBtn").addEventListener("click", function () {
-
-								// Make profile fields editable
-								document.getElementById("email").readOnly = false;
-								document.getElementById("fullName").readOnly = false;
-
-								// Show the Save button
-								document.getElementById("saveBtn").style.display = "inline";
-
-
-								// Hide the Update button
-								document.getElementById("updateBtn").style.display = "none";
-							});
-
-							// JavaScript function to handle Save button click event
-							document.getElementById("saveBtn").addEventListener("click", function () {
-								// Capture user input from form fields
-								var email = document.getElementById("email").value;
-								var fullName = document.getElementById("fullName").value;
-
-								// Prepare data to send via AJAX request
-								var formData = {
-									fullName: fullName,
-									email: email
-
-								};
-
-								// Send AJAX request to update user profile
-								$.ajax({
-									url: "/ELearningProject/profile/updateprofile",
-									type: "POST",
-									contentType: "application/json",
-									data: JSON.stringify(formData),
-									success: function (response) {
-										// Display success message to the user
-										alert("Profile updated successfully!");
-										// Make profile fields read-only again
-										document.getElementById("email").readOnly = true;
-										document.getElementById("fullName").readOnly = true;
-										// Hide the Save button
-										document.getElementById("saveBtn").style.display = "none";
-
-										// Show the Update button
-										document.getElementById("updateBtn").style.display = "inline";
-
-									},
-									error: function (xhr, status, error) {
-										// Handle error response
-										alert("Error updating profile: " + error);
+								submitbtn.addEventListener("click", (event) => {
+									if (uploadInput.value == '') {
+										event.preventDefault();
+										warningmsg.append("Please choose a photo");
+										return;
 									}
+								})
+
+							</script>
+
+							<script
+								src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+							<script src="https://kit.fontawesome.com/5bb5a852ac.js" crossorigin="anonymous"></script>
+
+							<script type="text/javascript">
+								const myModal = document.getElementById('exampleModal')
+								const myInput = document.getElementById('input')
+
+								myModal.addEventListener('shown.bs.modal', () => {
+									myInput.focus()
+								})
+
+								const editModal = document.getElementById('editModal')
+								const editInput = document.getElementById('input')
+
+								editModal.addEventListener('shown.bs.modal', () => {
+									editInput.focus()
+								})		
+							</script>
+
+							<script src="<c:url value =" /resources/vendor/jquery/jquery.min.js" />"></script>
+							<!-- Vendor JS-->
+							<script src="<c:url value =" /resources/vendor/select2/select2.min.js" />"></script>
+							<script src="<c:url value =" /resources/vendor/datepicker/moment.min.js" />"></script>
+							<script src="<c:url value =" /resources/vendor/datepicker/daterangepicker.js" />"></script>
+
+							<!-- Main JS-->
+							<script src="<c:url value =" /resources/js/global.js" />"></script>
+
+							<script src="<c:url value =" /resources/js/dashboard1.js" />"></script>
+							<script src="<c:url value =" /resources/js/level.js" />"></script>
+
+							<script src="<c:url value ="
+								/resources/aplugins/bower_components/jquery-sparkline/jquery.sparkline.min.js" />">
+							</script>
+							<script src="<c:url value ="
+								/resources/aplugins/bower_components/chartist/dist/chartist.min.js" />"></script>
+							<script src="<c:url value ="
+								/resources/aplugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js" />
+							"></script>
+
+
+							<%--<script src="<c:url value=" https://code.jquery.com/jquery-3.6.0.min.js" />"></script>
+							--%>
+							<script>
+								// JavaScript function to handle Update button click event
+								document.getElementById("updateBtn").addEventListener("click", function () {
+
+									// Make profile fields editable
+									document.getElementById("email").readOnly = false;
+									document.getElementById("fullName").readOnly = false;
+
+									// Show the Save button
+									document.getElementById("saveBtn").style.display = "inline";
+
+
+									// Hide the Update button
+									document.getElementById("updateBtn").style.display = "none";
 								});
-							});
-						</script>
+
+								// JavaScript function to handle Save button click event
+								document.getElementById("saveBtn").addEventListener("click", function () {
+									// Capture user input from form fields
+									var email = document.getElementById("email").value;
+									var fullName = document.getElementById("fullName").value;
+
+									// Prepare data to send via AJAX request
+									var formData = {
+										fullName: fullName,
+										email: email
+
+									};
+
+									// Send AJAX request to update user profile
+									$.ajax({
+										url: "/ELearningProject/profile/updateprofile",
+										type: "POST",
+										contentType: "application/json",
+										data: JSON.stringify(formData),
+										success: function (response) {
+											// Display success message to the user
+											alert("Profile updated successfully!");
+											// Make profile fields read-only again
+											document.getElementById("email").readOnly = true;
+											document.getElementById("fullName").readOnly = true;
+											// Hide the Save button
+											document.getElementById("saveBtn").style.display = "none";
+
+											// Show the Update button
+											document.getElementById("updateBtn").style.display = "inline";
+
+										},
+										error: function (xhr, status, error) {
+											// Handle error response
+											alert("Error updating profile: " + error);
+										}
+									});
+								});
+							</script>
 
 
-						<script src="<c:url value =" /resources/js/profile.js" />"></script>
+							<script src="<c:url value =" /resources/js/profile.js" />"></script>
 
 					</body>
 

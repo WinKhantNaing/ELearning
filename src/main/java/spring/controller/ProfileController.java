@@ -112,6 +112,13 @@ public class ProfileController {
 		return "redirect:profiledetail";
 	}
 
+	@PostMapping(value = "/checkcurrentpassword")
+	public String checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession session, Model m) {
+		int userId = (int) session.getAttribute("sessionId");
+		boolean result = userrepo.checkCurrentPassword(userId, user.getPassword());
+		m.addAttribute("result", result);
+	}
+
 	@ModelAttribute("payDescription")
 	public List<PaySubBean> getPaymentDescription(HttpSession session,Model m) {
 		int id = (int) session.getAttribute("sessionId");
