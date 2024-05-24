@@ -18,11 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
 
+<link href="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 <link
 	href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css"
 	rel="stylesheet">
 
-<link href="<c:url value='/resources/css/rate.css'/>" rel="stylesheet"></link>
+<link href="<c:url value="/resources/css/rate.css"/>" rel="stylesheet"></link>
 
 <link
 	href="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>"
@@ -242,7 +244,7 @@ table, tr, td {
 									</div>
 									<div class="col-lg-4 col-md-12">
 										<div class="white-box analytics-info">
-											<h3 class="box-title">Total SubscriptionUser</h3>
+											<h3 class="box-title">Total Premium User</h3>
 											<ul
 												class="list-inline two-part d-flex align-items-center mb-0">
 												<li>
@@ -358,8 +360,104 @@ table, tr, td {
 						</c:otherwise>
 					</c:choose>
 				</div>
-
+				
 				<c:if test="${sessionuserRole == 'admin'}">
+				<div class="card white-box p-0">
+				<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+					  <a class="navbar-brand" href="#">
+					  <h3 class="box-title mb-0" style="font-size: 18px; font-style: italic">Recent	Comments</h3></a>
+				</nav>
+					<div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="height: 300px; overflow-y: auto;">
+					  <div id="scrollspyHeading1">
+					  	<c:forEach items="${recentcomments}" var="rc">
+									<div class="comment-widgets">
+										<!-- Comment Row -->
+										<div class="d-flex flex-row comment-row p-3 mt-0"
+											style="margin-top: 10px">
+											<div class="p-2">
+												<img
+													src="${pageContext.request.contextPath}${'\\'}${rc.filePath}"
+													alt="user" width="50" height="50" style="object-fit: cover"
+													class="rounded-circle" />
+											</div>
+											<div class="comment-text ps-2 ps-md-3 w-100">
+												<h5 class="font-medium"
+													style="font-size: 18px; font-style: initial">${rc.userName}</h5>
+												<span class="mb-3 d-block"
+													style="font-size: 14px; font-style: revert">
+													${rc.comments} </span>
+												<div class="comment-footer d-md-flex align-items-center">
+
+													<div class="input-wrapper">
+														<div class="rate-box">
+															<c:choose>
+																<c:when test="${rc.rating == 1}">
+																	<span class="me-1"> <i
+																		class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																	</span>
+																</c:when>
+
+																<c:when test="${rc.rating == 2}">
+																	<span class="me-1"> <i
+																		class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																	</span>
+																</c:when>
+
+																<c:when test="${rc.rating == 3}">
+																	<span class="me-1"> <i
+																		class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																	</span>
+																</c:when>
+
+																<c:when test="${rc.rating == 4}">
+																	<span class="me-1"> <i
+																		class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-gray fs-6"></i>
+																	</span>
+																</c:when>
+
+																<c:when test="${rc.rating == 5}">
+																	<span class="me-1"> <i
+																		class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																		<i class="mdi mdi-star me-n1 mb-2 text-warning fs-6"></i>
+																	</span>
+																</c:when>
+															</c:choose>
+														</div>
+													</div>
+													</div>
+
+													<div class="text-muted fs-2 ms-auto mt-2 mt-md-0"
+														style="font-size: calc(10px + 3px) !important">
+														${rc.date}
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+				</c:if>
+				<%-- <c:if test="${sessionuserRole == 'admin'}">
 					<div class="row">
 						<div class="">
 							<div class="card white-box p-0">
@@ -368,9 +466,6 @@ table, tr, td {
 										style="font-size: 18px; font-style: italic">Recent
 										Comments</h3>
 								</div>
-
-								
-								<!-- //just test -->
 
 								<c:forEach items="${recentcomments}" var="rc">
 									<div class="comment-widgets">
@@ -458,7 +553,7 @@ table, tr, td {
 							</div>
 						</div>
 					</div>
-				</c:if>
+				</c:if>--%>
 			</div>
 		</div>
 	</div>
@@ -519,9 +614,9 @@ table, tr, td {
 		src="<c:url value ="/resources/aplugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"/>"></script>
 	<script
 		src="<c:url value ="/resources/aplugins/bower_components/chartist/dist/chartist.min.js"/>"></script>
-	<script
-		src="<c:url value ="/resources/aplugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>"></script>
-
+	<script src="<c:url value ="/resources/aplugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>"></script>
+		
+	<script src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"/>" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 	<%--<script src="<c:url value="https://code.jquery.com/jquery-3.6.0.min.js"/>"></script> --%>
 	<script>
@@ -579,6 +674,8 @@ table, tr, td {
         });
     });
 </script>
+
+
 
 
 </body>
