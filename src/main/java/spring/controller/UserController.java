@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,19 +17,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import spring.model.UserBean;
+import spring.model.FeedbakBean;102
 import spring.model.LoginBean;
 import spring.model.PaymentDTO;
 import spring.model.RegisterBean;
-import spring.model.SingleLessonDTO;
-import spring.model.SubscriptionDTO;
-import spring.model.UnitNameListDTO;
-import spring.model.UserBean;
+
+
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-
+import spring.model.UserBean;
+import spring.model.PaymentDTO;
+import spring.model.UserDTO;
+import spring.model.PriceCardDTO;
+import spring.model.ProfileDto;
+import spring.model.SingleLessonDTO;
+import spring.model.UnitNameListDTO;
 
 @Controller
 @RequestMapping("/user")
@@ -37,6 +44,7 @@ public class UserController {
 	@Autowired
 	UserRepository userrepo;
 	CoursesRepository courserepo;
+
 	ServletContext context;
 
 	@GetMapping(value = "/index")
@@ -56,6 +64,13 @@ public class UserController {
 		return lbean;
 	}
 
+
+	@ModelAttribute("give")
+	public FeedbakBean getFeedbackBean() {
+		FeedbakBean fbean = new FeedbakBean();
+		return fbean;
+	}
+
 	@ModelAttribute("paymentbean")
 	public PaymentDTO getPaymentBean() {
 		PaymentDTO payBean = new PaymentDTO();
@@ -71,10 +86,14 @@ public class UserController {
 	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
 		int result = userrepo.insertUser(bean);
 		if (result < 0) {
+
 			m.addAttribute("success", "Register Course Successful");
+			System.out.println("Register successful");
 
 		} else {
+			m.addAttribute("RegisterError", true);
 			m.addAttribute("error", "Register course fail");
+			System.out.println("Register fail");
 
 		}
 		return "redirect:/";
@@ -95,12 +114,15 @@ public class UserController {
 			return "redirect:get-login";
 
 		} else {
-
+			session.setAttribute("sessionEmail", ubean.getUserEmail());// for subscription
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
-			session.setAttribute("sessionimg",ubean.getFilePath());
-			session.setAttribute("sessionuserRole",ubean.getUserRole());
+			session.setAttribute("sessionimg", ubean.getFilePath());
+			session.setAttribute("sessionuserRole", ubean.getUserRole());
 			session.setAttribute("sessionLogin", isLogin);
+
+			session.setAttribute("name", ubean.getUserName());
+
 			String url = (String) session.getAttribute("sessionUrl");
 			System.out.println("Url" + url);
 			if (url == null) {
@@ -111,6 +133,7 @@ public class UserController {
 		}
 	}
 //user crud
+
 	@GetMapping(value = "/adduser")
 	public ModelAndView showuser() {
 		return new ModelAndView("adduser", "userbean", new UserBean());
@@ -134,7 +157,7 @@ public class UserController {
 		m.addAttribute("lstUser", lstUser);
 		return "showuser";
 	}
-	
+
 	@GetMapping(value = "/edituser/{sessionId}")
 	public String editUser(@PathVariable("sessionId") int userId,Model m) {
 		//System.out.println("passed!!"+userId);
@@ -146,55 +169,31 @@ public class UserController {
 	
 	@PostMapping(value= "/updateuser")
 	public String updateUser(@ModelAttribute("eubean") UserBean bean, Model m) {
-		
 		int result = userrepo.updateUser(bean);
-		if(result>0) {
-		
+		if (result > 0) {
+
 			return "redirect:/user/showusertb";
-		}else {
+		} else {
 			m.addAttribute("user", bean);
 			return "courseedit";
 		}
 	}
-	
-	@GetMapping("/delete-user/{uid}")
-	public String deleteUser(@PathVariable("uid") int userId, Model m, RedirectAttributes redirectAttribute) {
 
-		int delResult = userrepo.deleteUser(userId);
-		if(delResult > 0) {
-			redirectAttribute.addFlashAttribute("delSuccess", "Successfully deleted!!");
+	@GetMapping(value = "/deleteuser/{userId}")
+	public String deleteUser(@PathVariable("userId") int userId) {
+		int result = userrepo.deleteUser(userId);
+		if (result > 0) {
+			// Successful deletion
+			return "redirect:/user/showusertb";
+		} else {
+			// Failed deletion
+			return "redirect:/user/showusertb";
 		}
-		return "redirect:showusertb";
-	    }
-	
-//    @GetMapping(value = "/deleteuser/{userId}")
-//    public String deleteUser(@PathVariable("userId") int userId) {
-//        int result = userrepo.deleteUser(userId);
-//        if (result > 0) {
-//            // Successful deletion
-//            return "redirect:/user/showusertb";
-//        } else {
-//            // Failed deletion
-//            return "redirect:/user/showusertb";
-//        }
-//    }
+	}
 
 	@GetMapping(value = "/about")
 	public String showAbout() {
 		return "about";
-	}
-
-	// for admin (Add subscription plan)
-	@PostMapping(value = "/addsubplan")
-	public String addSubscriptionPlan(@ModelAttribute("subscriptionPlan") SubscriptionDTO subBean,
-			RedirectAttributes redirectAttribute) {
-		int result = userrepo.addSubscriptionPlan(subBean);
-		if (result == 1) {
-			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is successful");
-		} else {
-			redirectAttribute.addFlashAttribute("message", "Adding subscription plan is fail!");
-		}
-		return "redirect:/subscription";
 	}
 
 	// for admin to show (subscriptoin plan)
@@ -244,7 +243,6 @@ public class UserController {
 	@GetMapping(value = "/check-login")
 	public String checkLogin(HttpSession session, Model m, RedirectAttributes redirectAttribute,
 			@RequestParam String url) {
-
 		if (session.getAttribute("sessionLogin") == null) {
 //			redirectAttribute.addFlashAttribute("loginAlert", true);
 			redirectAttribute.addFlashAttribute("loginError", true);
@@ -261,7 +259,6 @@ public class UserController {
 	public String checkUnitStatus(HttpSession session) {
 
 		int lessonId = (int) session.getAttribute("ssLessonId");
-
 		boolean unitStatus = userrepo.getUnitStatus(lessonId);
 
 		if (unitStatus) {
@@ -289,22 +286,20 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/show-single-lesson/{id}")
-	public String showSingleLesson(@PathVariable("id") int lessonId, Model m) {
 
-		SingleLessonDTO slDTO = userrepo.selectOneLesson(lessonId);
-		m.addAttribute("slDTO", slDTO);
+	@PostMapping(value = "/Feedback")
+	public String giveFeedback(@ModelAttribute("give") FeedbakBean fbean, Model m, HttpSession session) {
 
-		return "redirect:check-login";
+		int userId = (int) session.getAttribute("sessionId");
+		userrepo.insertFeedback(fbean, userId);
+		if (userId == 0) {
+			System.out.println("insert fail");
+		} else
+			System.out.println("insert success");
+		return "redirect:/";
+
 	}
 		
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-
-		session.invalidate();
-		return "home";
-	}
-
 
 	/*
 	 * @GetMapping(value = "/subscription-plan") public String
@@ -325,15 +320,56 @@ public class UserController {
 	 * 
 	 * }
 	 */
-	
-	@GetMapping(value="logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-		return "/";
-		
+
+
+	// for admin to delete subscription plan
+	@GetMapping(value = "/delete/{subId}")
+	public String deleteSubscriptionPlan(@PathVariable("subId") int cid) {
+		int result = userrepo.deleteSubscriptionPlan(cid);
+		return "redirect:/show-plan-list";
 	}
-	
+
+	// for admin to active subscription plan
+	@GetMapping(value = "/active/{subId}")
+	public String activeSubscriptionPlan(@PathVariable("subId") int cid) {
+		int result = userrepo.activeSubscriptionPlan(cid);
+		return "redirect:/show-plan-list";
+	}
+
+	// for admin to select for update subscription plan
+	@GetMapping(value = "/update/{subId}")
+	public ModelAndView updateSubscriptionPlan(@PathVariable("subId") int cid) {
+		PriceCardDTO bean = userrepo.selectSubscriptionPlan(cid);
+		return new ModelAndView("subPlanUpdate", "planBean", bean);
+	}
+
+	// for admin to update subscription plan
+	@PostMapping(value = "/subscriptionPlan")
+	public String updateSubscriptionPlan(@ModelAttribute("planBean") PriceCardDTO bean,
+			RedirectAttributes redirectAttribute) {
+		int result = userrepo.updateSubscriptionPlan(bean);
+		if (result > 0) {
+			redirectAttribute.addFlashAttribute("message", "Update plan is successful.");
+		} else {
+			redirectAttribute.addFlashAttribute("message", "Update plan is fail!");
+		}
+		redirectAttribute.addFlashAttribute("plan", true);
+		return "redirect:/show-plan-list";
+	}
+
+	// for admin to add subscription plan
+	@PostMapping(value = "/sub-plan-add")
+	public String addSubscriptionPlan(@ModelAttribute("subPlanBean") PriceCardDTO bean,
+			RedirectAttributes redirectAttribute) {
+		int result = userrepo.addSubscriptionPlan(bean);
+		if (result > 0) {
+
+			redirectAttribute.addFlashAttribute("message", "Adding plan is successful.");
+		} else {
+
+			redirectAttribute.addFlashAttribute("message", "Adding plan is fail.");
+		}
+		redirectAttribute.addFlashAttribute("plan", true);
+		return "redirect:/show-plan-list";
+	}
 }

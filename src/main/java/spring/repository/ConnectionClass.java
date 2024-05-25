@@ -9,7 +9,7 @@ public class ConnectionClass {
 	public static Connection getConnection() {
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
-			 con=DriverManager.getConnection("jdbc:mysql://localhost:3306/elearning","root","root");
+			 con=DriverManager.getConnection("jdbc:mysql://localhost:3306/elearning","root","Zoq34703");
 			 System.out.println("con:"+con);
 			 } catch (ClassNotFoundException e) {
 			 System.out.println("Driver:" + e.getMessage());

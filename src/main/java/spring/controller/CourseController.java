@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import spring.model.LoginBean;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
 import spring.model.RegisterBean;
+import spring.repository.ConnectionClass;
 import spring.repository.CoursesRepository;
 
 @Controller
@@ -34,7 +37,7 @@ import spring.repository.CoursesRepository;
 public class CourseController {
 	@Autowired
 	CoursesRepository courserepo;
-	
+
 	@ModelAttribute("registerbean")
 	public RegisterBean getRegisterBean() {
 		RegisterBean rbean = new RegisterBean();
@@ -46,7 +49,7 @@ public class CourseController {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
-	
+
 	@ModelAttribute("courseList")
 	public List<CoursesBean> getAllCourses() {
 		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
@@ -65,47 +68,18 @@ public class CourseController {
 	 * session) { boolean loginResult = (boolean)
 	 * session.getAttribute("sessionLogin"); if(loginResult == true) { return
 	 * "redirect:courses"; }else { return "redirect:/"; } }
-	 */	
+	 */
 	@GetMapping(value = "/courses")
 	public String courses() {
 		return "courses";
 	}
 
-	// for ma toe yadanarkyaw (show course subscriptionplan)
-		@ModelAttribute("subscriptionplan")
-		public List<PriceCardDTO> showPriceSubscription() {
-			List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-			priceList = courserepo.getPricePlan();
-			return priceList;
-		}
 
-	
-
-	@GetMapping(value = "/seeAllCourses")
-	public String courseSearch(HttpSession session) {
-		session.removeAttribute("searchCourse");
-		return "redirect:courses";
-	}
-
-	@PostMapping(value = "/searchcourse")
-	public String searchCourses(CoursesBean course, HttpSession session, Model m,
-			RedirectAttributes redirectAttribute) {
-		session.setAttribute("searchCourse", course);
-		List<CoursesBean> courseSearchList = new ArrayList<CoursesBean>();
-		courseSearchList = courserepo.getSearchCourses(course);
-
-		if (courseSearchList.isEmpty()) {
-			redirectAttribute.addFlashAttribute("message", "Courses that you search do not found!");
-			return "redirect:courses";
-		}
-		m.addAttribute("courseList", courseSearchList);
-		return "courses";
-	}
 
 	@GetMapping(value = "/complete")
 	public String showComplete(HttpSession session, Model m) {
 		List<CoursesBean> completeList = new ArrayList<CoursesBean>();
-		int userId = (int)session.getAttribute("sessionId");
+		int userId = (int) session.getAttribute("sessionId");
 		completeList = courserepo.getCompleteCourses(userId);
 		m.addAttribute("courseList", completeList);
 		return "courses";
@@ -114,13 +88,12 @@ public class CourseController {
 	@GetMapping(value = "/progress")
 	public String showProgress(HttpSession session, Model m) {
 		List<CoursesBean> progressList = new ArrayList<CoursesBean>();
-		int userId = (int)session.getAttribute("sessionId");
+		int userId = (int) session.getAttribute("sessionId");
 		progressList = courserepo.getProgressCourses(userId);
 		m.addAttribute("courseList", progressList);
 		return "courses";
 	}
 
-	
 	@GetMapping(value = "/subcription/{subId}")
 	public String showPaymentForm(@PathVariable("subId") int cid, Model m) {
 		PriceCardDTO priceBean = courserepo.getDuration(cid);
@@ -130,38 +103,43 @@ public class CourseController {
 		LocalDate startDate = LocalDate.now();
 		m.addAttribute("startDate", startDate);
 		String sTime = arrayDu[1];
-		if (sTime.equals("month") || sTime.equals("months") || sTime.equals("Month") || sTime.equals("Months")
-				|| sTime.equals("MONTH") || sTime.equals("MONTHS")) {
+		if (sTime.equals("month") || sTime.equals("months")) {
 			LocalDate endDate = startDate.plusMonths(time);
 			m.addAttribute("endDate", endDate);
-		} else {
+		} else if(sTime.equals("year") || sTime.equals("years")) {
 			LocalDate endDate = startDate.plusYears(time);
 			m.addAttribute("endDate", endDate);
+		}else {
+			LocalDate endDate = startDate.plusDays(time);
+			m.addAttribute("endDate", endDate);
 		}
-		return "paymentForm";
+		 m.addAttribute("showModal", true);
+		return "subscription";
 	}
 
-	@ModelAttribute("paymentbean")
-	public PaymentDTO getPaymentBean() {
-		PaymentDTO payBean = new PaymentDTO();
-		return payBean;
-	}
+	
+	  @ModelAttribute("paymentbean") 
+	  public PaymentDTO getPaymentBean() {
+	  PaymentDTO payBean = new PaymentDTO(); 
+	  return payBean; 
+	  }
+	 
 
-	@PostMapping(value = "/subscribe")
-	public String subscribe(@ModelAttribute("paymentbean") PaymentDTO bean, Model m) {
-		int result = courserepo.addSubscriptionPlan(bean);
-		if (result > 0) {
-			m.addAttribute("message", "Subscription plan is successful!");
-			return "letGo";
-		} else {
-			m.addAttribute("message", "Subscription plan is fail!");
-			return "paymentForm";
-		}
-
-	}
-
+	//for subscription methtod
+		 @PostMapping(value = "/subscribe")
+			public String subscribe(@ModelAttribute("paymentbean") PaymentDTO bean, Model m) {
+			    int subscriptionId = bean.getSubId();
+			    double subAmount = courserepo.getSubscribeAmount(subscriptionId);
+			    m.addAttribute("subAmount",subAmount);
+			    String paymentMethod = bean.getPaymentMethod();
+			    m.addAttribute("paymentMethod",paymentMethod);
+				int result = courserepo.addSubscriptionPlan(bean);
+				m.addAttribute("result", result);			
+				return "paymentResultForm";
+			}
+	
 	@GetMapping(value = "showcourses")
-	public String showall(Model m,HttpSession session) {
+	public String showall(Model m, HttpSession session) {
 
 		List<CoursesBean> courseLst = new ArrayList<>();
 		courseLst = courserepo.getCourses();
@@ -178,7 +156,7 @@ public class CourseController {
 	@PostMapping(value = "savecourse")
 	public String saveCourse(@ModelAttribute("coursebean") CoursesBean coursebean) {
 		MultipartFile image = coursebean.getCourseImage();
-		String UPLOAD_DIRECTORY = "D:\\PFC online class\\EclipseWorkspace\\ELearningProject\\src\\main\\webapp\\resources\\images\\logoimg";
+		String UPLOAD_DIRECTORY = "D:\\JWD51\\ELearningProject\\src\\main\\webapp\\resources\\images\\courses";
 		String filename = image.getOriginalFilename();
 		System.out.println(UPLOAD_DIRECTORY + " " + filename);
 
@@ -187,7 +165,7 @@ public class CourseController {
 				// Convert MultipartFile to byte array
 				byte[] photoBytes = image.getBytes();
 				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(UPLOAD_DIRECTORY + File.separator + filename)));
+				new FileOutputStream(new File(UPLOAD_DIRECTORY + File.separator + filename)));
 				stream.write(photoBytes);
 				stream.flush();
 				stream.close();
@@ -209,7 +187,7 @@ public class CourseController {
 
 	@GetMapping(value = "updateCourse")
 	public ModelAndView updatecourse(@RequestParam("cid") int courseId, Model m) {
-		 CoursesBean	cbean = courserepo.getOneCourse(courseId);
+		CoursesBean cbean = courserepo.getOneCourse(courseId);
 		m.addAttribute("cbean", cbean);
 		return new ModelAndView("updateCourse", "courseUpdateBean", new CoursesBean());
 

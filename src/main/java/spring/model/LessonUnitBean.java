@@ -2,11 +2,9 @@ package spring.model;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class LessonUnitBean implements Serializable{
 	private String lessonName;
 	private String unitName;
