@@ -31,35 +31,35 @@
 
 			<!-- ** Plugins Needed for the Project ** -->
 			<!-- Bootstrap -->
-			<link href="<c:url value=" resources/plugins/bootstrap/bootstrap.min.css" />"
+			<link href="<c:url value="resources/plugins/bootstrap/bootstrap.min.css" />"
 			rel="stylesheet"></link>
 			<!-- slick slider -->
-			<link href="<c:url value=" resources/plugins/slick/slick.css" />"
+			<link href="<c:url value="resources/plugins/slick/slick.css" />"
 			rel="stylesheet"></link>
 			<!-- themefy-icon -->
-			<link href="<c:url value=" resources/plugins/themify-icons/themify-icons.css" />"
+			<link href="<c:url value="resources/plugins/themify-icons/themify-icons.css" />"
 			rel="stylesheet"></link>
 			<!-- animation css -->
-			<link href="<c:url value=" resources/plugins/animate/animate.css" />"
+			<link href="<c:url value="resources/plugins/animate/animate.css" />"
 			rel="stylesheet"></link>
 			<!-- aos -->
-			<link href="<c:url value=" resources/plugins/aos/aos.css" />"
+			<link href="<c:url value="resources/plugins/aos/aos.css" />"
 			rel="stylesheet"></link>
 			<!-- venobox popup -->
-			<link href="<c:url value=" resources/plugins/venobox/venobox.css" />"
+			<link href="<c:url value="resources/plugins/venobox/venobox.css" />"
 			rel="stylesheet"></link>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
 				integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 				crossorigin="anonymous">
 			<!-- Main Stylesheet -->
-			<link href="<c:url value=" resources/css/style2.css" />" rel="stylesheet"></link>
-			<link href="<c:url value=" resources/css/style.css" />" rel="stylesheet"></link>
+			<link href="<c:url value="resources/css/style2.css" />" rel="stylesheet"></link>
+			<link href="<c:url value="resources/css/style.css" />" rel="stylesheet"></link>
 			<link rel="stylesheet" href="<c:url value=" /resources/css/course.css" />">
 			<!--Favicon-->
-			<link href="<c:url value=" resources/resources/images/favicon.png" />"
+			<link href="<c:url value="resources/resources/images/favicon.png" />"
 			rel="shortcut icon" type="image/x-icon"></link>
-			<link href="<c:url value=" resources/resources/images/favicon.png" />"
+			<link href="<c:url value="resources/resources/images/favicon.png" />"
 			rel="icon" type="image/x-icon"></link>
 			<style>
 				.show-button {
@@ -716,27 +716,27 @@
 						<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 							integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 							crossorigin="anonymous"></script>
-						<script src="<c:url value=" /resources/plugins/jQuery/jquery.min.js" />"></script>
+						<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 						<!-- Bootstrap JS -->
-						<script src="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.js" />"></script>
+						<script src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js" />"></script>
 						<!-- slick slider -->
-						<script src="<c:url value=" /resources/plugins/slick/slick.min.js" />"></script>
+						<script src="<c:url value="/resources/plugins/slick/slick.min.js" />"></script>
 						<!-- aos -->
-						<script src="<c:url value=" /resources/plugins/aos/aos.js" />"></script>
+						<script src="<c:url value="/resources/plugins/aos/aos.js" />"></script>
 						<!-- venobox popup -->
-						<script src="<c:url value=" /resources/plugins/venobox/venobox.min.js" />"></script>
+						<script src="<c:url value="/resources/plugins/venobox/venobox.min.js" />"></script>
 						<!-- filter -->
-						<script src="<c:url value=" /resources/plugins/filterizr/jquery.filterizr.min.js" />"></script>
+						<script src="<c:url value="/resources/plugins/filterizr/jquery.filterizr.min.js" />"></script>
 						<!-- google map -->
 						<script src="<c:url value="
 							https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" />">
 						</script>
-						<script src="<c:url value=" /resources/plugins/google-map/gmap.js" />"></script>
+						<script src="<c:url value="/resources/plugins/google-map/gmap.js" />"></script>
 
 						<!-- Main Script -->
-						<script src="<c:url value=" /resources/js/script.js" />"></script>
-						<script src="<c:url value=" /resources/js/register.js" />"></script>
-						<script src="<c:url value=" /resources/js/login.js" />"></script>
+						<script src="<c:url value="/resources/js/script.js" />"></script>
+						<script src="<c:url value="/resources/js/register.js" />"></script>
+						<script src="<c:url value="/resources/js/login.js" />"></script>
 
 
 
