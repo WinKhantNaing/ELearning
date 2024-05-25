@@ -20,7 +20,7 @@
         }
 
         .scrollable-table {
-            max-height: 400px; /* Set maximum height as needed */
+            max-height: 400px; 
             overflow-y: auto;
         }
     </style>

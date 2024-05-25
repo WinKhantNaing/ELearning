@@ -20,22 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import spring.model.UserBean;
-
-import spring.model.FeedbakBean;
+import spring.model.FeedbakBean;102
 import spring.model.LoginBean;
+import spring.model.PaymentDTO;
 import spring.model.RegisterBean;
+
 
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-
+import spring.model.UserBean;
 import spring.model.PaymentDTO;
 import spring.model.UserDTO;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.SingleLessonDTO;
-
 import spring.model.UnitNameListDTO;
 
 @Controller
@@ -64,6 +63,7 @@ public class UserController {
 		LoginBean lbean = new LoginBean();
 		return lbean;
 	}
+
 
 	@ModelAttribute("give")
 	public FeedbakBean getFeedbackBean() {
@@ -101,10 +101,8 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/login")
-
 	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m,
 			RedirectAttributes redirectAttribute) {
-
 		boolean isLogin = false;
 		UserBean ubean = userrepo.selectUser(bean);
 
@@ -161,17 +159,16 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/edituser/{sessionId}")
-	public String editUser(@PathVariable("sessionId") int userId, Model m) {
-		// System.out.println("passed!!"+userId);
-		ProfileDto user = userrepo.selectOne(userId);
-		System.out.println("after select one" + user.getUserId());
-		m.addAttribute("eubean", user);
-		return "useredit";
+	public String editUser(@PathVariable("sessionId") int userId,Model m) {
+		//System.out.println("passed!!"+userId);
+	    UserBean user = userrepo.selectOne(userId);
+	   System.out.println("after select one" + user.getUserId());
+	    m.addAttribute("eubean",user);
+	   return "useredit";
 	}
-
-	@PostMapping(value = "/updateuser")
+	
+	@PostMapping(value= "/updateuser")
 	public String updateUser(@ModelAttribute("eubean") UserBean bean, Model m) {
-
 		int result = userrepo.updateUser(bean);
 		if (result > 0) {
 
@@ -180,7 +177,6 @@ public class UserController {
 			m.addAttribute("user", bean);
 			return "courseedit";
 		}
-
 	}
 
 	@GetMapping(value = "/deleteuser/{userId}")
@@ -247,7 +243,6 @@ public class UserController {
 	@GetMapping(value = "/check-login")
 	public String checkLogin(HttpSession session, Model m, RedirectAttributes redirectAttribute,
 			@RequestParam String url) {
-
 		if (session.getAttribute("sessionLogin") == null) {
 //			redirectAttribute.addFlashAttribute("loginAlert", true);
 			redirectAttribute.addFlashAttribute("loginError", true);
@@ -264,7 +259,6 @@ public class UserController {
 	public String checkUnitStatus(HttpSession session) {
 
 		int lessonId = (int) session.getAttribute("ssLessonId");
-
 		boolean unitStatus = userrepo.getUnitStatus(lessonId);
 
 		if (unitStatus) {
@@ -305,6 +299,7 @@ public class UserController {
 		return "redirect:/";
 
 	}
+		
 
 	/*
 	 * @GetMapping(value = "/subscription-plan") public String
