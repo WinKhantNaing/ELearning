@@ -158,11 +158,5 @@ public class ProfileController {
 		}
 		return "redirect:profiledetail";
 	}
-	/*
-	 * @GetMapping(value="profileedit") public ModelAndView
-	 * editProfile(@ModelAttribute("pbean") PhotoDto pbean) { return new
-	 * ModelAndView("profile","pbean", new PhotoDto());
-	 * 
-	 * }
-	 */
+	
 }

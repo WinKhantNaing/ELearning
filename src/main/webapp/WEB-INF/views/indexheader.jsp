@@ -140,7 +140,6 @@
 								href="<c:url value="#signupModal" />" data-toggle="modal"
 								data-target="#signupModal">register</a></li>
 
-
 						</ul>
 					</div>
 				</nav>

@@ -1,6 +1,8 @@
 package spring.controller;
 
 import java.util.List;
+import java.util.ArrayList;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,12 +32,12 @@ import spring.model.RegisterBean;
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
 
-import spring.model.UserDTO;
+
 import spring.model.SingleLessonDTO;
 
 import spring.model.SubscriptionDTO;
 import spring.model.UnitNameListDTO;
-import spring.repository.UserRepository;
+import spring.model.PaymentDTO;
 
 
 @Controller
@@ -253,12 +255,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-
-		session.invalidate();
-		return "home";
-	}
+	
 
 
 	/*
@@ -288,7 +285,5 @@ public class UserController {
             session.invalidate();
         }
 		return "/";
-		
 	}
-	
 }
