@@ -155,7 +155,6 @@ public class UserController {
 			m.addAttribute("user", bean);
 			return "courseedit";
 		}
-		
 	}
 	
 	@GetMapping("/delete-user/{uid}")
@@ -163,15 +162,10 @@ public class UserController {
 
 		int delResult = userrepo.deleteUser(userId);
 		if(delResult > 0) {
-			
-			 
-			
 			redirectAttribute.addFlashAttribute("delSuccess", "Successfully deleted!!");
-			
 		}
-
 		return "redirect:showusertb";
-	}
+	    }
 	
 //    @GetMapping(value = "/deleteuser/{userId}")
 //    public String deleteUser(@PathVariable("userId") int userId) {
