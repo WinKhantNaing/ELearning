@@ -32,7 +32,6 @@ import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.UserDTO;
 
-
 public class UserRepository {
 
 	public int insertUser(RegisterBean bean) {
@@ -227,16 +226,16 @@ public class UserRepository {
 	}
 
 	public int deleteUser(int userId) {
-		int result = 0;
-		Connection con = ConnectionClass.getConnection();
-		try {
-			PreparedStatement ps = con.prepareStatement("delete from user where id=?");
-			ps.setInt(1, userId);
-			result = ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("user delete :" + e.getMessage());
-		}
-		return result;
+	    int result = 0;
+	    Connection con = ConnectionClass.getConnection();
+	    try {
+	        PreparedStatement ps = con.prepareStatement("update user set status = 0 where id = ?");
+	        ps.setInt(1, userId);
+	        result = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("user soft delete :" + e.getMessage());
+	    }
+	    return result;
 	}
 
 	public String uploadFile(MultipartFile file) {
