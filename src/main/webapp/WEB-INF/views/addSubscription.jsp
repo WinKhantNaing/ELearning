@@ -81,7 +81,7 @@
                         </div>
                         
 <script src="<c:url value="/resources/js/subPrice.js" />"></script>
-<script src="<c:url value="/resources/js/subPlan.js" />"></script>
+<script src="<c:url value="/resources/js/subPlan2.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 
