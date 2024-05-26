@@ -32,7 +32,6 @@ import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.UserDTO;
 
-
 public class UserRepository {
 
 	public int insertUser(RegisterBean bean) {
