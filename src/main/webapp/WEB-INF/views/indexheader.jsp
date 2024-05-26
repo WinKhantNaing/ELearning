@@ -116,9 +116,10 @@
 							<li class="nav-item"><a class="nav-link"
 								href="<c:url value="#signupModal" />" data-toggle="modal"
 								data-target="#signupModal">register</a></li>
-								
-								<li class="nav-item"><a  class="nav-link" data-bs-toggle="modal" 
-								data-bs-target="#subscriptionModal">Subscription</a></li>
+								<li class="nav-item @@courses"><a class="nav-link"
+								href='<c:url value="/subscription" />'>Subscription</a></li>
+								<!-- <li class="nav-item"><a  class="nav-link" data-bs-toggle="modal" 
+								data-bs-target="#subscriptionModal">Subscription</a></li> -->
 
 
 						</ul>
@@ -219,7 +220,7 @@
 			</div>
 		</div>
 	</div>
-	
+<%-- 	
 	<!-- for subscription modal -->
 <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -243,7 +244,7 @@
     </div>
   </div>
 </div>
-	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
+ --%>	<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 	<!-- Bootstrap JS -->
 	<script
 		src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js" />"></script>

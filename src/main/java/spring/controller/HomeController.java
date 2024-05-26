@@ -69,35 +69,48 @@ public class HomeController {
 		  return "showSubscriptionPlan";
 	  }
 	
-			// for user to show yearly subscription plan
-					@GetMapping(value = "/yearly-subscription")
-						public ModelAndView getYearlySubscribe(HttpSession session,Model m, RedirectAttributes redirectAttribute) {
-						String mail = (String)session.getAttribute("sessionEmail");
-			        	if(mail==null) {
-			        	 m.addAttribute("loginError", true);
-			        	 redirectAttribute.addFlashAttribute("message", "Please! Login in.");
-			        	 return new ModelAndView("home", "loginbean", new LoginBean());
-			        	}else {
-							List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-							priceList = courserepo.getYearlyPricePlan();
-							return new ModelAndView("subscription", "subscriptionplan", priceList);
-			        	}
-						}
-						
-						// for user to show monthly subscription plan
-						@GetMapping(value = "/monthly-subscription")
-						public ModelAndView getMonthlySubscribe(HttpSession session,Model m,RedirectAttributes redirectAttribute) {
-							String mail = (String)session.getAttribute("sessionEmail");
-				        	if(mail==null) {
-				        		 m.addAttribute("loginError", true);
-				        		 redirectAttribute.addFlashAttribute("message", "Please! Login in.");
-				        	 return new ModelAndView("home", "loginbean", new LoginBean());
-				        	}else {
-							List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
-							priceList = courserepo.getMonthlyPricePlan();
-							return new ModelAndView("subscription", "subscriptionplan", priceList);
-				        	}
-						}
+	// for user to show yearly subscription plan
+	  @ModelAttribute("yearlyplan")
+	  public List<PriceCardDTO> getYearlyPlan() {
+		  List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+			priceList = courserepo.getYearlyPricePlan();
+			return priceList;
+	  }
+	  
+	// for user to show yearly subscription plan
+		  @ModelAttribute("monthlyplan")
+		  public List<PriceCardDTO> getMontlyPlan() {
+			  List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>();
+				priceList = courserepo.getMonthlyPricePlan();
+				return priceList;
+		  }
+			/*
+			 * // for user to show yearly subscription plan
+			 * 
+			 * @GetMapping(value = "/yearly-subscription") public ModelAndView
+			 * getYearlySubscribe(HttpSession session,Model m, RedirectAttributes
+			 * redirectAttribute) { String mail =
+			 * (String)session.getAttribute("sessionEmail"); if(mail==null) {
+			 * m.addAttribute("loginError", true);
+			 * redirectAttribute.addFlashAttribute("message", "Please! Login in."); return
+			 * new ModelAndView("home", "loginbean", new LoginBean()); }else {
+			 * List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>(); priceList =
+			 * courserepo.getYearlyPricePlan(); return new ModelAndView("subscription",
+			 * "subscriptionplan", priceList); } }
+			 * 
+			 * // for user to show monthly subscription plan
+			 * 
+			 * @GetMapping(value = "/monthly-subscription") public ModelAndView
+			 * getMonthlySubscribe(HttpSession session,Model m,RedirectAttributes
+			 * redirectAttribute) { String mail =
+			 * (String)session.getAttribute("sessionEmail"); if(mail==null) {
+			 * m.addAttribute("loginError", true);
+			 * redirectAttribute.addFlashAttribute("message", "Please! Login in."); return
+			 * new ModelAndView("home", "loginbean", new LoginBean()); }else {
+			 * List<PriceCardDTO> priceList = new ArrayList<PriceCardDTO>(); priceList =
+			 * courserepo.getMonthlyPricePlan(); return new ModelAndView("subscription",
+			 * "subscriptionplan", priceList); } }
+			 */
 			
 	// for Admin to show course subscription plan 
 			@ModelAttribute("subscriptionplan2")
