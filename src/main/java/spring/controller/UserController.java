@@ -146,9 +146,8 @@ public class UserController {
 		int result = userrepo.addUser(bean);
 		if (result > 0) {
 			// successful
-			return "redirect:adduser";
+			return "redirect:showusertb";
 		} else {
-			// fail
 			return "redirect:adduser";
 		}
 	}
@@ -168,32 +167,41 @@ public class UserController {
 		m.addAttribute("eubean", user);
 		return "useredit";
 	}
-
-	@PostMapping(value = "/updateuser")
-	public String updateUser(@ModelAttribute("eubean") UserBean bean, Model m) {
-
-		int result = userrepo.updateUser(bean);
-		if (result > 0) {
-
-			return "redirect:/user/showusertb";
-		} else {
-			m.addAttribute("user", bean);
-			return "courseedit";
-		}
-
+	
+	@PostMapping(value= "/updateuser")
+	 public String updateUser(@ModelAttribute("eubean")UserBean bean,RedirectAttributes redirectAttributes) {
+	    int result=userrepo.updateUser(bean);
+	    if(result>0) {
+	      redirectAttributes.addFlashAttribute("success","Update sucessful!!");
+	      return "redirect:showusertb";
+	    }else {
+	      redirectAttributes.addFlashAttribute("error","Update Fail!!");
+	      return "redirect:edituser";
+	    }
 	}
+	 
 
-	@GetMapping(value = "/deleteuser/{userId}")
-	public String deleteUser(@PathVariable("userId") int userId) {
-		int result = userrepo.deleteUser(userId);
-		if (result > 0) {
-			// Successful deletion
-			return "redirect:/user/showusertb";
-		} else {
-			// Failed deletion
-			return "redirect:/user/showusertb";
-		}
-	}
+//	@GetMapping(value = "/deleteuser/{userId}")
+//	public String deleteUser(@PathVariable("userId") int userId) {
+//		int result = userrepo.deleteUser(userId);
+//		if (result > 0) {
+//			// Successful deletion
+//			return "redirect:/user/showusertb";
+//		} else {
+//			// Failed deletion
+//			return "redirect:/user/showusertb";
+//		}
+//	}
+	
+	@GetMapping("/delete-user/{uid}")
+	  public String deleteUser(@PathVariable("uid") int userId, Model m, RedirectAttributes redirectAttribute) {
+
+	    int delResult = userrepo.deleteUser(userId);
+	    if(delResult > 0) {
+	      redirectAttribute.addFlashAttribute("delSuccess", "Successfully deleted!!");
+	    }
+	    return "redirect:../showusertb";
+	  }
 
 	@GetMapping(value = "/about")
 	public String showAbout() {
@@ -288,7 +296,7 @@ public class UserController {
 			redirectAttribute.addFlashAttribute("purchaseAlert",
 					"You need to subscribe first to apply this premium lesson");
 //			session.setAttribute("purchaseAlert", "You need to subscribe first to apply this premium lesson");
-			return "redirect:../course/get-subscribe";
+			return "redirect:/subscription";
 		}
 	}
 

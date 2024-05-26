@@ -25,8 +25,9 @@
 </head>
 <jsp:include page="indexheader.jsp" />
   <div style="margin-top: 97px;height:100vh; background-color:#A16D00;">
+  <span>${delSuccess}</span>
         <div style="display:flex; justify-content:end;">
-            <a href='<c:url value="hello"/>'><button type="button" class="btn btn-primary" style="margin-right:20px;margin-top:10px;">Add User</button></a>
+            <a href='<c:url value="/user/adduser"/>'><button type="button" class="btn btn-primary" style="margin-right:20px;margin-top:10px;">Add User</button></a>
         </div>
         <div class="scrollable-table">
             <table class="table table-striped" id="table">
@@ -52,7 +53,7 @@
                             <td>${user.userRole}</td>
                             <td>
                <a href="<c:url value='/user/edituser/${user.userId}' />"><button type="button" class="btn btn-primary">Update</button></a>
-               <a href="<c:url value='/user/deleteuser/${user.userId}' />"><button type="button" class="btn btn-primary">Delete</button></a>
+               <a href="<c:url value='/user/delete-user/${user.userId}' />"><button type="button" class="btn btn-primary">Delete</button></a>
                             </td>
                         </tr>
                     </c:forEach>
