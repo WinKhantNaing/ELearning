@@ -180,8 +180,7 @@
 							</div>
 						</div>
 					</div>
-					--%>
-					<!-- hero slider -->
+									<!-- hero slider -->
 					<section class="hero-section overlay bg-cover"
 						data-background="resources/images/banner/banner-1.jpg">
 						<div class="container">
@@ -196,10 +195,9 @@
 												bright future is our mission</h1>
 											<p class="text-muted mb-4" data-animation-out="fadeOutRight"
 												data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
-												data-delay-in=".4">Lorem
-												ipsum dolor sit amet, consectetur adipisicing elit, sed do
-												eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-												enim ad minim veniam, quis nostrud exer</p>
+												data-delay-in=".4">Future programming languages form the foundation of software development.
+												 As time has progressed, we've observed transformative shifts in the programming language landscape,
+												  transitioning from foundational languages such as C and Java to the popularity of Python and JavaScript</p>
 											<a href="contact.html" class="btn btn-primary"
 												data-animation-out="fadeOutRight" data-delay-out="5"
 												data-duration-in=".3" data-animation-in="fadeInLeft"
@@ -217,10 +215,9 @@
 												bright future is our mission</h1>
 											<p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5"
 												data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">
-												Lorem
-												ipsum dolor sit amet, consectetur adipisicing elit, sed do
-												eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-												enim ad minim veniam, quis nostrud exer</p>
+												Future programming languages form the foundation of software development.
+												 As time has progressed, we've observed transformative shifts in the programming language landscape,
+												  transitioning from foundational languages such as C and Java to the popularity of Python and JavaScript</p>
 											<a href="contact.html" class="btn btn-primary"
 												data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3"
 												data-animation-in="fadeInDown" data-delay-in=".7">Apply now</a>
@@ -237,10 +234,9 @@
 												future is our mission</h1>
 											<p class="text-muted mb-4" data-animation-out="fadeOutDown"
 												data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp"
-												data-delay-in=".4">Lorem ipsum
-												dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-												minim veniam, quis nostrud exer</p>
+												data-delay-in=".4">Future programming languages form the foundation of software development.
+												 As time has progressed, we've observed transformative shifts in the programming language landscape,
+												  transitioning from foundational languages such as C and Java to the popularity of Python and JavaScript</p>
 											<a href="contact.html" class="btn btn-primary"
 												data-animation-out="fadeOutDown" data-delay-out="5"
 												data-duration-in=".3" data-animation-in="zoomIn"
@@ -521,8 +517,7 @@
 							<div class="row">
 								<div class="col-12 text-center">
 									<a href="course.html"
-										class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell
-										all</a>
+										class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell all</a>
 								</div>
 							</div>
 						</div>
@@ -709,7 +704,9 @@
 							</div>
 						</div>
 					</section>
-
+					<c:if test="${sessionlogin==true}">
+					<%@ include file="feedback.jsp" %>
+					</c:if>
 					<%@ include file="indexfooter.jsp" %>
 
 

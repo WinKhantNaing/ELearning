@@ -19,24 +19,24 @@
 
 				<meta name="theme-name" content="educenter" />
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/slick/slick.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/slick/slick.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/themify-icons/themify-icons.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/themify-icons/themify-icons.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/animate/animate.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/animate/animate.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/aos/aos.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/aos/aos.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/venobox/venobox.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/venobox/venobox.css" />">
 
 
-				<link href="<c:url value=" /resources/css/style.css" />" rel="stylesheet">
+				<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 				<link href="<c:url value='resources/css/feedback.css'/>" rel="stylesheet">
-				<link rel="shortcut icon" href="<c:url value=" /resources/images/favicon.png" />"
+				<link rel="shortcut icon" href="<c:url value="/resources/images/favicon.png" />"
 				type="image/x-icon">
-				<link rel="icon" href="<c:url value=" /resources/images/favicon.png" />"
+				<link rel="icon" href="<c:url value="/resources/images/favicon.png" />"
 				type="image/x-icon">
 
 			</head>
@@ -96,7 +96,7 @@
 								<div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
 									<!-- logo -->
 									<a class="logo-footer" href="index.html"><img class="img-fluid mb-4"
-											src="resources/images/logo.png" alt="logo"></a>
+											src="<c:url value="/resources/images/logo.png"/>" alt="logo"></a>
 									<ul class="list-unstyled">
 										<li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035,
 											New York, USA</li>

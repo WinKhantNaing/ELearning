@@ -30,9 +30,18 @@
 
     <!-- Main CSS-->
     <link href="<c:url value ="/adduserresources/css/main.css"/>" rel="stylesheet" media="all">
+
+     <style>
+     
+     .error{color: red};
+     
+     </style>
+    
 </head>
 <%-- <jsp:include page="showuser.jsp" /> --%>
 <body>
+    
+   
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
@@ -43,7 +52,8 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">User Name</label>
-                                    <form:input class="input--style-4" type="text" path="userName"/>
+                                    <span id="usernameError" class="error"></span>
+                                    <form:input class="input--style-4" id="username" type="text" path="userName"/>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +61,8 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <form:input class="input--style-4" type="email" path="userEmail"/>
+                                    <span id="emailError" class="error"></span><br>
+                                    <form:input class="input--style-4" id="email" type="email" path="userEmail"/>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +70,8 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Password</label>
-                                    <form:input class="input--style-4" type="password" path="password"/>
+                                    <span id="passwordError" class="error"></span><br>
+                                    <form:input class="input--style-4" id="password" type="password" path="password"/>
                                 </div>
                             </div>
                         </div>                      
@@ -75,14 +87,14 @@
                             </div>
                         </div>
                         <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Add</button>
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Add</button>
                         </div>
                     </form:form>
                 </div>
             </div>
         </div>
     </div>
-
+	<script src="<c:url value="/resources/js/register.js" />"></script>
     <!-- Jquery JS-->
     <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
     <!-- Vendor JS-->

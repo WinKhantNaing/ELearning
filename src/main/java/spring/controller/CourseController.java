@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.model.CoursesBean;
+import spring.model.FeedbakBean;
 import spring.model.LoginBean;
 import spring.model.PaymentDTO;
 import spring.model.PriceCardDTO;
@@ -43,6 +44,13 @@ public class CourseController {
 		RegisterBean rbean = new RegisterBean();
 		return rbean;
 	}
+	
+	@ModelAttribute("give")
+	public FeedbakBean getFeedbackBean() {
+		FeedbakBean fbean = new FeedbakBean();
+		return fbean;
+	}
+
 
 	@ModelAttribute("loginbean")
 	public LoginBean getLoginBean() {

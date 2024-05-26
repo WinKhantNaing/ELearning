@@ -264,7 +264,9 @@
         </div>
     </div>
 
-
+<c:if test="${sessionlogin==true}">
+	<%@ include file="feedback.jsp" %>
+</c:if>
 <%@ include file="indexfooter.jsp" %>
 </body>
 </html>

@@ -150,7 +150,7 @@ public class UserRepository {
 
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select count(*) from user where email=?");
+			PreparedStatement ps = con.prepareStatement("select email from user where email=?");
 			ps.setString(1, UserEmail);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -226,17 +226,17 @@ public class UserRepository {
 	}
 
 	public int deleteUser(int userId) {
-	    int result = 0;
-	    Connection con = ConnectionClass.getConnection();
-	    try {
-	        PreparedStatement ps = con.prepareStatement("update user set status = 0 where id = ?");
-	        ps.setInt(1, userId);
-	        result = ps.executeUpdate();
-	    } catch (SQLException e) {
-	        System.out.println("user soft delete :" + e.getMessage());
-	    }
-	    return result;
-	}
+	      int result = 0;
+	      Connection con = ConnectionClass.getConnection();
+	      try {
+	          PreparedStatement ps = con.prepareStatement("update user set status = 0 where id = ?");
+	          ps.setInt(1, userId);
+	          result = ps.executeUpdate();
+	      } catch (SQLException e) {
+	          System.out.println("user soft delete :" + e.getMessage());
+	      }
+	      return result;
+	  }
 
 	public String uploadFile(MultipartFile file) {
 		String filePath = null;
@@ -444,7 +444,7 @@ public class UserRepository {
 		Connection con = ConnectionClass.getConnection();
 		try {
 			PreparedStatement ps = con
-					.prepareStatement("select count(username) from user where status=1 and role='user'");
+					.prepareStatement("select count(username) from user where status=1 and role='User'");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				usercount = rs.getInt("count(username)");
