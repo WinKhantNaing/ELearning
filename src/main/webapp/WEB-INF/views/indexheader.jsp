@@ -19,30 +19,30 @@
 
 				<meta name="theme-name" content="educenter" />
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/bootstrap/bootstrap.min.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/slick/slick.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/slick/slick.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/themify-icons/themify-icons.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/themify-icons/themify-icons.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/animate/animate.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/animate/animate.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/aos/aos.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/aos/aos.css" />">
 
-				<link rel="stylesheet" href="<c:url value=" /resources/plugins/venobox/venobox.css" />">
+				<link rel="stylesheet" href="<c:url value="/resources/plugins/venobox/venobox.css" />">
 
 
-				<link href="<c:url value=" /resources/css/style.css" />" rel="stylesheet">
-				<link href="<c:url value=" /resources/css/course.css" />" rel="stylesheet">
-				<link href="<c:url value=" /resources/css/color.css" />" rel="stylesheet">
+				<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+				<link href="<c:url value="/resources/css/course.css" />" rel="stylesheet">
+				<link href="<c:url value="/resources/css/color.css" />" rel="stylesheet">
 				<link href="<c:url value='/resources/css/feedback.css'/>" rel="stylesheet">
 
 
 
 
-				<link rel="shortcut icon" href="<c:url value=" /resources/images/favicon.png" />"
+				<link rel="shortcut icon" href="<c:url value="/resources/images/favicon.png" />"
 				type="image/x-icon">
-				<link rel="icon" href="<c:url value=" /resources/images/favicon.png" />"
+				<link rel="icon" href="<c:url value="/resources/images/favicon.png" />"
 				type="image/x-icon">
 
 			</head>
@@ -51,7 +51,7 @@
 
 
 				<div class="preloader">
-					<img src="<c:url value=" /resources/images/preloader.gif" />"
+					<img src="<c:url value="/resources/images/preloader.gif" />"
 					alt="preloader">
 				</div>
 
@@ -59,8 +59,7 @@
 					<div class="navigation w-100">
 						<div class="container">
 							<nav class="navbar navbar-expand-lg navbar-dark p-0">
-								<a class="navbar-brand" href="index.html"><img src="<c:url value="
-										/resources/images/logo.png" />" alt="logo"></a>
+								<a class="navbar-brand" href="index.html"><img src="<c:url value="/resources/images/logo.png" />" alt="logo"></a>
 								<button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
 									data-target="#navigation" aria-controls="navigation" aria-expanded="false"
 									aria-label="Toggle navigation">
@@ -69,13 +68,12 @@
 
 								<div class="collapse navbar-collapse" id="navigation">
 									<ul class="navbar-nav ml-auto text-center">
-										<li class="nav-item active"><a class="nav-link" href="<c:url value ="
-												/" />">Home</a></li>
+										<li class="nav-item active"><a class="nav-link" href="<c:url value ="/" />">Home</a></li>
 
 										<li class="nav-item @@about"><a class="nav-link" href=<c:url
 												value="/about" />>About</a></li>
 										<li class="nav-item @@courses"><a class="nav-link"
-												href='<c:url value="/course/courses" />'>COURSES</a></li>
+												href='<c:url value="course/courses" />'>COURSES</a></li>
 
 										<c:if test="${sessionLogin == true}">
 											<c:if test="${sessionuserRole=='admin'}">
@@ -95,7 +93,7 @@
 											</c:if>
 											<li>
 												<div style="margin-top: 35px;">
-													<a href="<c:url value=" /profile/profiledetail" />">
+													<a href="<c:url value="/profile/profiledetail" />">
 													<img src="${pageContext.request.contextPath}${'\\'}${sessionimg}"
 														name="aboutme" width="30" height="30" class="img-circle"
 														style="border-radius: 25px; object-fit: cover"></a>
@@ -273,12 +271,12 @@
 
 								<div class="mt-4 mb-4">
 									<button type="button" class="plans" style="background-color:#E2EC57;"
-										onclick="location.href='<c:url value=" /monthly-subscription" />'">Monthly
+										onclick="location.href='<c:url value="/monthly-subscription" />'">Monthly
 									Plan</button>
 								</div>
 								<div class="mt-4 mb-4">
 									<button type="button" class="plans" style="background-color:#D2DE20;"
-										onclick="location.href='<c:url value=" /yearly-subscription" />'">Yearly
+										onclick="location.href='<c:url value="/yearly-subscription" />'">Yearly
 									Plan</button>
 								</div>
 							</div>
@@ -288,28 +286,28 @@
 						</div>
 					</div>
 				</div>
-				<script src="<c:url value=" /resources/plugins/jQuery/jquery.min.js" />"></script>
+				<script src="<c:url value="/resources/plugins/jQuery/jquery.min.js" />"></script>
 				<!-- Bootstrap JS -->
-				<script src="<c:url value=" /resources/plugins/bootstrap/bootstrap.min.js" />"></script>
+				<script src="<c:url value="/resources/plugins/bootstrap/bootstrap.min.js" />"></script>
 				<!-- slick slider -->
-				<script src="<c:url value=" /resources/plugins/slick/slick.min.js" />"></script>
+				<script src="<c:url value="/resources/plugins/slick/slick.min.js" />"></script>
 				<!-- aos -->
-				<script src="<c:url value=" /resources/plugins/aos/aos.js" />"></script>
+				<script src="<c:url value="/resources/plugins/aos/aos.js" />"></script>
 				<!-- venobox popup -->
-				<script src="<c:url value=" /resources/plugins/venobox/venobox.min.js" />"></script>
+				<script src="<c:url value="/resources/plugins/venobox/venobox.min.js" />"></script>
 				<!-- filter -->
-				<script src="<c:url value=" /resources/plugins/filterizr/jquery.filterizr.min.js" />"></script>
+				<script src="<c:url value="/resources/plugins/filterizr/jquery.filterizr.min.js" />"></script>
 				<!-- google map -->
 				<script src="<c:url value="
 					https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" />"></script>
-				<script src="<c:url value=" /resources/plugins/google-map/gmap.js" />"></script>
+				<script src="<c:url value="/resources/plugins/google-map/gmap.js" />"></script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 					integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 					crossorigin="anonymous"></script>
 				<!-- Main Script -->
-				<script src="<c:url value=" /resources/js/script.js" />"></script>
-				<script src="<c:url value=" /resources/js/register.js" />"></script>
-				<script src="<c:url value=" /resources/js/login.js" />"></script>
+				<script src="<c:url value="/resources/js/script.js" />"></script>
+				<script src="<c:url value="/resources/js/register.js" />"></script>
+				<script src="<c:url value="/resources/js/login.js" />"></script>
 
 			</body>
 

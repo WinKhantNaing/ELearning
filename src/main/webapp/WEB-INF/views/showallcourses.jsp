@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${courseLst}" var="course" varStatus="index">
+                    <c:forEach items="${courseList}" var="course" varStatus="index">
                         <tr>
                             <td scope="row">${index.count}</td>
                             <td>${course.coursePrefix}00${course.courseId }</td>

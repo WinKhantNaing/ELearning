@@ -2,12 +2,6 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<!DOCTYPE html>
 
-		<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
 
 		<html lang="en">
 
@@ -55,7 +49,7 @@
 			<!-- Main Stylesheet -->
 			<link href="<c:url value="resources/css/style2.css" />" rel="stylesheet"></link>
 			<link href="<c:url value="resources/css/style.css" />" rel="stylesheet"></link>
-			<link rel="stylesheet" href="<c:url value=" /resources/css/course.css" />">
+			<link rel="stylesheet" href="<c:url value="/resources/css/course.css" />">
 			<!--Favicon-->
 			<link href="<c:url value="resources/resources/images/favicon.png" />"
 			rel="shortcut icon" type="image/x-icon"></link>

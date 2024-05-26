@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label >Subscription plan</label>
                                     <div class="input-group col-xs-12">
-                                     <input type="hidden" value="${planBean.plan}" id="planOption"/>
+                                     
                                     <form:hidden path="subId"  value="${subId}" />
                                     <%-- <form:input path="plan" class="input--style-4" type="text" value="${plan}"/> --%>
                                           <form:select class="form-select" path="plan"  id="timePeriod" onchange="updateOptions()">

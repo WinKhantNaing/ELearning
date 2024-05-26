@@ -140,10 +140,10 @@ public class CourseController {
 	
 	@GetMapping(value = "showcourses")
 	public String showall(Model m, HttpSession session) {
-
-		List<CoursesBean> courseLst = new ArrayList<>();
-		courseLst = courserepo.getCourses();
-		m.addAttribute("courseLst", courseLst);
+		/*
+		 * List<CoursesBean> courseLst = new ArrayList<CoursesBean>(); courseLst =
+		 * courserepo.getCourses(); m.addAttribute("courseLst", courseLst);
+		 */
 		return "showallcourses";
 
 	}

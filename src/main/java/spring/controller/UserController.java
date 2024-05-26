@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.model.UserBean;
-import spring.model.FeedbakBean;102
+import spring.model.CoursesBean;
+import spring.model.FeedbakBean;
 import spring.model.LoginBean;
 import spring.model.PaymentDTO;
 import spring.model.RegisterBean;
@@ -29,8 +30,6 @@ import spring.model.RegisterBean;
 
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-import spring.model.UserBean;
-import spring.model.PaymentDTO;
 import spring.model.UserDTO;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
@@ -52,6 +51,13 @@ public class UserController {
 		return new ModelAndView("indexheader");
 	}
 
+	@ModelAttribute("courseList")
+	public List<CoursesBean> getAllCourses() {
+		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
+		courseList = courserepo.getCourses();
+		return courseList;
+	}
+	
 	@ModelAttribute("registerbean")
 	public RegisterBean getRegisterBean() {
 		RegisterBean rbean = new RegisterBean();
@@ -158,15 +164,17 @@ public class UserController {
 		return "showuser";
 	}
 
-	@GetMapping(value = "/edituser/{sessionId}")
-	public String editUser(@PathVariable("sessionId") int userId,Model m) {
-		//System.out.println("passed!!"+userId);
-	    UserBean user = userrepo.selectOne(userId);
-	   System.out.println("after select one" + user.getUserId());
-	    m.addAttribute("eubean",user);
-	   return "useredit";
-	}
-	
+//	
+//	 @GetMapping(value = "/edituser/{sessionId}") public String
+//	 editUser(@PathVariable("sessionId") int userId,Model m) {
+//	  //System.out.println("passed!!"+userId); 
+//		 UserBean user =userrepo.selectOne(userId);
+//		 System.out.println("after select one" +
+//	     user.getUserId());
+//		 m.addAttribute("eubean",user); 
+//		 return "useredit"; 
+//		 }
+	 
 	@PostMapping(value= "/updateuser")
 	public String updateUser(@ModelAttribute("eubean") UserBean bean, Model m) {
 		int result = userrepo.updateUser(bean);
