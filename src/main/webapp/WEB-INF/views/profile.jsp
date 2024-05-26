@@ -107,7 +107,7 @@ table, tr, td {
 								<div class="mt-3">
 									<h5>${user.userName}</h5>
 
-									<c:if test="${sessionuserRole == 'user'}">
+									<c:if test="${sessionuserRole == 'User'}">
 										<p class="text-secondary mb-1">
 										<h6>
 											Level - <span style="color: #FFEA00;">${level}</span>

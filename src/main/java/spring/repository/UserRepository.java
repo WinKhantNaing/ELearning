@@ -3,6 +3,12 @@ package spring.repository;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -237,26 +243,37 @@ public class UserRepository {
 	      }
 	      return result;
 	  }
+	
+	public String fileStorage(MultipartFile file) {
+		
+		String uploadDir = "./images/profilephoto";
+		Path fileStorageLocation = Paths.get(uploadDir ).toAbsolutePath().normalize();
+        try {
+            if (!Files.exists(fileStorageLocation)) {
+                Files.createDirectories(fileStorageLocation);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        }
+        
+        // Normalize file name
+        String fileName = file.getOriginalFilename();
 
-	public String uploadFile(MultipartFile file) {
-		String filePath = null;
-		try {
-			String path = "C:\\\\JAVA.51\\\\ELearning\\\\src\\\\main\\\\webapp\\\\resources\\\\images\\\\profilephoto";
-			String filename = file.getOriginalFilename();
-			byte[] bytes = file.getBytes();
-			BufferedOutputStream stream = new BufferedOutputStream(
-					new FileOutputStream(new File(path + File.separator + filename)));
-			stream.write(bytes);
-			stream.flush();
-			stream.close();
-			String url = path + File.separator + filename;
-			int index = url.indexOf("resources");
-			String extractedPath = index >= 0 ? url.substring(index) : "did when it was false.";
-			filePath = extractedPath;
-		} catch (Exception e) {
-			System.out.println("file upload :" + e.getMessage());
-		}
-		return filePath;
+        try {
+            if (fileName.contains("..")) {
+                throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+
+            // Copy file to the target location (Replacing existing file with the same name)
+            Path targetLocation = fileStorageLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            return uploadDir+"/"+fileName;
+            
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+		
 	}
 
 	public int insertPhoto(ProfileDto photo, int id) {
@@ -266,7 +283,7 @@ public class UserRepository {
 		try {
 			PreparedStatement ps = con.prepareStatement("UPDATE user SET img = ? WHERE id = ?");
 
-			String filePath = uploadFile(photo.getFile());
+			String filePath = fileStorage(photo.getFile());
 			photo.setFilePath(filePath);
 			ps.setString(1, photo.getFilePath());
 			ps.setInt(2, id);

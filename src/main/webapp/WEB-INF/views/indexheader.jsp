@@ -70,8 +70,8 @@
 									<ul class="navbar-nav ml-auto text-center">
 										<li class="nav-item active"><a class="nav-link" href="<c:url value ="/" />">Home</a></li>
 
-										<li class="nav-item @@about"><a class="nav-link" href=<c:url
-												value="/about" />>About</a></li>
+										<li class="nav-item @@about"><a class="nav-link" href="<c:url
+												value='/about' />">About</a></li>
 										<li class="nav-item @@courses"><a class="nav-link"
 												href='<c:url value="/course/courses" />'>COURSES</a></li>
 										<li class="nav-item"><a class="nav-link" data-bs-toggle="modal"

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.model.UserBean;
-import spring.model.FeedbakBean;102
+import spring.model.FeedbakBean;
 import spring.model.LoginBean;
 import spring.model.PaymentDTO;
 import spring.model.RegisterBean;
@@ -160,7 +160,7 @@ public class UserController {
 	@GetMapping(value = "/edituser/{sessionId}")
 	public String editUser(@PathVariable("sessionId") int userId,Model m) {
 		//System.out.println("passed!!"+userId);
-	    UserBean user = userrepo.selectOne(userId);
+	    ProfileDto user = userrepo.selectOne(userId);
 	   System.out.println("after select one" + user.getUserId());
 	    m.addAttribute("eubean",user);
 	   return "useredit";
