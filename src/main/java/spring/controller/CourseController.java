@@ -146,7 +146,7 @@ public class CourseController {
 				return "paymentResultForm";
 			}
 	
-	@GetMapping(value = "showcourses")
+	@GetMapping(value = "/showcourses")
 	public String showall(Model m, HttpSession session) {
 
 		List<CoursesBean> courseLst = new ArrayList<>();
@@ -164,7 +164,7 @@ public class CourseController {
 	@PostMapping(value = "savecourse")
 	public String saveCourse(@ModelAttribute("coursebean") CoursesBean coursebean) {
 		MultipartFile image = coursebean.getCourseImage();
-		String UPLOAD_DIRECTORY = "D:\\JWD51\\ELearningProject\\src\\main\\webapp\\resources\\images\\courses";
+		String UPLOAD_DIRECTORY = "C:\\Users\\User\\eclipse-workspace\\ELearning\\src\\main\\webapp\\resources\\images";
 		String filename = image.getOriginalFilename();
 		System.out.println(UPLOAD_DIRECTORY + " " + filename);
 

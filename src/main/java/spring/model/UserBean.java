@@ -21,6 +21,8 @@ public class UserBean implements Serializable {
 	private boolean isLogin;
 	private MultipartFile file;
 	private String filePath;
- 
+    private String newPassword;
+    private String conNewPassword;
+    
 
 }

@@ -43,7 +43,6 @@
 <link href="<c:url value ="/adduserresources/css/main.css" />"
 	rel="stylesheet" media="all">
 	
-<link rel="stylesheet" href="<c:url value ="/richtexteditor/rte_theme_default.css" />" />
 
 <script type="text/javascript" src="<c:url value ="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"/>"></script>
 </head>
@@ -53,11 +52,26 @@
 		<div class="wrapper wrapper--w680">
 			<div class="card card-4">
 				<div class="card-body">
-					<h2 class="title">Adding New Course Form</h2>
+					<h2 class="title">Adding New Unit Form</h2>
 
 					<!-- form start here -->
 					
 					<form:form modelAttribute="add-unit-dto" action="../unit/create-unit" method="POST" enctype="multipart/form-data"> 
+						<strong style="color:red;">${AdFail}</strong>
+						<strong style="color:green;">${AdSuccess}</strong>
+						<div class="input-group">
+                            <label class="label">Lesson</label>
+                            <div class="rs-select2 js-select-simple select--no-search" style="width:412.5px;">
+                                <form:select path="selectedLessonId" >
+                                    <option disabled="disabled" selected="selected">Choose lesson for adding more units</option>
+                                    <c:forEach items="${courseList}" var="course">
+                                    	<option value="${course.courseId}">${course.courseName}</option>
+                                    </c:forEach>                                 
+                                </form:select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                        
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
@@ -124,7 +138,7 @@
 								<div class="input-group">
 									<label class="label">Option 1</label>
 									<div class="wrapper-ta">
-										<form:textarea path="option1" name="the-textarea" id="the-textarea"
+										<form:textarea path="option1" name="the-textarea" id="the-textarea3"
 											maxlength="100" placeholder="Start Typin..."
 											style="width: 412.5px;" />
 										<div id="the-count3">
@@ -139,7 +153,7 @@
 								<div class="input-group">
 									<label class="label">Option 2</label>
 									<div class="wrapper-ta">
-										<form:textarea path="option2" name="the-textarea" id="the-textarea"
+										<form:textarea path="option2" name="the-textarea" id="the-textarea4"
 											maxlength="100" placeholder="Start Typin..."
 											style="width: 412.5px;" />
 										<div id="the-count4">
@@ -169,9 +183,9 @@
 						</div>
 						<div class="p-t-15">
 							<button type="submit" class="btn btn--radius-2 btn--blue">Add</button>
+							<a href="../../ELearningProject/" class="btn btn--radius-2 btn--blue" style="text-decoration: none; color: white;">Return Home>>></a> 
 						</div>
-
-						<!-- form end here -->
+					<!-- form end here -->
 					</form:form>
 
 						<!--Include the JS & CSS-->
@@ -193,6 +207,7 @@
 
 	<!-- Main JS-->
 	<script src="<c:url value ="/adduserresources/js/global.js" />"></script>
+	
 
 	<script class="jsbin"
 		src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" />"></script>

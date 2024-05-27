@@ -20,10 +20,7 @@
                 <span>You have full control to manage your own account
                     setting.</span>
             </div>
-            <div>
-                <a href="#" class="btn btn-outline-primary btn-sm">Export
-                    To CSV...</a>
-            </div>
+         
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -42,8 +39,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="mb-0">${reviewlst.viewname}</h4>
-                                    <span class="text-muted fs-6">2
-                                        hour ago</span>
+                                    <span class="text-muted fs-6">${reviewlst.reviewdate}</span>
                                 </div>
                                 <div>
                                     <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Report Abuse"><i
@@ -98,14 +94,10 @@
                                 </span>
                             </c:when>
                             </c:choose>
-                                
-                                <span class="me-1">for</span>
-                                <span class="h5">How to easily create a
-                                    website with WordPress</span>
-                                <p class="mt-2">
+                            <p class="mt-2">
                                    ${reviewlst.commentview}
                                 </p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm">Respond</a>
+              
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,7 @@
 
 </head>
 <body>
+<c:if test="${sessionLogin==true}">
 <div class="newsletter">
         <div class="container">
             <div class="row">
@@ -37,7 +38,8 @@
                             <button type="submit" value="send" class="btn btn-primary" style="margin-top:21px">Join</button>
                         </div>
                     </form> -->
-                    <form:form action="/user/Feedback" method = "post" modelAttribute = "give">
+                    
+                    <form:form action="user/Feedback" method = "post" modelAttribute = "give">
 							<div class="input-wrapper">
 								<div class="rate-box">
 		
@@ -52,7 +54,7 @@
 
 								</div>
 								<form:input type="text" path = "comment" class="form-control border-0" id="newsletter"
-									name="newsletter" placeholder="Enter Your Email..."/>
+									name="newsletter" placeholder="Type Feedback..."/>
 								<button type="submit" value="send" class="btn btn-primary"
 									style="margin-top: 21px">Send</button>
 							</div>
@@ -61,5 +63,6 @@
             </div>
         </div>
     </div>
+    </c:if>
 </body>
 </html>

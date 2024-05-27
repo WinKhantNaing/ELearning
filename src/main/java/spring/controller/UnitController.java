@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.CoursesBean;
+import spring.model.FeedbakBean;
 import spring.model.LessonUnitBean;
 import spring.model.LoginBean;
 import spring.model.QuizOption;
@@ -40,9 +41,9 @@ public class UnitController {
 	CoursesRepository courserepo;
 
 	@GetMapping(value = "/showunit")
-	public String unit(Model m) {
-		int userId = 1; // needed to change the value from session
-		int lessonId = 1;
+	public String unit(Model m, HttpSession session) {
+		int userId = (int) session.getAttribute("sessionId"); 
+		int lessonId = (int) session.getAttribute("ssLessonId"); 
 
 		boolean insertResult = unitrepo.insertEnrollment(userId, lessonId);
 		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(lessonId);
@@ -54,10 +55,10 @@ public class UnitController {
 	@GetMapping(value = "unitdetail/{unitId}")
 	public String showUntDetail(@PathVariable("unitId") int uid, Model m, HttpSession session) {
 
-		int userId = (int) session.getAttribute("sessionId"); // needed to change the value from session
-		int lessonId = (int) session.getAttribute("ssLessonId"); // changes needed
+		int userId = (int) session.getAttribute("sessionId"); 
+		int lessonId = (int) session.getAttribute("ssLessonId"); 
 
-		boolean changeProgress = unitrepo.changeProgress(userId, uid);
+		int changeProgress = unitrepo.changeProgress(userId, uid);
 
 		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(lessonId);
 		ArrayList<QuizOption> lstQuiz = (ArrayList<QuizOption>) unitrepo.selectQuiz(uid);
@@ -72,10 +73,10 @@ public class UnitController {
 	}
 
 	@PostMapping(value = "/checkquiz")
-	public String checkQuiz(@ModelAttribute("quiz") QuizOption bean, RedirectAttributes attribute) {
+	public String checkQuiz(@ModelAttribute("quiz") QuizOption bean, RedirectAttributes attribute, HttpSession session) {
 		int userAnswer = bean.getOptionId();
 		int unitId = bean.getUnitId();
-		int userId = 1; // needed to change the value from session
+		int userId = (int) session.getAttribute("sessionId"); 
 		System.out.println(unitId);
 		int changeComplete = unitrepo.changeComplete(userId, unitId);
 
@@ -90,8 +91,8 @@ public class UnitController {
 	}
 
 	@GetMapping(value = "/nextunit/{unitId}")
-	public String nextUnit(@PathVariable("unitId") int uId) {
-		int lessonId = 1; // needed to change the value from session of lesson
+	public String nextUnit(@PathVariable("unitId") int uId, HttpSession session) {
+		int lessonId = (int) session.getAttribute("ssLessonId"); 
 		int unitIndex;
 		int nextUnitId = 0;
 		List<LessonUnitBean> lstUnitId = new ArrayList<LessonUnitBean>();
@@ -108,8 +109,8 @@ public class UnitController {
 	}
 
 	@GetMapping(value = "/previousunit/{unitId}")
-	public String previousUnit(@PathVariable("unitId") int uId) {
-		int lessonId = 1;
+	public String previousUnit(@PathVariable("unitId") int uId, HttpSession session) {
+		int lessonId = (int) session.getAttribute("ssLessonId"); 
 		int unitIndex;
 		int previousUnitId = 0;
 		List<LessonUnitBean> lstUnitId = new ArrayList<LessonUnitBean>();
@@ -125,21 +126,6 @@ public class UnitController {
 		return "redirect:../../unit/unitdetail/" + previousUnitId;
 	}
 
-	@GetMapping(value = "/testing")
-	public String testing() {
-		int unitId = 5;
-		int userId = 1;
-		int result = unitrepo.changeComplete(userId, unitId);
-
-		if (result > 0) {
-			System.out.println("Success");
-		} else {
-			System.out.println("fail");
-		}
-		return null;
-
-	}
-
 	@ModelAttribute("quiz")
 	public QuizOption quiz() {
 		QuizOption bean = new QuizOption();
@@ -152,35 +138,26 @@ public class UnitController {
 	}
 	
 	@GetMapping(value = "/add-unit")
-	public ModelAndView addUnit() {
-		
-		return new ModelAndView("addunit", "add-unit-dto", new AddUnitDTO());
-		
+	public String addUnit(Model m) {
+		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
+		courseList = courserepo.getCourses();
+		m.addAttribute("courseList", courseList);
+		return "addunit";	
 	}
 	
 	@PostMapping(value = "/create-unit")
-	public String createUnit( @ModelAttribute("add-unit-dto") AddUnitDTO auDTO, HttpSession session) {
-		
-		int lessonId = 2;
-//		int lessonId = (int) session.getAttribute("ssLessonId");
-		
-		System.out.println("auDTO answer"+ auDTO.getAnswer());
-		
-		int result = unitrepo.insertUnit(auDTO, lessonId);
-		
-		
-		
-		if(result>0) {
-			
-			return "";
-			
+	public String createUnit( @ModelAttribute("add-unit-dto") AddUnitDTO auDTO, RedirectAttributes m) {
+		int result = unitrepo.insertUnit(auDTO);
+	
+		if(result>0) {	
+			m.addFlashAttribute("AdSuccess", "You added new unit successfully. Please check it at related lesson.");
+			return "redirect:add-unit";			
 		}
-		
-		return "addunit";
+		m.addFlashAttribute("AdFail","Adding new unit fails!!! Please add agaiin.");
+		return "redirect:add-unit";
 		
 	}
 	
-
 	@ModelAttribute("registerbean")
 	public RegisterBean getRegisterBean() {
 		RegisterBean rbean = new RegisterBean();
@@ -198,5 +175,11 @@ public class UnitController {
 		List<CoursesBean> courseList = new ArrayList<CoursesBean>();
 		courseList = courserepo.getHomeCourses();
 		return courseList;
+	}
+	
+	@ModelAttribute("give")
+	public FeedbakBean getFeedbackBean() {
+		FeedbakBean fbean = new FeedbakBean();
+		return fbean;
 	}
 }

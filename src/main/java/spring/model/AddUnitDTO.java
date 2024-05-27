@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class AddUnitDTO {
 	
+	private int selectedLessonId;
 	private String unitName;
 	private String content;
 	private String workOut;

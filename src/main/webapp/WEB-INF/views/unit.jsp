@@ -44,32 +44,18 @@
 			<c:if test="${lstQuiz[0].unitId == null}">
 				<h1>Introduction</h1>
 				<div>
-					<p>${lstLessonUnit[0].lessonIntroduction}</p>
+					<%-- <c:out value="${lstLessonUnit[0].lessonIntroduction}"
+						escapeXml="false" /> --%>
+					${lstLessonUnit[0].lessonIntroduction}
 				</div>
 			</c:if>
 
 			<c:forEach items="${lstLessonUnit}" var="unitId">
 				<c:if test="${unitId.unitId == lstQuiz[0].unitId}">
 					<h1>${lstQuiz[0].unitName}</h1>
-					<div class="common">
-						<!-- <textarea name="editor1" id="editor1" rows="10" cols="80">
-					        <p>This is a <strong>sample</strong> content with CKEditor.</p>
-							<p>It supports <em>various</em> formatting <u>options</u>.</p>
-							<ul>
-							    <li>Bullet list item 1</li>
-							    <li>Bullet list item 2</li>
-							</ul>
-							<p>And much more...</p>
-					    </textarea>
-						<script>
-							CKEDITOR.replace('editor1');
-						</script> -->
-						<%-- <p>${uniWorkBean.lessonContent}</p> --%>
-
-						<c:out
-							value="${'<p>This is a <strong>sample</strong> content with CKEditor.</p><p>It supports <em>various</em> formatting <u>options</u>.</p><ul><li>Bullet list item 1</li><li>Bullet list item 2</li></ul><p>And much more...</p>'}"
-							escapeXml="false" />
-					</div>
+					<!-- <div class="common"> -->
+					<c:out value="${uniWorkBean.lessonContent}" escapeXml="false" />
+					<!-- </div> -->
 
 					<div class="common">
 						<h2>Workout</h2>
@@ -92,7 +78,8 @@
 							modelAttribute="quiz" onsubmit="return quizCheck()">
 							<form:hidden value="${lstQuiz[0].unitId}" path="unitId" />
 							<form:radiobutton path="optionId" value="0"
-								label="${lstQuiz[0].selection}" />
+								label="${lstQuiz[0].selection}"
+								style="opacity:50; heigh:30; width:30;" />
 							<form:radiobutton path="optionId" value="1"
 								label="${lstQuiz[1].selection}" />
 							<%-- <c:forEach items="${lstQuiz}" var="option">
@@ -156,7 +143,7 @@
 
 	<a href="../testing">Change Complete</a>
 
-	<%@ include file="indexfooter.jsp"%>
+	<%-- <%@ include file="indexfooter.jsp"%> --%>
 
 
 

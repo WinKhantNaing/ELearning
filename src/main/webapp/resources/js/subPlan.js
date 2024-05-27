@@ -3,16 +3,13 @@ document.addEventListener("DOMContentLoaded", function() {
     updateOptions(); // Call once the DOM is fully loaded
 
     function updateOptions() {
-		const planPeriod = document.getElementById('planPeriod').value;
         const timePeriod = document.getElementById('timePeriod').value;
         const optionsDropdown = document.getElementById('options');
         optionsDropdown.innerHTML = '';
         const currentOption = document.getElementById('currentOption').value;
        // const currentValue = document.getElementById('current').value;
         // Define new options based on the selected time period
-        if(timePeriod===planPeriod){
-			timePeriod.selected=true;
-		}
+  
         
         let options;
         if (timePeriod === 'Monthly') { 

@@ -48,7 +48,7 @@
 					<!-- newsletter -->
 					<!-- Start DEMO HTML (Use the following code into your project)-->
 
-					<c:if test="${sessionLogin == true}">
+					<%-- <c:if test="${sessionLogin == true}">
 						<div class="newsletter">
 							<div class="container">
 								<div class="row">
@@ -84,7 +84,7 @@
 							</div>
 						</div>
 					</c:if>
-
+ --%>
 
 
 

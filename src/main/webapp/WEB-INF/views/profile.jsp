@@ -284,48 +284,72 @@ table, tr, td {
 							<hr>
 
 							<button type="button" class="btn w-100 hover-btn"
-								data-bs-toggle="modal" data-bs-target="#emailModal">
-								<div class="row">
-									<div class="col-sm-6" style="text-align: left;">
-										<h6 class="mb-0">Password</h6>
-									</div>
-									<div class="col-sm-6 text-secondary" style="text-align: left;">
-										${user.password}</div>
-								</div>
-							</button>
+                data-bs-toggle="modal" data-bs-target="#passwordModal">
+                <div class="row">
+                  <div class="col-sm-6" style="text-align: left;">
+                    <h6 class="mb-0">Password</h6>
+                  </div>
+                  <div class="col-sm-6 text-secondary" style="text-align: left;">
+                    ${user.password}</div>
+                </div>
+              </button>
 
-							<!-- Password Modal -->
-							<div class="modal fade" id="emailModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<h1 class="modal-title fs-5" id="exampleModalLabel"
-											style="padding: 15px;">Edit Your Password</h1>
-										<form:form action="changeemail" method="post"
-											modelAttribute="user">
-											<div class="mb-3" style="padding: 20px;">
-												<form:label for="exampleFormControlInput2"
-													class="form-label" path="userEmail">Password
-																	</form:label>
-												<form:input class="form-control"
-													id="exampleFormControlInput2" placeholder="Enter Email"
-													path="userEmail" value="${user.password}"
-													style="
-												    border: none;
-												    border-bottom: 1px solid #80808040;
-												    border-radius: 0;
-												" />
-											</div>
-											<div
-												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Save</button>
-											</div>
-										</form:form>
-									</div>
-								</div>
-							</div>
+              <!-- Password Modal -->
+              <div class="modal fade" id="passwordModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                      style="padding: 15px;">Edit Your Password</h1>
+                    <form:form action="checkcurrentpassword" method="post"
+                      modelAttribute="profile" id="passwordForm">
+                      <div class="mb-3" style="padding: 20px;">
+                        <form:label for="exampleFormControlInput2"
+                          class="form-label" path="password">Current Password
+                                  </form:label>
+                        <form:password class="form-control" id="currentPassword"
+                          placeholder="Enter Current Password" path="password"
+                          style="
+                            border: none;
+                            border-bottom: 1px solid #80808040;
+                            border-radius: 0;
+                        " />
+                        <span id="currentPasswordError" class="error"></span>
+                      </div>
+                      <div class="mb-3" style="padding: 20px;">
+                        <form:label class="form-label" path="newPassword">New Password
+                                  </form:label>
+                        <form:password class="form-control" id="newPassword"
+                          placeholder="Enter New Password" path="newPassword"
+                          style="
+                            border: none;
+                            border-bottom: 1px solid #80808040;
+                            border-radius: 0;
+                        " />
+                        <span id="newPasswordError" class="error"></span>
+                      </div>
+                      <div class="mb-3" style="padding: 20px;">
+                        <form:label class="form-label" path="conNewPassword">Confirm New Password
+                                  </form:label>
+                        <form:password class="form-control" id="confirmNewPassword"
+                          placeholder="Enter New Password" path="conNewPassword"
+                          style="
+                            border: none;
+                            border-bottom: 1px solid #80808040;
+                            border-radius: 0;
+                        " />
+                        <span id="confirmNewPasswordError" class="error"></span>
+                      </div>
+                      <div
+                        style="margin: 20px 0 20px; float: right; margin-right: 30px;">
+                        <button type="button" class="btn btn-secondary"
+                          data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+                    </form:form>
+                  </div>
+                </div>
+              </div>
 						</div>
 					</div>
 
@@ -469,7 +493,8 @@ table, tr, td {
 						</c:otherwise>
 					</c:choose>
 				</div>
-
+			
+			
 				<c:if test="${sessionuserRole == 'Admin'}">
 					<div class="card white-box p-0">
 						<nav id="navbar-example2"
@@ -480,6 +505,8 @@ table, tr, td {
 									Comments</h3>
 							</a>
 						</nav>
+						<%-- <c:choose>
+						<c:when test="${recentcomments!=null}"> --%>
 						<div data-bs-spy="scroll" data-bs-target="#navbar-example2"
 							data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
 							class="scrollspy-example bg-body-tertiary p-3 rounded-2"
@@ -570,6 +597,11 @@ table, tr, td {
 								</c:forEach>
 							</div>
 						</div>
+						<%-- </c:when>
+						<c:otherwise>
+							<p>No feedback yet</p>
+						</c:otherwise>
+					</c:choose> --%>
 					</div>
 				</c:if>
 			</div>

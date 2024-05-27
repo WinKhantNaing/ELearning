@@ -171,6 +171,7 @@
 											<form:input type="password" path="password" class="form-control mb-3"
 												id="loginpassword" name="loginPassword" placeholder="Password" />
 										</div>
+										
 										<div class="col-12">
 											<button type="submit" class="btn btn-primary"
 												id="loginModalConfirm">LOGIN</button>
@@ -704,9 +705,8 @@
 							</div>
 						</div>
 					</section>
-					<c:if test="${sessionlogin==true}">
+					
 					<%@ include file="feedback.jsp" %>
-					</c:if>
 					<%@ include file="indexfooter.jsp" %>
 
 

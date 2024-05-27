@@ -1,15 +1,12 @@
 package spring.repository;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,14 +26,12 @@ import spring.model.UserBean;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import spring.model.PaySubBean;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
-import spring.model.UserDTO;
 
 public class UserRepository {
 
@@ -75,8 +70,9 @@ public class UserRepository {
 				ubean.setUserId(rs.getInt("id"));
 				ubean.setUserEmail(rs.getString("email"));
 				ubean.setPassword(rs.getString("password"));
-				ubean.setFilePath(rs.getString("img"));
 				ubean.setUserRole(rs.getString("role"));
+				ubean.setFilePath(rs.getString("img"));
+				
 
 			}
 		} catch (SQLException e) {
@@ -84,6 +80,23 @@ public class UserRepository {
 			System.out.println(e.getMessage());
 		}
 		return ubean;
+	}
+	
+	public boolean selectEmail(String email) {
+		boolean check = false;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from user where email=?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				check = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Select Email" + e.getMessage());
+		}
+		return check;
 	}
 
 	public int checkExpiration() {
@@ -646,10 +659,11 @@ public class UserRepository {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into feedback(rating,comment,user_id1) values(?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into feedback(rating,comment,user_id1,date) values(?,?,?,?)");
 			ps.setInt(1, bean.getRating());
 			ps.setString(2, bean.getComment());
 			ps.setInt(3, userId);
+			ps.setDate(4, Date.valueOf(bean.getDate()));
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -702,26 +716,30 @@ public class UserRepository {
 		return result;
 	}
 
-	public boolean checkCurrentPassword(int userId, String password) {
-		Connection con = ConnectionClass.getConnection();
-		boolean result = false;
+	public boolean checkCurrentPassword(int userId, String password, String newPassword) {
+	    Connection con = ConnectionClass.getConnection();
+	    boolean result = false;
 
-		try {
-			PreparedStatement ps = con
-					.prepareStatement("select user.password from user where user.id = ? and user.password = ?");
-			ps.setInt(1, userId);
-			ps.setString(2, password);
-			ResultSet rs = ps.executeQuery();
+	    try {
+	      PreparedStatement ps = con
+	          .prepareStatement("select user.password from user where user.id = ? and user.password = ?");
+	      ps.setInt(1, userId);
+	      ps.setString(2, password);
+	      ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				result = true;
-			}
+	      if (rs.next()) {
+	        ps = con.prepareStatement("update user set user.password = ? where user.id = ?");
+	        ps.setString(1, newPassword);
+	        ps.setInt(2, userId);
+	        ps.executeUpdate();
+	        result = true;
+	      }
 
-		} catch (SQLException e) {
-			System.out.println("Check Current Password: " + e.getMessage());
-		}
-		return result;
-	}
+	    } catch (SQLException e) {
+	      System.out.println("Check Current Password: " + e.getMessage());
+	    }
+	    return result;
+	  }
 
 	// for admin to active subscription plan
 	public int activeSubscriptionPlan(int cid) {
@@ -791,6 +809,74 @@ public class UserRepository {
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Adding subscription plan :" + e.getMessage());
+		}
+		return result;
+	}
+	
+	public int updateOtp(String otp, String time, String email) {
+	    int result = 0;
+	    try (Connection con = ConnectionClass.getConnection();
+	         PreparedStatement ps = con.prepareStatement("UPDATE User SET otp = ?, otp_created_at = ? WHERE email = ?")) {
+	        ps.setString(1, otp);
+	        ps.setString(2, time);
+	        ps.setString(3, email);
+	        result = ps.executeUpdate();
+	    } catch (SQLException e) {
+	        System.out.println("Failed to update OTP: " + e.getMessage());
+	    }
+	    return result;
+	}
+
+	public boolean checkOtpNumber(String otp,String email) {
+		boolean check = false;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from user where otp = ? and email = ?");
+			  ps.setString(1, otp);
+			  ps.setString(2, email);
+		      ResultSet rs = ps.executeQuery();
+
+		        // If there is at least one row in the ResultSet, the OTP exists
+		        if (rs.next()) {
+		            check = true;
+		        }
+		} catch (SQLException e) {
+			System.out.println("check otp number:  " + e.getMessage());
+		}
+		
+		return check;
+		
+	}
+
+	public boolean isEmailRegistered(String email) {
+		boolean result = false;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("select * from user where email = ?");
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+
+		        if (rs.next()) {
+		            result = true;
+		        }
+			
+		} catch (SQLException e) {
+			System.out.println("is email registered: + "+ e.getMessage());
+		}
+		return result;
+		
+	}
+
+	public int updatePassword(String psw,String email) {
+		int result = 0;
+		Connection con = ConnectionClass.getConnection();
+		try {
+			PreparedStatement ps = con.prepareStatement("UPDATE user SET password = ? WHERE email = ?");
+			ps.setString(1, psw);
+			ps.setString(2, email);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("update user password: " + e.getMessage());
 		}
 		return result;
 	}

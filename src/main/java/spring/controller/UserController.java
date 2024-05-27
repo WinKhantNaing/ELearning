@@ -1,8 +1,11 @@
 package spring.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.model.UserBean;
@@ -29,9 +31,7 @@ import spring.model.RegisterBean;
 
 import spring.repository.CoursesRepository;
 import spring.repository.UserRepository;
-import spring.model.UserBean;
-import spring.model.PaymentDTO;
-import spring.model.UserDTO;
+import spring.services.EmailService;
 import spring.model.PriceCardDTO;
 import spring.model.ProfileDto;
 import spring.model.SingleLessonDTO;
@@ -78,7 +78,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/get-login")
-	public String getLogin() {
+	public String getLogin(Model model) {
 		return "home";
 	}
 
@@ -103,12 +103,21 @@ public class UserController {
 	@PostMapping(value = "/login")
 	public String checkuser(@ModelAttribute("loginbean") LoginBean bean, HttpSession session, Model m,
 			RedirectAttributes redirectAttribute) {
-		boolean isLogin = false;
+			boolean isLogin = false;
+		boolean checked = userrepo.selectEmail(bean.getEmail());
+		if (!checked) {
+			m.addAttribute("emailerror", "Please Register");
+			System.out.println("Login fail");
+			m.addAttribute("loginError", true);
+			return "home";
+		} 
 		UserBean ubean = userrepo.selectUser(bean);
-
 		if (ubean == null) {
-
-			System.out.println("fail");
+			
+			System.out.println("password fail");
+			redirectAttribute.addFlashAttribute("passworderror1", true);
+			redirectAttribute.addFlashAttribute("loginbean", bean);
+			redirectAttribute.addFlashAttribute("passworderror", "Password incorrect");
 			redirectAttribute.addFlashAttribute("loginError", true);
 			redirectAttribute.addFlashAttribute("loginFail", "Login Fail!! Please Login Again.");
 			return "redirect:get-login";
@@ -288,6 +297,7 @@ public class UserController {
 	public String giveFeedback(@ModelAttribute("give") FeedbakBean fbean, Model m, HttpSession session) {
 
 		int userId = (int) session.getAttribute("sessionId");
+		fbean.setDate(LocalDate.now());
 		userrepo.insertFeedback(fbean, userId);
 		if (userId == 0) {
 			System.out.println("insert fail");
@@ -322,6 +332,7 @@ public class UserController {
 	// for admin to delete subscription plan
 	@GetMapping(value = "/delete/{subId}")
 	public String deleteSubscriptionPlan(@PathVariable("subId") int cid) {
+		@SuppressWarnings("unused")
 		int result = userrepo.deleteSubscriptionPlan(cid);
 		return "redirect:/show-plan-list";
 	}
@@ -329,6 +340,7 @@ public class UserController {
 	// for admin to active subscription plan
 	@GetMapping(value = "/active/{subId}")
 	public String activeSubscriptionPlan(@PathVariable("subId") int cid) {
+		@SuppressWarnings("unused")
 		int result = userrepo.activeSubscriptionPlan(cid);
 		return "redirect:/show-plan-list";
 	}
@@ -368,5 +380,75 @@ public class UserController {
 		}
 		redirectAttribute.addFlashAttribute("plan", true);
 		return "redirect:/show-plan-list";
+	}
+	
+	@GetMapping(value = "/forgotPassword")
+	public String forgotPassword() {
+		return "forgotPassword";
+	}
+
+	@PostMapping(value = "/verifyEmail")
+	public String verify(@RequestParam("userEmail") String email, Model model) {
+		boolean check = userrepo.isEmailRegistered(email);
+		if (!check) {
+			model.addAttribute("checkEmail", "Email you entered is not registered!.");
+			return "forgotPassword";
+		}
+
+		// Generate OTP
+		Random rand = new Random();
+		int otp = rand.nextInt(1000000); // Generate number between 0 and 999999
+		String otpNumber = String.format("%06d", otp);
+		String otpAndText = otpNumber + " is your verification code.";
+		System.out.println(otpAndText); // Output the full message
+
+		// Send OTP via email
+		EmailService.sendOTPEmail(email, "Verification Code", otpAndText);
+		model.addAttribute("message", "OTP sent successfully to " + email);
+		model.addAttribute("emailToSend", email);
+
+		// Update database with OTP and expiration time
+		LocalDateTime expirationTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formattedExpirationTime = expirationTime.format(formatter);
+
+		int result = userrepo.updateOtp(otpNumber, formattedExpirationTime, email);
+		if (result == 1) {
+			System.out.println("OTP updated successfully");
+		} else {
+			System.out.println("Failed to update OTP");
+		}
+
+		// Redirect user to OTP verification page
+		return "verifyOtp";
+	}
+
+	@PostMapping(value = "/checkOtp")
+	public String checkOtp(@RequestParam("otp") String otp, @RequestParam("email") String email, Model m) {
+		System.out.println("checkotp");
+		boolean result = userrepo.checkOtpNumber(otp, email);
+		m.addAttribute("email", email);
+		if (result) {
+			System.out.println("true");
+			return "setNewPassword";
+		} else {
+			System.out.println("false");
+			m.addAttribute("incorrect", "The code you entered is incorrect.");
+			return "verifyOtp";
+		}
+
+	}
+
+	@PostMapping(value = "/updatePsw")
+	public String updatePassword(@RequestParam("userPassword") String password, @RequestParam("email") String email,Model model) {
+		System.out.println("email: " + email);
+		int result = userrepo.updatePassword(password, email);
+		if (result > 0) {
+			System.out.println("success update!.");
+		} else {
+			System.out.println("update fail!.");
+		}
+		return "redirect:/";
+
 	}
 }

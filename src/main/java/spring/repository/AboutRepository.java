@@ -73,7 +73,7 @@ public class AboutRepository {
 		ReviewBean review = null;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con.prepareStatement("select user.username,  user.img, feedback.rating, feedback.comment from feedback inner join user on feedback.user_id1=user.id");
+			PreparedStatement ps = con.prepareStatement("select user.username,  user.img, feedback.rating, feedback.comment, feedback.date from feedback inner join user on feedback.user_id1=user.id");
 			//ps.setInt(1, bean.getRating());
 			//ps.setString(2, bean.getComment());
 			ResultSet rs = ps.executeQuery();
@@ -83,6 +83,7 @@ public class AboutRepository {
 				review.setImage(rs.getString("img"));
 				review.setRatingview(rs.getInt("rating"));
 				review.setCommentview(rs.getString("comment"));
+				review.setReviewdate(rs.getDate("date"));
 				reviewlst.add(review);
 			}
 		} catch (SQLException e) {

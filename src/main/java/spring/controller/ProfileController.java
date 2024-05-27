@@ -179,15 +179,17 @@ public class ProfileController {
 		}
 		return "redirect:profiledetail";
 	}
-	/*
-	 * @GetMapping(value="profileedit") public ModelAndView
-	 * editProfile(@ModelAttribute("pbean") PhotoDto pbean) { return new
-	 * ModelAndView("profile","pbean", new PhotoDto());
-	 * 
-	 * }
-	 */
+	
+	@PostMapping(value = "/checkcurrentpassword")
+	  public String checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession session, Model m) {
+	    int userId = (int) session.getAttribute("sessionId");
+	    boolean result = userrepo.checkCurrentPassword(userId, user.getPassword(), user.getNewPassword());
+	    System.out.println("restult: " + result);
+	    m.addAttribute("result", result);
+	    return "redirect:profiledetail";
+	  }
 
-	@ModelAttribute("user")
+	@ModelAttribute("profile")
 	public UserBean use() {
 		return new UserBean();
 	}

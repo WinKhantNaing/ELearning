@@ -283,12 +283,12 @@ public class CoursesRepository {
 		int result = 0;
 		Connection con = ConnectionClass.getConnection();
 		try {
-			PreparedStatement ps = con
-					.prepareStatement("insert into lesson (name , description, status, image) values (?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into lesson (name,introduction , description, purchase_status, image) values (?,?,?,?,?)");
 			ps.setString(1, cbean.getCourseName());
-			ps.setString(2, cbean.getCourseDescription());
-			ps.setString(3, cbean.getCourseStatus());
-			ps.setString(4, cbean.getCourseImagePath());
+			ps.setString(2, cbean.getCourseIntroduction());
+			ps.setString(3, cbean.getCourseDescription());
+			ps.setString(4, cbean.getCourseStatus());
+			ps.setString(5, cbean.getCourseImagePath());
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("insert course : " + e.getMessage());
@@ -344,12 +344,13 @@ public class CoursesRepository {
 		Connection con = ConnectionClass.getConnection();
 		try {
 			PreparedStatement ps = con
-					.prepareStatement("UPDATE lesson SET name = ?, description = ?,status = ?, image = ? WHERE id = ?");
+					.prepareStatement("UPDATE lesson SET name = ?,introduction = ?, description = ?,purchase_status = ?, image = ? WHERE id = ?");
 			ps.setString(1, bean.getCourseName());
-			ps.setString(2, bean.getCourseDescription());
-			ps.setString(3, bean.getCourseStatus());
-			ps.setString(4, bean.getCourseImagePath());
-			ps.setInt(5, bean.getCourseId());
+			ps.setString(2, bean.getCourseIntroduction());
+			ps.setString(3, bean.getCourseDescription());
+			ps.setString(4, bean.getCourseStatus());
+			ps.setString(5, bean.getCourseImagePath());
+			ps.setInt(6, bean.getCourseId());
 			result = ps.executeUpdate();
 
 		} catch (SQLException e) {

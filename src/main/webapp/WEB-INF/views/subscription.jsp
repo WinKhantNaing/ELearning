@@ -21,15 +21,17 @@ font-size: 17px;}
 
 </style>
         <body>
-            <div class="container group">
-                <c:forEach items="${subscriptionplan}" var="list">
+        <c:if test="${!monthlyplan.isEmpty()}">
+        <h3>Monthly Plans</h3>
+            <div class="container group mb-5">
+                <c:forEach items="${monthlyplan}" var="list">
                     <div class="grid-1-5">
                         <h5>Purchase</h5>for
                         <h3><span class="uppercase">${list.plan}</span></h3>
 
-                        <h3><sup>$</sup>${list.price}<span class="small">/mo</span></h3>
+                        <h3><sup>$</sup>${list.price}</h3>
                         <ul>
-                            <li>Full access to all course materials for ${list.duration}</li>
+                            <li>Full access to all course materials for <span style="font-size:18px;">${list.duration}</span></li>
                             <li>Obtain the chance to learn and practice at one sight</li>
                             <li>Progress tracking</li>
                             <li>Early access to upcoming features and events</li>
@@ -41,6 +43,30 @@ font-size: 17px;}
                 </c:forEach>
 
             </div>
+            </c:if>
+             <c:if test="${!yearlyplan.isEmpty()}">
+            <h3>Yearly Plans</h3>
+            <div class="container group mb-5">
+                <c:forEach items="${yearlyplan}" var="list">
+                    <div class="grid-1-5">
+                        <h5>Purchase</h5>for
+                        <h3><span class="uppercase">${list.plan}</span></h3>
+
+                        <h3><sup>$</sup>${list.price}</h3>
+                        <ul>
+                            <li>Full access to all course materials for <span style="font-size:18px;">${list.duration}</span></li>
+                            <li>Obtain the chance to learn and practice at one sight</li>
+                            <li>Progress tracking</li>
+                            <li>Early access to upcoming features and events</li>
+                        </ul>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                        class="button" onclick="location.href='<c:url value="/course/subcription/${list.subId}" />' ">BUY</button>  
+                    </div>
+
+                </c:forEach>
+
+            </div>
+             </c:if>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,5 +1,7 @@
 package spring.model;
 
+import java.sql.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -11,4 +13,5 @@ private MultipartFile file;
 private String image;
 private int ratingview;
 private String commentview;
+private Date reviewdate;
 }

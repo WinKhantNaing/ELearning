@@ -33,12 +33,14 @@
 
                 <!-- Main CSS-->
                 <link href="<c:url value ="/adduserresources/css/main.css" />" rel="stylesheet" media="all">
+                <script type="text/javascript" src="<c:url value ="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"/>"></script>
             </head>
 
             <body>
                 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
                     <div class="wrapper wrapper--w680">
                         <div class="card card-4">
+                        <a href='<c:url value="../course/showcourses"/>'><button type="button" class="btn btn-primary" style="margin:20px; background-color:lightgrey;">Back</button></a>
                             <div class="card-body">
                                 <h2 class="title">Adding New Course Form</h2>
 
@@ -74,6 +76,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div>
+                                        <label class="label">Introduction</label>
+                                        <div class="wrapper-ta">
+                                            <form:textarea path="courseIntroduction" name="introduction" id="introduction" maxlength="500" placeholder="Start Typin..."/>
+                                            <div id="the-count">
+                                                <span id="current">0</span>
+                                                <span id="maximum">/300</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+						       			CKEDITOR.replace('introduction');
+									</script>
+                                    
                                     <div>
                                         <label class="label">Write description about lesson</label>
                                         <div class="wrapper-ta">

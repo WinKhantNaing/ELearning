@@ -50,7 +50,7 @@
                     <c:forEach items="${courseLst}" var="course" varStatus="index">
                         <tr>
                             <td scope="row">${index.count}</td>
-                            <td>${course.coursePrefix}00${course.courseId }</td>
+                            <td>${course.coursePrefix}00${course.courseId}</td>
                             <td>${course.courseName}</td>
                             <%-- <td>${course.courseDescription}</td> --%>
                             <td>${course.courseStatus}</td>

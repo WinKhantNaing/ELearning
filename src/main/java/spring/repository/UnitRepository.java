@@ -7,14 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.cglib.proxy.NoOp;
-import org.springframework.stereotype.Repository;
-
 import spring.model.LessonUnitBean;
 import spring.model.QuizOption;
 import spring.model.UniWorkBean;
 import spring.model.AddUnitDTO;
-import spring.model.UserBean;
 
 
 public class UnitRepository {
@@ -101,16 +97,25 @@ public class UnitRepository {
 
 	}
 
-	public boolean changeProgress(int userId, int unitId) {
+	public int changeProgress(int userId, int unitId) {
 		Connection con = ConnectionClass.getConnection();
-		boolean result = false;
-
+		int result = 0;
 		try {
-			PreparedStatement ps = con.prepareStatement("update elearning.enrollment set unit_status = \"progress\"\r\n"
-					+ "where user_id = ? and unit_id = ?");
+		PreparedStatement ps = con.prepareStatement("select unit_status from enrollment where unit_status = 'complete' and  user_id = ? and unit_id = ? ");
+		ps.setInt(1, userId);
+		ps.setInt(2, unitId);
+		ResultSet rs = ps.executeQuery();
+		if(!rs.next()) {
+			
+			ps = con.prepareStatement("update elearning.enrollment set unit_status = 'progress' where user_id = ? and unit_id = ?");
 			ps.setInt(1, userId);
 			ps.setInt(2, unitId);
-			result = ps.execute();
+			System.out.println("userid:"+userId);
+			System.out.println("unitid:"+unitId);
+			result = ps.executeUpdate();
+			
+		}
+			
 		} catch (SQLException e) {
 			System.out.println("Change Progress: " + e.getMessage());
 		}
@@ -149,7 +154,8 @@ public class UnitRepository {
 
 	}
 
-	public int insertUnit(AddUnitDTO auDTO, int lessonId) {
+	@SuppressWarnings("resource")
+	public int insertUnit(AddUnitDTO auDTO) {
 
 		Connection con = ConnectionClass.getConnection();
 		PreparedStatement ps = null;
@@ -157,91 +163,92 @@ public class UnitRepository {
 		int result = 0;
 
 		try {
-
-			String sqlUnit = "insert into unit(unit_name, lesson_id, content) values(?, ?, ?)";
-			ps = con.prepareStatement(sqlUnit, PreparedStatement.RETURN_GENERATED_KEYS);
-
+			
+			ps = con.prepareStatement("select unit_name from unit where unit_name=?");
 			ps.setString(1, auDTO.getUnitName());
-			ps.setInt(2, lessonId);
-			ps.setString(3, auDTO.getContent());
-			result += ps.executeUpdate();
+			rs = ps.executeQuery();
+			if(!rs.next()) {
+				String sqlUnit = "insert into unit(unit_name, lesson_id, content) values(?, ?, ?)";
+				ps = con.prepareStatement(sqlUnit, PreparedStatement.RETURN_GENERATED_KEYS);
 
-			System.out.println("unit table : " + auDTO);
+				ps.setString(1, auDTO.getUnitName());
+				ps.setInt(2, auDTO.getSelectedLessonId());
+				ps.setString(3, auDTO.getContent());
+				result += ps.executeUpdate();
 
-			rs = ps.getGeneratedKeys();
-			while (rs.next()) {
-
-				int unitId = rs.getInt(1);
-				try {
-					String sqlWorkOut = "insert into workout(question, hint, unit_id) values(?, ?, ?)";
-					ps = con.prepareStatement(sqlWorkOut);
-					ps.setString(1, auDTO.getWorkOut());
-					ps.setString(2, auDTO.getHint());
-					ps.setInt(3, unitId);
-
-					System.out.println("workout table : " + auDTO + unitId);
-
-					result += ps.executeUpdate();
-
-				} catch (SQLException e) {
-					System.out.println("Add workout :" + e.getMessage());
-				}
-
-				try {
-					String sqlQuiz = "insert into quiz(question, unit_id) values(?, ?)";
-					ps = con.prepareStatement(sqlQuiz, PreparedStatement.RETURN_GENERATED_KEYS);
-					ps.setString(1, auDTO.getQuiz());
-					ps.setInt(2, unitId);
-
-					System.out.println("quiz table : " + auDTO + unitId);
-
-					result += ps.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("Add quiz :" + e.getMessage());
-				}
+				System.out.println("unit table : " + auDTO);
 
 				rs = ps.getGeneratedKeys();
 				while (rs.next()) {
 
-					int quizId = rs.getInt(1);
+					int unitId = rs.getInt(1);
 					try {
-						String sqlOption = "insert into `option`(`option`, is_correct, quiz_id) values(?, ?, ?)";
-						ps = con.prepareStatement(sqlOption);
+						String sqlWorkOut = "insert into workout(question, hint, unit_id) values(?, ?, ?)";
+						ps = con.prepareStatement(sqlWorkOut);
+						ps.setString(1, auDTO.getWorkOut());
+						ps.setString(2, auDTO.getHint());
+						ps.setInt(3, unitId);
 
-						ps.setString(1, auDTO.getOption1());
-//						ps.setBoolean(2, auDTO.getOption1().equals(auDTO.getAnswer()));
-						ps.setInt(2, auDTO.getAnswer());
-						ps.setInt(3, quizId);
-
-						System.out.println("option table for op1 : " + auDTO + quizId);
-
-						result += ps.executeUpdate();
-
-						ps.setString(1, auDTO.getOption2());
-//						ps.setBoolean(2, auDTO.getOption2().equals(auDTO.getAnswer()));
-						ps.setInt(2, auDTO.getAnswer());
-						ps.setInt(3, quizId);
-
-						System.out.println("option table op2 : " + auDTO.getAnswer() + quizId);
+						System.out.println("workout table : " + auDTO + unitId);
 
 						result += ps.executeUpdate();
 
 					} catch (SQLException e) {
-						System.out.println("Add option1 :" + e.getMessage());
+						System.out.println("Add workout :" + e.getMessage());
 					}
 
-				}
+					try {
+						String sqlQuiz = "insert into quiz(question, unit_id) values(?, ?)";
+						ps = con.prepareStatement(sqlQuiz, PreparedStatement.RETURN_GENERATED_KEYS);
+						ps.setString(1, auDTO.getQuiz());
+						ps.setInt(2, unitId);
 
+						System.out.println("quiz table : " + auDTO + unitId);
+
+						result += ps.executeUpdate();
+					} catch (SQLException e) {
+						System.out.println("Add quiz :" + e.getMessage());
+					}
+
+					rs = ps.getGeneratedKeys();
+					while (rs.next()) {
+
+						int quizId = rs.getInt(1);
+						try {
+							String sqlOption = "insert into `option`(`selection`, is_correct, quiz_id) values(?, ?, ?)";
+							ps = con.prepareStatement(sqlOption);
+
+							ps.setString(1, auDTO.getOption1());
+//							ps.setBoolean(2, auDTO.getOption1().equals(auDTO.getAnswer()));
+							ps.setInt(2, auDTO.getAnswer());
+							ps.setInt(3, quizId);
+
+							System.out.println("option table for op1 : " + auDTO + quizId);
+
+							result += ps.executeUpdate();
+
+							ps.setString(1, auDTO.getOption2());
+//							ps.setBoolean(2, auDTO.getOption2().equals(auDTO.getAnswer()));
+							ps.setInt(2, auDTO.getAnswer());
+							ps.setInt(3, quizId);
+
+							System.out.println("option table op2 : " + auDTO.getAnswer() + quizId);
+
+							result += ps.executeUpdate();
+
+						} catch (SQLException e) {
+							System.out.println("Add option1 :" + e.getMessage());
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+				System.out.println("Add unit :" + e.getMessage());
 			}
 
-		} catch (SQLException e) {
-			System.out.println("Add unit :" + e.getMessage());
-		}
+			System.out.println("total result : " + result);
 
-		System.out.println("total result : " + result);
-
-		return result;
-
+			return result;
 	}
 
 	public List<LessonUnitBean> selectUnitId(int lessonId) {
@@ -269,14 +276,17 @@ public class UnitRepository {
 		int result = 0;
 
 		try {
-			PreparedStatement ps = con.prepareStatement("update elearning.enrollment set unit_status = \"complete\"\r\n"
-					+ "where user_id = ? and unit_id = ?");
+			PreparedStatement ps = con.prepareStatement("update elearning.enrollment set unit_status = 'complete' where user_id = ? and unit_id = ?");
 			ps.setInt(1, userId);
 			ps.setInt(2, unitId);
+			System.out.println("useridcomp:"+userId);
+			System.out.println("unitidcomp:"+unitId);
 			result = ps.executeUpdate();
+			System.out.println("Res:"+result);
 		} catch (SQLException e) {
 			System.out.println("Change Progress: " + e.getMessage());
 		}
+		
 		return result;
 	}
 

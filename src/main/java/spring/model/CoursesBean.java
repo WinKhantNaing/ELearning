@@ -19,6 +19,7 @@ public class CoursesBean implements Serializable{
 	private int courseId;
 	private String coursePrefix;
 	private String courseName;
+	private String courseIntroduction;
 	private String courseDescription;
 	private String courseImagePath;
 	private String courseStatus;
