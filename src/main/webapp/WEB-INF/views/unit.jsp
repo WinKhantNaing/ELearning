@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page import="spring.model.LessonUnitBean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
@@ -7,6 +9,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js" />"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -43,11 +46,13 @@
 		<div class="container unit-container">
 			<c:if test="${lstQuiz[0].unitId == null}">
 				<h1>Introduction</h1>
-				<div>
-					<%-- <c:out value="${lstLessonUnit[0].lessonIntroduction}"
-						escapeXml="false" /> --%>
-					${lstLessonUnit[0].lessonIntroduction}
-				</div>
+				 <div>
+					<c:out value="${lstLessonUnit[0].lessonIntroduction}"
+						escapeXml="false" /> 
+					<%-- ${lstLessonUnit[0].lessonIntroduction} --%>
+				</div> 
+				
+				
 			</c:if>
 
 			<c:forEach items="${lstLessonUnit}" var="unitId">
@@ -141,9 +146,8 @@
 	</div>
 
 
-	<a href="../testing">Change Complete</a>
+	<%@ include file="indexfooter.jsp"%>
 
-	<%-- <%@ include file="indexfooter.jsp"%> --%>
 
 
 

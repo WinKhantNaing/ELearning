@@ -37,7 +37,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">UserName</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Password</th>
+                        
                         <th scope="col">Role</th>
                         <th scope="col">Update/Delete</th>
                     </tr>
@@ -49,7 +49,7 @@
                             <td>${user.prefix}${user.userId}</td>
                             <td>${user.userName}</td>
                             <td>${user.userEmail}</td>
-                            <td>${user.password}</td>
+                            
                             <td>${user.userRole}</td>
                             <td>
                <a href="<c:url value='/user/edituser/${user.userId}' />"><button type="button" class="btn btn-primary">Update</button></a>

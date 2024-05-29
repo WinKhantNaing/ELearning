@@ -19,7 +19,9 @@
                 <h3 class="mb-0">Reviews</h3>
                 <span>You have full control to manage your own account
                     setting.</span>
+                    
             </div>
+ <button type="button" class="btn btn-secondary mb-3" onclick="location.href='<c:url value="/about"/>'">Back</button>
          
         </div>
         <!-- Card Body -->
@@ -104,6 +106,7 @@
                 </li>
                 </c:forEach>
             </ul>
+            
         </div>
     </div>
 </body>

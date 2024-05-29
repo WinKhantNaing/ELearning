@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('registrationForm');
     const usernameInput = document.getElementById('username');
@@ -63,12 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmPasswordInput.classList.add('invalid');
             confirmPasswordError.textContent = 'Please confirm your password.';
             return false;
+        } else if (confirmPassword !== password) {
+            confirmPasswordInput.classList.add('invalid');
+            confirmPasswordError.textContent = 'Password and confirm password do not match.';
+            return false;
         } else {
             confirmPasswordInput.classList.remove('invalid');
             confirmPasswordError.textContent = '';
             return true;
         }
     }
+
 
     function validateForm() {
         return validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword();
@@ -78,33 +84,34 @@ document.addEventListener("DOMContentLoaded", function () {
     emailInput.addEventListener('blur', validateEmail);
     passwordInput.addEventListener('blur', validatePassword);
     confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
-    confirmPasswordInput.addEventListener('blur', () => {
+    /*confirmPasswordInput.addEventListener('blur', () => {
     if(passwordInput.value != confirmPasswordInput){
       confirmPasswordError.textContent = "Password and confirm password do not match!!";
     }
-  });
+  });*/
 
 
-		//focus
-		usernameInput.addEventListener('focus', function () {
+    //focus
+    usernameInput.addEventListener('focus', function () {
         usernameInput.classList.remove('invalid');
         usernameError.textContent = '';
-   		 });
+        });
     
-    	emailInput.addEventListener('focus', function () {
+      emailInput.addEventListener('focus', function () {
         emailInput.classList.remove('invalid');
         emailError.textContent = '';
-    	});
+      });
 
-		passwordInput.addEventListener('focus', function () {
+
+	  passwordInput.addEventListener('focus', function () {
         passwordInput.classList.remove('invalid');
         passwordError.textContent = '';
-   		 });
+        });
 
-		confirmPasswordInput.addEventListener('focus', function () {
+    confirmPasswordInput.addEventListener('focus', function () {
         confirmPasswordInput.classList.remove('invalid');
         confirmPasswordError.textContent = '';
-   		 });
+        });
 
 
 

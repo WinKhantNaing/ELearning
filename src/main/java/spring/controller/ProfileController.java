@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.model.CommentDto;
 import spring.model.CoursesBean;
@@ -143,16 +144,17 @@ public class ProfileController {
 	}
 
 	@PostMapping(value = "/profilePhoto")
-	public String showphoto(@ModelAttribute("pbean") ProfileDto photo, HttpSession session) {
-		int id = (int) session.getAttribute("sessionId");
-		int result = userrepo.insertPhoto(photo, id);
-		if (result > 0) {
-			System.out.println("profile photo upload success.");
-		} else {
-			System.out.println("profile photo upload fail.");
-		}
-		return "redirect:profiledetail";
-	}
+	  public String showphoto(@ModelAttribute("pbean") ProfileDto photo, HttpSession session) {
+	    int id = (int) session.getAttribute("sessionId");
+	    int result = userrepo.insertPhoto(photo, id);
+	    if (result > 0) {
+	      session.setAttribute("sessionimg","/images/profilephoto/"+photo.getFile().getOriginalFilename());
+	      System.out.println("profile photo upload success.");
+	    } else {
+	      System.out.println("profile photo upload fail.");
+	    }
+	    return "redirect:profiledetail";
+	  }
 
 	@GetMapping(value = "/logout")
 	public String logout(HttpSession session) {
@@ -181,11 +183,17 @@ public class ProfileController {
 	}
 	
 	@PostMapping(value = "/checkcurrentpassword")
-	  public String checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession session, Model m) {
+	  public String checkCurrentPassword(@ModelAttribute("user") UserBean user, HttpSession session, Model m, RedirectAttributes red) {
 	    int userId = (int) session.getAttribute("sessionId");
 	    boolean result = userrepo.checkCurrentPassword(userId, user.getPassword(), user.getNewPassword());
+	    if(result) {
 	    System.out.println("restult: " + result);
 	    m.addAttribute("result", result);
+	    }else {
+	    	red.addFlashAttribute("fail", true);
+	    	red.addFlashAttribute("fail", "Your current password wrong!!");
+	    }
+	    
 	    return "redirect:profiledetail";
 	  }
 

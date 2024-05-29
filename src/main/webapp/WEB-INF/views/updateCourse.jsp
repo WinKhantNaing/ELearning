@@ -132,9 +132,9 @@
 								<label class="label">Write introduction about lesson</label>
 								<div class="wrapper-ta">
 									<form:textarea value="${cbean.courseIntroduction}" class="form-control"
-										path="courseIntroduction" style="width: 400px; height 350px;" id="introduction" />
-									<div id="the-count">
-										<span id="current">0</span> <span id="maximum">/300</span>
+										path="courseIntroduction" style="width: 400px; height 350px;" id="the-textarea3" />
+									<div id="the-count3">
+										<span id="current3">0</span> <span id="maximum3">/300</span>
 									</div>
 								</div>
 							</div>
@@ -146,9 +146,9 @@
 								<label class="label">Write description about lesson</label>
 								<div class="wrapper-ta">
 									<form:textarea value="${cbean.courseDescription}" class="form-control"
-										path="courseDescription" style="width: 400px; height 350px;" id="the-textarea" />
-									<div id="the-count">
-										<span id="current">0</span> <span id="maximum">/300</span>
+										path="courseDescription" style="width: 400px; height 350px;" id="the-textarea2" />
+									<div id="the-count2">
+										<span id="current2">0</span> <span id="maximum2">/300</span>
 									</div>
 								</div>
 							</div>
@@ -158,9 +158,7 @@
 
 									<div class="image-upload-wrap">
 
-										<form:input value="${cbean.courseImagePath }" type='file'
-											path="courseImage" class="file-upload-input"
-											onchange="readURL(this);" />
+										<form:input value="${cbean.courseImagePath }" type='file' path="courseImage" class="file-upload-input" onchange="readURL(this);" />
 
 										<div class="drag-text">
 											<h3>Attach any relevant documents or images</h3>
@@ -203,7 +201,7 @@
 		src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js"/>"></script>
 
 	<!-- Main JS-->
-	<script src="<c:url value ="resources/js/global.js"/>"></script>
+	<script src="<c:url value ="/resources/js/global.js"/>"></script>
 
 	<script class="jsbin"
 		src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"/>"></script>

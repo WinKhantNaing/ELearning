@@ -56,7 +56,12 @@
 	type="image/x-icon">
 <link rel="icon" href="<c:url value="/resources/images/favicon.png" />"
 	type="image/x-icon">
+<style>
+.error{
+color:red;
+}
 
+</style>
 </head>
 
 <body>
@@ -90,13 +95,13 @@
 												value='/about' />">About</a></li>
 							<li class="nav-item @@courses"><a class="nav-link"
 								href='<c:url value="/course/courses" />'>COURSES</a></li>
-							<li class="nav-item @@courses"><a class="nav-link"
-								href='<c:url value="/subscription" />'>Subscription</a></li>
+							
 
 
 							<c:choose>
 								<c:when test="${sessionLogin == true}">
-
+                               <li class="nav-item @@courses"><a class="nav-link"
+								href='<c:url value="/subscription" />'>Subscription</a></li>
 									<c:if test="${sessionuserRole=='Admin'}">
 										<li class="nav-item dropdown view"><a
 											class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -106,7 +111,7 @@
 												<li><a class="dropdown-item"
 													href='<c:url value="/user/showusertb"/>'>Show All Users</a></li>
 												<li><a class="dropdown-item"
-													href='<c:url value="course/showcourses"/>'>Show All
+													href='<c:url value="/course/showcourses"/>'>Show All
 														Courses</a></li>
 												<li><a class="dropdown-item"
 													href='<c:url value="/unit/add-unit"/>'>Add Unit</a></li>
@@ -162,14 +167,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="login">
-						<span>${success}</span> <span>${error}</span>
+						<span>${success}</span> <span class="error mb-4">${error}</span>
 
 						<form:form
 							action="${pageContext.request.contextPath}/user/register"
 							class="row" id="registrationForm" method="post"
 							modelAttribute="registerbean">
 							<div class="col-12">
-								<span id="usernameError" class="error"></span>
+								<span id="usernameError"  class="error"></span>
 								<form:input type="text" path="uname" class="form-control mb-3"
 									id="username" name="signupName" placeholder="Name" />
 							</div>
@@ -276,6 +281,8 @@
 			});
 		</script>
 	</c:if>
+	
+	
 
 	<!-- for subscription modal -->
 	<div class="modal fade" id="subscriptionModal" tabindex="-1"

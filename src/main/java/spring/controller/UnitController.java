@@ -47,7 +47,12 @@ public class UnitController {
 
 		boolean insertResult = unitrepo.insertEnrollment(userId, lessonId);
 		ArrayList<LessonUnitBean> lstLessonUnit = (ArrayList<LessonUnitBean>) unitrepo.selectLessonUnit(lessonId);
-
+		
+		if(lstLessonUnit.size()>0) {
+			System.out.println("in if : " + lstLessonUnit.get(0).getLessonIntroduction());
+			m.addAttribute("displayintro", lstLessonUnit.get(0).getLessonIntroduction());
+		}
+		m.addAttribute("displayintro", "There is no intro content.");
 		m.addAttribute("lstLessonUnit", lstLessonUnit);
 		return "unit";
 	}

@@ -83,9 +83,16 @@ background-image: radial-gradient(circle at top, rgba(83,69,91,1) 0, rgba(32,30,
 </tr>
 
 </table>
+<c:if test="${ssLessonId != null }">
 <div class="buttonOk">
 <button type="button" class="btn btn-success mt-5" onclick="location.href ='<c:url value="/unit/showunit" />'">OK</button>
 </div>
+</c:if>
+<c:if test="${ssLessonId == null }">
+<div class="buttonOk">
+<button type="button" class="btn btn-success mt-5" onclick="location.href ='<c:url value="/" />'">OK</button>
+</div>
+</c:if>
                 </div>
                 
             </div>

@@ -42,18 +42,23 @@
 <body>
     
    
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="page-wrapper bg-gra-02  font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
+                <c:if test="${not empty error}">
+                <h4 style="text-align:center"><span class="error">
+                    ${error}
+                </span></h4>
+            </c:if>
                     <h2 class="title">Adding New User Form</h2>
-                    <form:form action="createuser" method="post"  modelAttribute="userbean">
+                    <form:form action="createuser" method="post"  modelAttribute="userbean" id="addform">
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">User Name</label>
-                                    <span id="usernameError" class="error"></span>
-                                    <form:input class="input--style-4" id="username" type="text" path="userName"/>
+                                    <span id="usernameError1" class="error"></span>
+                                    <form:input class="input--style-4" id="username1" type="text" path="userName"/>
                                 </div>
                             </div>
                         </div>
@@ -61,8 +66,8 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Email</label>
-                                    <span id="emailError" class="error"></span><br>
-                                    <form:input class="input--style-4" id="email" type="email" path="userEmail"/>
+                                    <span id="emailError1" class="error"></span><br>
+                                    <form:input class="input--style-4" id="email1" type="email" path="userEmail"/>
                                 </div>
                             </div>
                         </div>
@@ -70,8 +75,8 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Password</label>
-                                    <span id="passwordError" class="error"></span><br>
-                                    <form:input class="input--style-4" id="password" type="password" path="password"/>
+                                    <span id="passwordError1" class="error"></span><br>
+                                    <form:input class="input--style-4" id="password1" type="password" path="password"/>
                                 </div>
                             </div>
                         </div>                      
@@ -86,7 +91,8 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
-                        <div class="p-t-15">
+                        <div class="p-t-15 ">
+                         <button class="btn btn--radius-2 btn--blue" type="button" onclick="location.href='<c:url value="../user/showusertb"/>'">Back</button>
                         <button class="btn btn--radius-2 btn--blue" type="submit">Add</button>
                         </div>
                     </form:form>
@@ -94,7 +100,7 @@
             </div>
         </div>
     </div>
-	<script src="<c:url value="/resources/js/register.js" />"></script>
+	<script src="<c:url value="/resources/js/addUserForm.js" />"></script>
     <!-- Jquery JS-->
     <script src="<c:url value ="/adduserresources/vendor/jquery/jquery.min.js"/>"></script>
     <!-- Vendor JS-->

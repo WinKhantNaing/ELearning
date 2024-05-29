@@ -58,7 +58,7 @@
 						<div class="row">
 							<div class="col-12 mb-4">
 								<!-- course thumb -->
-								<img src="images/courses/course-single.jpg" class="img-fluid w-100">
+								<!-- <img src="" class="img-fluid w-100"> -->
 							</div>
 						</div>
 						<!-- course info -->

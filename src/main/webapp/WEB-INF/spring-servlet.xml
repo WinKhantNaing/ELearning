@@ -18,6 +18,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/adduserresources/**" location="/adduserresources/" />
 	<mvc:resources mapping="/images/**" location="file:./images/" />
+	
   
 	<bean
 		class="org.springframework.context.support.ResourceBundleMessageSource"

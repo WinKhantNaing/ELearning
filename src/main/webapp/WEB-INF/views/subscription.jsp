@@ -19,10 +19,26 @@
 label{
 font-size: 17px;}
 
+#puralert
+{
+font-family: Arial, sans-serif;
+color : white;
+font-size : 20;
+padding-bottom : 15px;
+padding-top : 15px;
+padding-left : 15px;
+padding-right : 15px;
+margin : 80px;
+border : 1px solid Red;
+border-radius: 5px;
+}
 </style>
         <body>
+        <c:if test="${not empty purchaseAlert}">
+    		<span class="alert-box" id="puralert">${purchaseAlert}</span><br><br><br>
+  		</c:if>
         <c:if test="${!monthlyplan.isEmpty()}">
-        <h3>Monthly Plans</h3>
+        <h3>Monthly Plans</h3><br>
             <div class="container group mb-5">
                 <c:forEach items="${monthlyplan}" var="list">
                     <div class="grid-1-5">
@@ -45,7 +61,7 @@ font-size: 17px;}
             </div>
             </c:if>
              <c:if test="${!yearlyplan.isEmpty()}">
-            <h3>Yearly Plans</h3>
+            <h3>Yearly Plans</h3><br>
             <div class="container group mb-5">
                 <c:forEach items="${yearlyplan}" var="list">
                     <div class="grid-1-5">
@@ -72,11 +88,11 @@ font-size: 17px;}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form:form  action="../subscribe" modelAttribute="paymentbean" method="post">
+    <form:form  action="course/subscribe" modelAttribute="paymentbean" method="post">
     
        <div class="header modal-header">
         <h1 class="payment-header modal-title fs-5" id="exampleModalLabel" style="color:blue">Payment Details</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"  onclick="location.href='<c:url value="/" />' " aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"  onclick="location.href='<c:url value="/subscription" />' " aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <div class="col-xs-12 mb-3" style="color:blue;font-size:17px;">Payment Method</div>
@@ -158,8 +174,8 @@ font-size: 17px;}
                         </div>     
      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='<c:url value="/" />' ">Close</button>
-        <button type="submit" class="btn btn-primary" id="liveToastBtn" >Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='<c:url value="/subscription" />' ">Close</button>
+        <button type="submit" class="btn btn-primary" id="liveToastBtn" >Purchase</button>
       </div>
       
       </form:form>

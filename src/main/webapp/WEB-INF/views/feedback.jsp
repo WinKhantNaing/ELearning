@@ -39,7 +39,7 @@
                         </div>
                     </form> -->
                     
-                    <form:form action="user/Feedback" method = "post" modelAttribute = "give">
+                    <form:form action="${pageContext.request.contextPath}/user/Feedback" method = "post" modelAttribute = "give" id="feedbackform">
 							<div class="input-wrapper">
 								<div class="rate-box">
 		
@@ -53,8 +53,8 @@
 										class="star" for="star4"></label>
 
 								</div>
-								<form:input type="text" path = "comment" class="form-control border-0" id="newsletter"
-									name="newsletter" placeholder="Type Feedback..."/>
+								<form:input type="text" path = "comment" class="form-control border-0" id="feedbackinput"
+									name="newsletter" placeholder="Type Feedback..."/><span class="error-message" id="feedbackerror" style="color:red;"></span>
 								<button type="submit" value="send" class="btn btn-primary"
 									style="margin-top: 21px">Send</button>
 							</div>
@@ -64,5 +64,6 @@
         </div>
     </div>
     </c:if>
+  <script src="<c:url value="/resources/js/feedback.js" />"></script>
 </body>
 </html>

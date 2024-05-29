@@ -83,16 +83,17 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/register")
-	public String Register(@ModelAttribute("registerbean") RegisterBean bean, Model m) {
+	public String Register(@ModelAttribute("registerbean") RegisterBean bean, RedirectAttributes redirectAttribute) {
 		int result = userrepo.insertUser(bean);
-		if (result < 0) {
-
-			m.addAttribute("success", "Register Course Successful");
+		if (result > 0) {
+			redirectAttribute.addFlashAttribute("success", "Register Course Successful");
 			System.out.println("Register successful");
+			redirectAttribute.addFlashAttribute("loginError", true);
+
 
 		} else {
-			m.addAttribute("RegisterError", true);
-			m.addAttribute("error", "Register course fail");
+			redirectAttribute.addFlashAttribute("RegisterError", true);
+			redirectAttribute.addFlashAttribute("error", "Register course fail");
 			System.out.println("Register fail");
 
 		}
@@ -126,7 +127,7 @@ public class UserController {
 			session.setAttribute("sessionEmail", ubean.getUserEmail());// for subscription
 			session.setAttribute("sessionId", ubean.getUserId());
 			isLogin = true;
-			session.setAttribute("sessionimg", ubean.getFilePath());
+			session.setAttribute("sessionimg",ubean.getFilePath());
 			session.setAttribute("sessionuserRole", ubean.getUserRole());
 			session.setAttribute("sessionLogin", isLogin);
 
@@ -135,7 +136,7 @@ public class UserController {
 			String url = (String) session.getAttribute("sessionUrl");
 			System.out.println("Url" + url);
 			if (url == null) {
-				return "home";
+				return "redirect:/";
 			}
 			return "redirect:check-unit-status";
 
@@ -149,15 +150,16 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/createuser")
-	public String createUser(@ModelAttribute("userbean") UserBean bean) {
-		int result = userrepo.addUser(bean);
-		if (result > 0) {
-			// successful
-			return "redirect:showusertb";
-		} else {
-			return "redirect:adduser";
-		}
-	}
+	  public String createUser(@ModelAttribute("userbean") UserBean bean,RedirectAttributes redirectAttributes) {
+	    int result = userrepo.addUser(bean);
+	    if (result > 0) {
+	      // successful
+	      return "redirect:showusertb";
+	    } else {
+	      redirectAttributes.addFlashAttribute("error","Adding Fail!!");
+	      return "redirect:adduser";
+	    }
+	  }
 
 	@GetMapping(value = "/showusertb")
 	public String showUser(Model m) {
@@ -286,7 +288,7 @@ public class UserController {
 
 		} else {
 			redirectAttribute.addFlashAttribute("purchaseAlert",
-					"You need to subscribe first to apply this premium lesson");
+					"!!You need to subscribe first to apply this premium lesson");
 //			session.setAttribute("purchaseAlert", "You need to subscribe first to apply this premium lesson");
 			return "redirect:/subscription";
 		}
@@ -308,40 +310,31 @@ public class UserController {
 	}
 		
 
-	/*
-	 * @GetMapping(value = "/subscription-plan") public String
-	 * subscribePayment(Model m) {
-	 * 
-	 * List<PriceCardDTO> priceCardList = userrepo.showPrice();
-	 * m.addAttribute("priceCardList", priceCardList);
-	 * 
-	 * return "subscriptionPlan"; }
-	 * 
-	 * @GetMapping(value = "/confirm-payment") public String confirmPayment() {
-	 * 
-	 * return "paymentConfirmation";
-	 * 
-	 * }
-	 * 
-	 * public String showSingleLesson() { return null;
-	 * 
-	 * }
-	 */
-
-
 	// for admin to delete subscription plan
 	@GetMapping(value = "/delete/{subId}")
-	public String deleteSubscriptionPlan(@PathVariable("subId") int cid) {
-		@SuppressWarnings("unused")
+	public String deleteSubscriptionPlan(@PathVariable("subId") int cid,RedirectAttributes ra) {
+		/* @SuppressWarnings("unused") */
 		int result = userrepo.deleteSubscriptionPlan(cid);
+		if (result > 0) {
+			ra.addFlashAttribute("message", "Deleting plan is successful.");
+		} else {
+			ra.addFlashAttribute("message", "Deleting plan is fail!");
+		}
+		ra.addFlashAttribute("plan", true);
 		return "redirect:/show-plan-list";
 	}
 
 	// for admin to active subscription plan
 	@GetMapping(value = "/active/{subId}")
-	public String activeSubscriptionPlan(@PathVariable("subId") int cid) {
-		@SuppressWarnings("unused")
+	public String activeSubscriptionPlan(@PathVariable("subId") int cid,RedirectAttributes ra) {
+		/* @SuppressWarnings("unused") */
 		int result = userrepo.activeSubscriptionPlan(cid);
+		if (result > 0) {
+			ra.addFlashAttribute("message", "Active plan is successful.");
+		} else {
+			ra.addFlashAttribute("message", "Active plan is fail!");
+		}
+		ra.addFlashAttribute("plan", true);
 		return "redirect:/show-plan-list";
 	}
 

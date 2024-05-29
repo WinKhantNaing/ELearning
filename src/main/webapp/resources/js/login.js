@@ -1,6 +1,3 @@
-function myFunction() {
-  alert("I am an alert box!");
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('loginForm');

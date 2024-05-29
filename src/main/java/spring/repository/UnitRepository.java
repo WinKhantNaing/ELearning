@@ -21,8 +21,8 @@ public class UnitRepository {
 		List<LessonUnitBean> lstLessonUnit = new ArrayList<LessonUnitBean>();
 		try {
 			PreparedStatement ps = con
-					.prepareStatement("select name, unit_name, introduction, unit.id from elearning.unit \r\n"
-							+ "join elearning.lesson on elearning.unit.lesson_id = elearning.lesson.id\r\n"
+					.prepareStatement("select name, unit_name, introduction, unit.id from elearning.unit "
+							+ "join elearning.lesson on elearning.unit.lesson_id = elearning.lesson.id "
 							+ "where lesson_id = ?");
 			ps.setInt(1, lessonId);
 			ResultSet rs = ps.executeQuery();
@@ -164,8 +164,9 @@ public class UnitRepository {
 
 		try {
 			
-			ps = con.prepareStatement("select unit_name from unit where unit_name=?");
+			ps = con.prepareStatement("select unit_name from unit where unit_name=? and lesson_id=?");
 			ps.setString(1, auDTO.getUnitName());
+			ps.setInt(2, auDTO.getSelectedLessonId());
 			rs = ps.executeQuery();
 			if(!rs.next()) {
 				String sqlUnit = "insert into unit(unit_name, lesson_id, content) values(?, ?, ?)";

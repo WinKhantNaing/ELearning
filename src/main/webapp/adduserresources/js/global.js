@@ -1,3 +1,4 @@
+console.log("work!!");
 (function ($) {
     'use strict';
     /*==================================================================
@@ -181,9 +182,9 @@ $('#the-textarea2').keyup(function() {
 $('#the-textarea3').keyup(function() {
     
   var characterCount = $(this).val().length,
-      current = $('#current2'),
-      maximum = $('#maximum2'),
-      theCount = $('#the-count2');
+      current = $('#current3'),
+      maximum = $('#maximum3'),
+      theCount = $('#the-count3');
     
   current.text(characterCount);
  
@@ -195,17 +196,7 @@ $('#the-textarea3').keyup(function() {
   if (characterCount > 70 && characterCount < 90) {
     current.css('color', '#6d5555');
   }
-  if (characterCount > 90 && characterCount < 100) {
-    current.css('color', '#793535');
-  }
-  if (characterCount > 100 && characterCount < 120) {
-    current.css('color', '#841c1c');
-  }
-  if (characterCount > 120 && characterCount < 139) {
-    current.css('color', '#8f0001');
-  }
-  
-  if (characterCount >= 140) {
+  if (characterCount >= 100) {
     maximum.css('color', '#8f0001');
     current.css('color', '#8f0001');
     theCount.css('font-weight','bold');
@@ -220,9 +211,9 @@ $('#the-textarea3').keyup(function() {
 $('#the-textarea4').keyup(function() {
     
   var characterCount = $(this).val().length,
-      current = $('#current2'),
-      maximum = $('#maximum2'),
-      theCount = $('#the-count2');
+      current = $('#current4'),
+      maximum = $('#maximum4'),
+      theCount = $('#the-count4');
     
   current.text(characterCount);
  
@@ -233,18 +224,8 @@ $('#the-textarea4').keyup(function() {
   }
   if (characterCount > 70 && characterCount < 90) {
     current.css('color', '#6d5555');
-  }
-  if (characterCount > 90 && characterCount < 100) {
-    current.css('color', '#793535');
-  }
-  if (characterCount > 100 && characterCount < 120) {
-    current.css('color', '#841c1c');
-  }
-  if (characterCount > 120 && characterCount < 139) {
-    current.css('color', '#8f0001');
-  }
-  
-  if (characterCount >= 140) {
+  } 
+  if (characterCount >= 100) {
     maximum.css('color', '#8f0001');
     current.css('color', '#8f0001');
     theCount.css('font-weight','bold');

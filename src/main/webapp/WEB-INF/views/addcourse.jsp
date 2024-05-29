@@ -33,14 +33,14 @@
 
                 <!-- Main CSS-->
                 <link href="<c:url value ="/adduserresources/css/main.css" />" rel="stylesheet" media="all">
-                <script type="text/javascript" src="<c:url value ="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"/>"></script>
+                
             </head>
 
             <body>
                 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
                     <div class="wrapper wrapper--w680">
                         <div class="card card-4">
-                        <a href='<c:url value="../course/showcourses"/>'><button type="button" class="btn btn-primary" style="margin:20px; background-color:lightgrey;">Back</button></a>
+                       
                             <div class="card-body">
                                 <h2 class="title">Adding New Course Form</h2>
 
@@ -83,21 +83,19 @@
                                             <form:textarea path="courseIntroduction" name="introduction" id="introduction" maxlength="500" placeholder="Start Typin..."/>
                                             <div id="the-count">
                                                 <span id="current">0</span>
-                                                <span id="maximum">/300</span>
+                                                <span id="maximum">/500</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-						       			CKEDITOR.replace('introduction');
-									</script>
+                                    
                                     
                                     <div>
                                         <label class="label">Write description about lesson</label>
                                         <div class="wrapper-ta">
-                                            <form:textarea path="courseDescription" name="the-textarea" id="the-textarea" maxlength="300" placeholder="Start Typin..."/>
-                                            <div id="the-count">
-                                                <span id="current">0</span>
-                                                <span id="maximum">/300</span>
+                                            <form:textarea path="courseDescription" name="the-textarea" id="the-textarea1" maxlength="300" placeholder="Start Typin..."/>
+                                            <div id="the-count1">
+                                                <span id="current1">0</span>
+                                                <span id="maximum1">/300</span>
                                             </div>
                                         </div>
                                     </div>
@@ -106,8 +104,7 @@
                                         <div class="file-upload">
 
                                             <div class="image-upload-wrap">
-                                                <form:input type='file' path="courseImage" class="file-upload-input"
-                                                    onchange="readURL(this);" />
+                                                <form:input type='file' path="courseImage" class="file-upload-input" onchange="readURL(this);" />
                                                 <div class="drag-text">
                                                     <h3>Attach any relevant documents or images</h3>
                                                 </div>
@@ -123,7 +120,9 @@
                                         </div>
                                     </div>
                                     <div class="p-t-15">
+                                     <a href='<c:url value="../course/showcourses"/>'><button type="button" class="btn btn-primary" style="margin:20px; background-color:lightgrey;">Back</button></a>
                                         <button type="submit" class="btn btn--radius-2 btn--blue">Add</button>
+                                        
                                     </div>
 
                                     <!-- form end here -->
@@ -141,7 +140,68 @@
                 <script src="<c:url value ="/adduserresources/vendor/datepicker/daterangepicker.js" />"></script>
 
                 <!-- Main JS-->
-                <script src="<c:url value ="/adduserresources/js/global.js" />"></script>
+                
+                <script type="text/javascript" src="<c:url value ="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"/>"></script>
+                  <script>
+        // Initialize CKEditor
+        CKEDITOR.replace('introduction');
+
+        // Function to count characters
+        function countCharacters() {
+            
+            let editorContent = CKEDITOR.instances.introduction.getData();
+            let textContent = editorContent.replace(/<[^>]*>/g, ''); // Strip HTML tags
+            let characterCount = textContent.length;
+            let current = $('#current'),
+                maximum = $('#maximum'),
+                theCount = $('#the-count');
+
+            current.text(characterCount);
+
+            /*This isn't entirely necessary, just playing around*/
+            if (characterCount < 70) {
+                current.css('color', '#666');
+            }
+            if (characterCount >= 70 && characterCount < 90) {
+                current.css('color', '#6d5555');
+            }
+            if (characterCount >= 90 && characterCount < 100) {
+                current.css('color', '#793535');
+            }
+            if (characterCount >= 100 && characterCount < 120) {
+                current.css('color', '#841c1c');
+            }
+            if (characterCount >= 120 && characterCount < 139) {
+                current.css('color', '#8f0001');
+            }
+            if (characterCount >= 140) {
+                maximum.css('color', '#8f0001');
+                current.css('color', '#8f0001');
+                theCount.css('font-weight', 'bold');
+            } else {
+                maximum.css('color', '#666');
+                theCount.css('font-weight', 'normal');
+            }
+        }
+
+        CKEDITOR.on('instanceReady', function() {
+            var editor = CKEDITOR.instances.introduction;
+            
+
+            // Attach event listeners
+            editor.on('contentDom', function() {
+                editor.document.on('keyup', countCharacters);
+                editor.document.on('input', countCharacters);
+            });
+
+            // Attach 'change' event listener
+            editor.on('change', countCharacters);
+
+            // Initial countCharacters call to update the count on load
+            countCharacters();
+        });
+    </script>
+               <script src="<c:url value ="/resources/js/global.js"/>"></script>
 
                 <script class="jsbin" src="<c:url value ="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" />"></script>
             </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

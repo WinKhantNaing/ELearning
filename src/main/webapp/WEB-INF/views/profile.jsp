@@ -71,7 +71,126 @@
 
 <link href="<c:url value ="/resources/acss/style.css" />"
 	rel="stylesheet" />
+	
+	<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/e5547a4eef.js"
+  crossorigin="anonymous"></script>
 <style>
+body {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.modal-confirm {
+  color: #636363;
+  width: 400px;
+}
+
+.modal-confirm .modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-confirm h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+}
+
+.modal-confirm .modal-body {
+  color: #999;
+}
+
+.modal-confirm .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px 15px 25px;
+}
+
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+
+.modal-confirm .icon-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 9;
+  text-align: center;
+  border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+  color: #f15e5e;
+  font-size: 46px;
+  display: inline-block;
+  margin-top: 13px;
+}
+
+.modal-confirm .btn, .modal-confirm .btn:active {
+  color: #fff;
+  border-radius: 4px;
+  background: #60c7c1;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  border: none;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+  background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+  {
+  background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}
+
+.trigger-btn {
+  display: inline-block;
+  margin: 100px auto;
+}
+
 body {
 	background-color: #5c5c77
 }
@@ -80,10 +199,24 @@ table, tr, td {
 	border: solid 1px;
 	border-collapse: collapse;
 }
+
+.error{
+	color : red;
+}
 </style>
 </head>
 
 <body>
+<nav class="navbar" style="background-color: #e3f2fd;">
+      <a href="../"><i class="fa-solid fa-house fa-2x"  style="margin-left: 10px;color: #5c5c77"></i></a>
+  </nav>
+  <c:if test="${fail}">
+          <script>
+            $(document).ready(function () {
+              $('#passwordModal').modal('show');
+            });
+          </script>
+        </c:if>
 	<div class="container">
 		<div class="main-body">
 		
@@ -117,7 +250,32 @@ table, tr, td {
 										<h6 style="color: #7CFC00;">${subscription}</h6>
 										</p>
 									</c:if>
-									<a class="btn btn-danger" href="logout" role="button">Logout</a>
+									<!-- <a class="btn btn-danger" href="logout" role="button">Logout</a> -->
+									<a href="#myModal" class="btn btn-danger"
+                    data-toggle="modal" role="button">Logout</a>
+                  <!-- Modal HTML -->
+                  <div id="myModal" class="modal fade">
+                    <div class="modal-dialog modal-confirm">
+                      <div class="modal-content">
+                        <div class="modal-header flex-column">
+                          <div class="icon-box">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                          </div>
+                          <h4 class="modal-title w-100">Are you sure?</h4>
+                          <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Do you really want to LOGOUT?</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-danger" onclick="location.href='<c:url value="logout" />' ">logout</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 								</div>
 							</div>
 						</div>
@@ -209,25 +367,26 @@ table, tr, td {
 										<h1 class="modal-title fs-5" id="exampleModalLabel"
 											style="padding: 15px;">Edit Your Name</h1>
 										<form:form action="changeusername" method="post"
-											modelAttribute="user">
+											modelAttribute="user" id="namemodalform" >
 											<div class="mb-3" style="padding: 20px;">
 												<form:label for="exampleFormControlInput1"
 													class="form-label" path="userName">Name
 																	</form:label>
+												
 												<form:input class="form-control"
-													id="exampleFormControlInput1"
+													id="namemodal"
 													placeholder="name@example.com" path="userName"
 													value="${user.userName}"
 													style="
 												    border: none;
 												    border-bottom: 1px solid #80808040;
 												    border-radius: 0;
-												" />
+												" /><span id="nameModalError" class="error"></span>
 											</div>
 											<div
 												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
 												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Close</button>
+													data-bs-dismiss="modal" onclick="location.href='<c:url value="/profile/profiledetail" />' ">Close</button>
 												<button type="submit" class="btn btn-primary">Save</button>
 											</div>
 										</form:form>
@@ -256,24 +415,25 @@ table, tr, td {
 										<h1 class="modal-title fs-5" id="exampleModalLabel"
 											style="padding: 15px;">Edit Your Email</h1>
 										<form:form action="changeemail" method="post"
-											modelAttribute="user">
+											modelAttribute="user" id="emailModalForm">
 											<div class="mb-3" style="padding: 20px;">
 												<form:label for="exampleFormControlInput2"
 													class="form-label" path="userEmail">Email
 																	</form:label>
+																	
 												<form:input class="form-control"
-													id="exampleFormControlInput2" placeholder="Enter Email"
+													id="emailModal" placeholder="Enter Email"
 													path="userEmail" value="${user.userEmail}"
 													style="
 												    border: none;
 												    border-bottom: 1px solid #80808040;
 												    border-radius: 0;
-												" />
+												" /> <span id="emailModalError" class="error"></span>
 											</div>
 											<div
 												style="margin: 20px 0 20px; float: right; margin-right: 30px;">
 												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Close</button>
+													data-bs-dismiss="modal" onclick="location.href='<c:url value="/profile/profiledetail" />' ">Close</button>
 												<button type="submit" class="btn btn-primary">Save</button>
 											</div>
 										</form:form>
@@ -290,7 +450,7 @@ table, tr, td {
                     <h6 class="mb-0">Password</h6>
                   </div>
                   <div class="col-sm-6 text-secondary" style="text-align: left;">
-                    ${user.password}</div>
+                    <span>*********</span></div>
                 </div>
               </button>
 
@@ -306,7 +466,14 @@ table, tr, td {
                       <div class="mb-3" style="padding: 20px;">
                         <form:label for="exampleFormControlInput2"
                           class="form-label" path="password">Current Password
-                                  </form:label>
+                                  </form:label><br>
+                                  
+                                 	<c:if test="${not empty fail }">
+                                 	<span class="error">
+                                 	${fail}
+                                 	</span>
+                                 	</c:if>
+                                  
                         <form:password class="form-control" id="currentPassword"
                           placeholder="Enter Current Password" path="password"
                           style="
@@ -318,7 +485,8 @@ table, tr, td {
                       </div>
                       <div class="mb-3" style="padding: 20px;">
                         <form:label class="form-label" path="newPassword">New Password
-                                  </form:label>
+                                  </form:label><br>
+                         
                         <form:password class="form-control" id="newPassword"
                           placeholder="Enter New Password" path="newPassword"
                           style="
@@ -330,7 +498,8 @@ table, tr, td {
                       </div>
                       <div class="mb-3" style="padding: 20px;">
                         <form:label class="form-label" path="conNewPassword">Confirm New Password
-                                  </form:label>
+                                  </form:label><br>
+                         <span id="confirmPasswordError" class="error"></span>
                         <form:password class="form-control" id="confirmNewPassword"
                           placeholder="Enter New Password" path="conNewPassword"
                           style="
@@ -338,7 +507,7 @@ table, tr, td {
                             border-bottom: 1px solid #80808040;
                             border-radius: 0;
                         " />
-                        <span id="confirmNewPasswordError" class="error"></span>
+                       
                       </div>
                       <div
                         style="margin: 20px 0 20px; float: right; margin-right: 30px;">
@@ -653,6 +822,8 @@ table, tr, td {
 		<script src="<c:url value ="/resources/js/profile.js" />"></script>
 		
 		<script src="<c:url value="/resources/js/unit.js" />"></script>
+		
+		<script src="<c:url value="/resources/js/password.js" />"></script>
 </body>
 
 </html>

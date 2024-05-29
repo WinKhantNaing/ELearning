@@ -103,26 +103,26 @@ public class CourseController {
 	}
 
 	@GetMapping(value = "/subcription/{subId}")
-	public String showPaymentForm(@PathVariable("subId") int cid, Model m) {
+	public String showPaymentForm(@PathVariable("subId") int cid,RedirectAttributes rda) {
 		PriceCardDTO priceBean = courserepo.getDuration(cid);
-		m.addAttribute("priceBean", priceBean);
+		rda.addFlashAttribute("priceBean", priceBean);
 		String[] arrayDu = priceBean.getDuration().split("\\s");
 		int time = Integer.parseInt(arrayDu[0]);
 		LocalDate startDate = LocalDate.now();
-		m.addAttribute("startDate", startDate);
+		rda.addFlashAttribute("startDate", startDate);
 		String sTime = arrayDu[1];
 		if (sTime.equals("month") || sTime.equals("months")) {
 			LocalDate endDate = startDate.plusMonths(time);
-			m.addAttribute("endDate", endDate);
+			rda.addFlashAttribute("endDate", endDate);
 		} else if(sTime.equals("year") || sTime.equals("years")) {
 			LocalDate endDate = startDate.plusYears(time);
-			m.addAttribute("endDate", endDate);
+			rda.addFlashAttribute("endDate", endDate);
 		}else {
 			LocalDate endDate = startDate.plusDays(time);
-			m.addAttribute("endDate", endDate);
+			rda.addFlashAttribute("endDate", endDate);
 		}
-		 m.addAttribute("showModal", true);
-		return "subscription";
+		 rda.addFlashAttribute("showModal", true);
+		return "redirect:/subscription";
 	}
 
 	
@@ -164,7 +164,7 @@ public class CourseController {
 	@PostMapping(value = "savecourse")
 	public String saveCourse(@ModelAttribute("coursebean") CoursesBean coursebean) {
 		MultipartFile image = coursebean.getCourseImage();
-		String UPLOAD_DIRECTORY = "C:\\Users\\User\\eclipse-workspace\\ELearning\\src\\main\\webapp\\resources\\images";
+		String UPLOAD_DIRECTORY = "D://JWD51//ELearning//src//main//webapp//resources//images//courses";
 		String filename = image.getOriginalFilename();
 		System.out.println(UPLOAD_DIRECTORY + " " + filename);
 
@@ -180,7 +180,8 @@ public class CourseController {
 				String url = UPLOAD_DIRECTORY + File.separator + filename;
 				int index = url.indexOf("resources");
 				String extractedPath = index >= 0 ? url.substring(index) : "did when it was false.";
-				coursebean.setCourseImagePath(extractedPath);
+				String addSlash = "/" + extractedPath;
+				coursebean.setCourseImagePath(addSlash);
 			} catch (IOException e) {
 				System.out.println("save courseimage: " + e.getMessage());
 				return "errorPage"; // Redirect to an error page
@@ -205,7 +206,7 @@ public class CourseController {
 	public String savecourse(@ModelAttribute("courseUpdateBean") CoursesBean coursebean) {
 
 		MultipartFile image = coursebean.getCourseImage();
-		String UPLOAD_DIRECTORY = "D:\\PFC online class\\EclipseWorkspace\\ELearningProject\\src\\main\\webapp\\resources\\images\\logoimg";
+		String UPLOAD_DIRECTORY = "D://JWD51//ELearning//src//main//webapp//resources//images//courses";
 		String filename = image.getOriginalFilename();
 		System.out.println(UPLOAD_DIRECTORY + " " + filename);
 
@@ -221,7 +222,8 @@ public class CourseController {
 				String url = UPLOAD_DIRECTORY + File.separator + filename;
 				int index = url.indexOf("resources");
 				String extractedPath = index >= 0 ? url.substring(index) : "did when it was false.";
-				coursebean.setCourseImagePath(extractedPath);
+				String addSlash = "/" + extractedPath;
+				coursebean.setCourseImagePath(addSlash);
 			} catch (IOException e) {
 				System.out.println("save courseimage: " + e.getMessage());
 				return "errorPage"; // Redirect to an error page
@@ -240,15 +242,19 @@ public class CourseController {
 	}
 
 	@GetMapping(value = "deletecourse")
-	public String deleteCourse(@RequestParam("cid") int courseId) {
+	public String deleteCourse(@RequestParam("cid") int courseId,RedirectAttributes ra) {
 		int result = 0;
 		result = courserepo.delete(courseId);
-
+		/*
+		 * if (result > 0) { System.out.print("delete success!!"); } else {
+		 * System.out.print("delete fail!!"); }
+		 */
 		if (result > 0) {
-			System.out.print("delete success!!");
+			ra.addFlashAttribute("message", "Deleting user is successful.");
 		} else {
-			System.out.print("delete fail!!");
+			ra.addFlashAttribute("message", "Deleting user is fail!");
 		}
+		ra.addFlashAttribute("result", true);
 
 		return "redirect:showcourses";
 

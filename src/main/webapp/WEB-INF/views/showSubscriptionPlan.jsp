@@ -17,6 +17,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head> 
+
+
+
+<body class="body">
 <div aria-live="polite" aria-atomic="true" class="position-relative">
   <div class="toast-container top-0 end-0 p-3">
 
@@ -33,14 +37,12 @@
     </div>
   </div>
 </div>
-
-<body class="body">
     <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-md-6 mt-5 table"> 
+        <div class="col-xs-12 col-md-6 mt-3 table"> 
             <div class="panel panel-default">  
             
-
+ <button type="button" class="btn btn-secondary mb-3" onclick="location.href='<c:url value="/"/>'">Back</button>
 <table id="myTable" class="display">
     <thead>
         <tr>
@@ -69,6 +71,7 @@
     </c:forEach>
         
     </tbody>
+   
 </table>
  </div>
         </div>
